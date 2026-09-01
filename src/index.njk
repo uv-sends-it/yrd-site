@@ -3,42 +3,69 @@ title: Home
 layout: base.njk
 ---
 {% import "cta-dragonpass.njk" as cta %}
+{% import "photo-card.njk" as photo %}
 
-<section class="hero">
-  <div class="container">
-    <p class="hero__eyebrow">Melbourne Dragon Boat Club</p>
-    <h1 class="hero__title">{{ site.clubName }}</h1>
+<section class="hero" style="background-image: url('/assets/photo-hero-4.jpg');">
+  <div class="hero__inner">
+    <span class="eyebrow mono-label">Open trial &mdash; first month free</span>
+    <h1 class="hero__title">Paddle the Yarra.</h1>
+    <span class="brush">Train as one crew.</span>
     <p class="hero__lead">
-      {{ site.tagline }}
+      {{ site.bridgeLine }}
       {% if site.tagline.startsWith("TODO") %}<span class="placeholder-tag">content coming soon</span>{% endif %}
     </p>
-    <p class="hero__lead">{{ site.bridgeLine }}</p>
-    <p>{{ cta.ctaDragonPass(null, site.dragonPassUrl) }}</p>
+    <div class="hero__ctas">
+      {{ cta.ctaDragonPass(null, site.dragonPassUrl) }}
+      <a class="btn btn--ghost" href="/join/">See a session</a>
+    </div>
   </div>
 </section>
 
-<svg class="wave-divider" viewBox="0 0 1440 60" preserveAspectRatio="none" fill="currentColor" aria-hidden="true">
-  <path d="M0,32 C240,64 480,0 720,24 C960,48 1200,8 1440,32 L1440,60 L0,60 Z"></path>
-</svg>
+<div class="readout">
+  <div class="readout__item">
+    <span class="readout__value"><span data-stroke-rate>64</span><span class="unit">SPM</span></span>
+    <span class="readout__label">Current stroke rate</span>
+  </div>
+  <div class="readout__item">
+    <span class="readout__value">{{ schedule.sessions[0].day }}</span>
+    <span class="readout__label">Next session</span>
+  </div>
+  <div class="readout__item">
+    <span class="readout__value">2016</span>
+    <span class="readout__label">On the water since</span>
+  </div>
+</div>
 
 <section class="section section--surface">
   <div class="container card-grid">
     <div class="card reveal">
-      <h3>Latest from the club</h3>
+      <span class="mono-label" style="color: var(--red)">Latest from the club</span>
       {% if newsletters.length %}
         {% set latest = newsletters[0] %}
-        <p>Newsletter — {{ latest.month }}/{{ latest.year }}</p>
+        <h3>{{ latest.month }}/{{ latest.year }} newsletter</h3>
         <a href="{{ latest.url }}">Read it here &rarr;</a>
       {% else %}
-        <p>Newsletter archive coming soon.</p>
+        <h3>Newsletter archive coming soon</h3>
       {% endif %}
     </div>
     <div class="card reveal">
-      <h3>Next on the water</h3>
+      <span class="mono-label" style="color: var(--red)">Next on the water</span>
       {% set next = schedule.sessions[0] %}
-      <p>{{ next.day }} &middot; {{ next.time }}</p>
+      <h3>{{ next.day }} &middot; {{ next.time }}</h3>
       <p>{{ next.notes }}</p>
       <span class="placeholder-tag">content coming soon</span>
     </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="divider mono-label">Life on the water</div>
+    <div class="photo-cluster">
+      {{ photo.photoCard("photo-card--1", "/assets/photo-hero-2.jpg") }}
+      {{ photo.photoCard("photo-card--2", "/assets/photo-about.jpg") }}
+      {{ photo.photoCard("photo-card--3", "/assets/photo-hero-4.jpg") }}
+    </div>
+    <p><a href="/gallery/">See more on Instagram &rarr;</a></p>
   </div>
 </section>

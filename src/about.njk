@@ -3,32 +3,34 @@ title: About
 layout: base.njk
 permalink: /about/
 ---
-<section class="hero">
-  <div class="container">
-    <h1 class="hero__title">Who we are</h1>
+<section class="hero" style="background-image: url('/assets/photo-about.jpg');">
+  <div class="hero__inner">
+    <span class="eyebrow mono-label">On the water since 2016</span>
+    <h1 class="hero__title">Who we are.</h1>
+    <span class="brush">One boat, one crew.</span>
     <p class="hero__lead">
-      Yarra River Dragons has been paddling Melbourne's Yarra River since 2016, built on the
-      community spirit of dragon boating: every crew moves together, or not at all.
+      Dragon boating runs on one rule: the crew moves together, or not at all.
       TODO: refresh from current site's full "Who are we" copy.
       <span class="placeholder-tag">content coming soon</span>
-    </p>
-    <p class="hero__lead">
-      We acknowledge the Traditional Owners of the land on which we train, the Wurundjeri
-      people of the Kulin Nation, and pay our respects to Elders past and present.
-    </p>
-    <p class="hero__lead">
-      Yarra River Dragons is a proud LGBTQ+ inclusive club — everyone is welcome on our boats.
     </p>
   </div>
 </section>
 
-<svg class="wave-divider" viewBox="0 0 1440 60" preserveAspectRatio="none" fill="currentColor" aria-hidden="true">
-  <path d="M0,32 C240,0 480,64 720,32 C960,0 1200,56 1440,24 L1440,60 L0,60 Z"></path>
-</svg>
+<section class="section section--surface">
+  <div class="container">
+    <p>
+      We acknowledge the Traditional Owners of the land on which we train, the Wurundjeri
+      people of the Kulin Nation, and pay our respects to Elders past and present.
+    </p>
+    <p>
+      Yarra River Dragons is a proud LGBTQ+ inclusive club &mdash; everyone is welcome on our boats.
+    </p>
+  </div>
+</section>
 
 <section class="section">
   <div class="container">
-    <h2>Crew categories</h2>
+    <div class="divider mono-label">Crew categories</div>
     <p>TODO: confirm categories <span class="placeholder-tag">content coming soon</span></p>
     <div class="card-grid">
       <div class="card reveal"><h3>Open</h3></div>
@@ -41,12 +43,12 @@ permalink: /about/
 
 <section class="section section--surface">
   <div class="container">
-    <h2>Committee</h2>
+    <div class="divider mono-label">Committee</div>
     <div class="card-grid">
       {% for member in committee %}
       <div class="card reveal">
+        <span class="mono-label" style="color: var(--red)">{{ member.role }}</span>
         <h3>{{ member.name }}</h3>
-        <p>{{ member.role }}</p>
         <a href="mailto:{{ member.email }}">{{ member.email }}</a>
         {% if member.name == "TODO" %}<span class="placeholder-tag">content coming soon</span>{% endif %}
       </div>
@@ -57,7 +59,7 @@ permalink: /about/
 
 <section class="section">
   <div class="container">
-    <h2>Our sponsors</h2>
+    <div class="divider mono-label">Our sponsors</div>
     <div class="card-grid">
       {% for sponsor in sponsors %}
       <div class="card reveal">
@@ -70,7 +72,7 @@ permalink: /about/
   </div>
 </section>
 
-<section class="section section--surface">
+<section class="section section--dark">
   <div class="container">
     <h2>Get in touch</h2>
     <p>

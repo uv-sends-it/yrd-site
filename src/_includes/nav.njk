@@ -1,7 +1,11 @@
 <nav class="nav">
   <div class="container nav__bar">
-    <a class="nav__brand" href="/">{{ site.clubName }}</a>
-    <ul class="nav__links">
+    <a class="nav__brand" href="/"><img src="/assets/yrd-logo.png" alt="{{ site.clubName }}"></a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+      <span class="sr-only">Menu</span>
+      <span class="nav__toggle-bars" aria-hidden="true"></span>
+    </button>
+    <ul class="nav__links" id="nav-links">
       <li><a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a></li>
       <li><a href="/about/" {% if page.url == "/about/" %}aria-current="page"{% endif %}>About</a></li>
       <li><a href="/join/" {% if page.url == "/join/" %}aria-current="page"{% endif %}>Join Us</a></li>

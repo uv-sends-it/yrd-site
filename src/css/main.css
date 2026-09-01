@@ -1,4 +1,5 @@
 @import url("tokens.css");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap");
 
 * {
   box-sizing: border-box;
@@ -10,24 +11,34 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font-body-family);
   font-size: var(--font-body);
   line-height: 1.6;
 }
 
-h1, h2, h3 {
-  line-height: 1.15;
-  margin: 0 0 var(--space-3);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
-h1 { font-size: var(--font-h1); }
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  margin: 0 0 var(--space-3);
+  color: var(--black);
+}
+
 h2 { font-size: var(--font-h2); }
 h3 { font-size: var(--font-h3); }
 
 a {
-  color: var(--color-accent);
+  color: var(--red);
   text-decoration: none;
 }
 
@@ -35,10 +46,60 @@ a:hover {
   text-decoration: underline;
 }
 
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
 .container {
-  max-width: 1080px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 0 var(--space-4);
+}
+
+/* Utility label — nav, eyebrows, stat readouts */
+.mono-label {
+  font-family: var(--font-body-family);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--font-caption);
+}
+
+/* Bracketed eyebrow tag */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid currentColor;
+  border-radius: var(--radius-sharp);
+  color: var(--red);
+}
+
+/* On a photo hero, a plain red border reads poorly against sky/water — give it a dark scrim */
+.hero__inner .eyebrow {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.hero__inner .placeholder-tag {
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--white);
+}
+
+/* Signature brush accent — the one handwritten gesture per page, echoing the club's own logotype */
+.brush {
+  display: block;
+  font-family: var(--font-brush);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: var(--font-brush-size);
+  color: var(--red);
+  line-height: 0.9;
 }
 
 /* Nav */
@@ -46,12 +107,12 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(13, 13, 15, 0.9);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
 }
 
 .nav__bar {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -59,9 +120,14 @@ a:hover {
 }
 
 .nav__brand {
-  font-weight: 700;
-  font-size: var(--font-lead);
-  color: var(--color-text);
+  display: flex;
+  align-items: center;
+}
+
+.nav__brand img {
+  height: 40px;
+  width: auto;
+  display: block;
 }
 
 .nav__links {
@@ -73,48 +139,250 @@ a:hover {
 }
 
 .nav__links a {
-  color: var(--color-text-muted);
+  font-family: var(--font-body-family);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.875rem;
+  color: var(--black);
   transition: color var(--transition-fast);
 }
 
 .nav__links a:hover,
 .nav__links a[aria-current="page"] {
-  color: var(--color-accent);
+  color: var(--red);
   text-decoration: none;
 }
 
-/* Hero */
-.hero {
-  position: relative;
-  padding: var(--space-7) var(--space-4) var(--space-6);
-  background: radial-gradient(circle at 20% 20%, var(--color-primary-dark), var(--color-bg) 70%);
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
   overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
-.hero__eyebrow {
-  color: var(--color-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: var(--font-caption);
-  font-weight: 600;
+.nav__toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: var(--space-2);
+  cursor: pointer;
+}
+
+.nav__toggle-bars,
+.nav__toggle-bars::before,
+.nav__toggle-bars::after {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--black);
+  position: relative;
+}
+
+.nav__toggle-bars::before,
+.nav__toggle-bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.nav__toggle-bars::before { top: -7px; }
+.nav__toggle-bars::after { top: 7px; }
+
+@media (max-width: 760px) {
+  .nav__toggle {
+    display: block;
+  }
+
+  .nav__links {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-2) 0;
+  }
+
+  .nav__links.is-open {
+    display: flex;
+  }
+
+  .nav__links li {
+    border-top: 1px solid var(--border);
+  }
+
+  .nav__links a {
+    display: block;
+    padding: var(--space-3) var(--space-4);
+  }
+}
+
+/* Hero — full-bleed photo, matching the club's real homepage treatment */
+.hero {
+  position: relative;
+  overflow: hidden;
+  color: var(--white);
+  min-height: 560px;
+  display: flex;
+  align-items: flex-end;
+  background-color: var(--black);
+  background-size: cover;
+  background-position: center;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.35) 55%, rgba(0, 0, 0, 0.15) 100%);
+  z-index: 0;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  padding: var(--space-7) var(--space-4) var(--space-6);
+}
+
+.hero--plain {
+  min-height: 320px;
+  background: var(--black);
 }
 
 .hero__title {
   font-size: var(--font-hero);
-  max-width: 18ch;
+  max-width: 16ch;
+  margin-top: var(--space-4);
+  color: var(--white);
 }
 
 .hero__lead {
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.85);
   font-size: var(--font-lead);
-  max-width: 48ch;
+  max-width: 46ch;
+  font-family: var(--font-body-family);
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
 }
 
-.wave-divider {
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-5) 0 0;
+}
+
+/* Stat / readout row — bordered boxes, borrowed structurally from Watermelon's stat pills */
+.readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-4);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.readout__item {
+  flex: 1 1 160px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sharp);
+  padding: var(--space-3) var(--space-4);
+}
+
+.readout__value {
   display: block;
-  width: 100%;
-  height: 60px;
-  color: var(--color-surface);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--font-h3);
+  color: var(--red);
+}
+
+.readout__value .unit {
+  font-size: var(--font-caption);
+  color: var(--muted);
+  margin-left: var(--space-1);
+  font-weight: 700;
+}
+
+.readout__label {
+  display: block;
+  font-size: var(--font-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Fanned photo cluster — real club photography, tilted per Watermelon's scattered-card motif */
+.photo-cluster {
+  position: relative;
+  height: 300px;
+  margin: 0 auto;
+  max-width: 1120px;
+}
+
+.photo-card {
+  position: absolute;
+  width: 220px;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-photo);
+  border: 4px solid var(--white);
+  box-shadow: var(--shadow-3);
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  transition: transform var(--transition-smooth), z-index 0s;
+}
+
+.photo-card:hover {
+  transform: translateY(-10px) rotate(0deg) scale(1.04) !important;
+  z-index: 5;
+}
+
+.photo-card__tag {
+  margin: var(--space-2);
+  font-family: var(--font-body-family);
+  font-weight: 700;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--white);
+  padding: 2px var(--space-2);
+  border-radius: 999px;
+}
+
+.photo-card--1 { left: 4%;   top: 10px;  transform: rotate(-6deg); }
+.photo-card--2 { left: 30%;  top: -14px; transform: rotate(4deg); }
+.photo-card--3 { left: 56%;  top: 16px;  transform: rotate(-3deg); }
+
+/* Below the tilt breakpoint, the fanned cluster becomes a plain horizontal-scroll strip */
+@media (max-width: 900px) {
+  .photo-cluster {
+    height: auto;
+    display: flex;
+    gap: var(--space-3);
+    overflow-x: auto;
+    padding: var(--space-1) var(--space-4) var(--space-3);
+    margin: 0 calc(var(--space-4) * -1);
+    scroll-snap-type: x mandatory;
+  }
+
+  .photo-card {
+    position: static;
+    transform: none !important;
+    flex: 0 0 220px;
+  }
 }
 
 /* Buttons */
@@ -123,20 +391,57 @@ a:hover {
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-5);
-  border-radius: var(--radius);
-  font-weight: 600;
+  border-radius: var(--radius-sharp);
+  font-family: var(--font-body-family);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.875rem;
+  border: 2px solid transparent;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .btn--primary {
-  background: var(--color-primary);
-  color: var(--color-text);
+  background: var(--red);
+  color: var(--white);
 }
 
 .btn--primary:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-2);
   text-decoration: none;
+}
+
+.btn--ghost {
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.btn--ghost:hover {
+  border-color: var(--red);
+  color: var(--red);
+  text-decoration: none;
+}
+
+/* On light sections, ghost buttons need dark borders */
+.section .btn--ghost {
+  border-color: var(--black);
+  color: var(--black);
+}
+
+.section .btn--ghost:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.section--dark .btn--ghost {
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.section--dark .btn--ghost:hover {
+  border-color: var(--red);
+  color: var(--red);
 }
 
 /* Cards */
@@ -147,7 +452,8 @@ a:hover {
 }
 
 .card {
-  background: var(--color-surface);
+  background: var(--white);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: var(--space-4);
   box-shadow: var(--shadow-1);
@@ -159,13 +465,50 @@ a:hover {
   box-shadow: var(--shadow-2);
 }
 
+.card h3 {
+  font-size: var(--font-h3);
+}
+
 /* Section */
 .section {
-  padding: var(--space-6) 0;
+  padding: var(--space-7) 0;
 }
 
 .section--surface {
-  background: var(--color-surface);
+  background: var(--off-white);
+}
+
+.section--dark {
+  background: var(--black);
+  color: var(--white);
+}
+
+.section--dark h2, .section--dark h3 {
+  color: var(--white);
+}
+
+.section--dark p {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.footer p {
+  color: inherit;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--muted);
+  margin: 0 0 var(--space-5);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
 }
 
 /* Placeholder tag */
@@ -174,33 +517,55 @@ a:hover {
   margin-top: var(--space-1);
   padding: 2px var(--space-2);
   border-radius: 999px;
-  font-size: var(--font-caption);
-  font-weight: 600;
-  background: rgba(232, 185, 35, 0.15);
-  color: var(--color-accent);
+  font-family: var(--font-body-family);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  background: rgba(235, 34, 39, 0.12);
+  color: var(--red-dark);
 }
 
 /* Footer */
 .footer {
-  padding: var(--space-5) 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--color-text-muted);
+  padding: var(--space-6) 0;
+  background: var(--black);
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-body-family);
   font-size: var(--font-caption);
+}
+
+.footer a {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footer a:hover {
+  color: var(--red);
 }
 
 /* Table */
 table {
   width: 100%;
   border-collapse: collapse;
+  font-family: var(--font-body-family);
+  font-size: 0.95rem;
+}
+
+th {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: var(--font-caption);
+  color: var(--muted);
+  font-weight: 700;
 }
 
 th, td {
   text-align: left;
   padding: var(--space-2) var(--space-3);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--border);
 }
 
-/* Reveal-on-scroll (progressive enhancement — see main.js) */
+/* Reveal-on-scroll */
 .reveal {
   opacity: 0;
   transform: translateY(16px);
@@ -210,4 +575,10 @@ th, td {
 .reveal.is-visible {
   opacity: 1;
   transform: none;
+}
+
+@media (max-width: 640px) {
+  .nav__links { gap: var(--space-3); font-size: 0.75rem; }
+  .hero__inner { padding: var(--space-6) var(--space-3) var(--space-5); }
+  .readout { padding: var(--space-4) var(--space-3); }
 }

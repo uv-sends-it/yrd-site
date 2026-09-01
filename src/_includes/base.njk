@@ -9,6 +9,16 @@
 </head>
 <body>
   {% include "nav.njk" %}
+  <script>
+    (function () {
+      var toggle = document.querySelector(".nav__toggle");
+      var links = document.getElementById("nav-links");
+      toggle.addEventListener("click", function () {
+        var open = links.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", open);
+      });
+    })();
+  </script>
   <main>
     {{ content | safe }}
   </main>
@@ -24,12 +34,28 @@
         });
       }, { threshold: 0.15 });
       document.querySelectorAll(".reveal").forEach(function (el) {
-        observer.observe(el);
+        // Content already in the initial viewport shows immediately — only
+        // below-the-fold content waits for the scroll-triggered reveal.
+        var rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          el.classList.add("is-visible");
+        } else {
+          observer.observe(el);
+        }
       });
     } else {
       document.querySelectorAll(".reveal").forEach(function (el) {
         el.classList.add("is-visible");
       });
+    }
+
+    // Signature detail: stroke-rate readout drifts within a real racing range (60-72 SPM).
+    var strokeEls = document.querySelectorAll("[data-stroke-rate]");
+    if (strokeEls.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setInterval(function () {
+        var spm = 60 + Math.round(Math.random() * 12);
+        strokeEls.forEach(function (el) { el.textContent = spm; });
+      }, 1600);
     }
   </script>
 </body>

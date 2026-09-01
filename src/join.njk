@@ -5,26 +5,25 @@ permalink: /join/
 ---
 {% import "cta-dragonpass.njk" as cta %}
 
-<section class="hero">
-  <div class="container">
-    <p class="hero__eyebrow">Come and try</p>
-    <h1 class="hero__title">Your first session is free</h1>
+<section class="hero" style="background-image: url('/assets/photo-hero-2.jpg');">
+  <div class="hero__inner">
+    <span class="eyebrow mono-label">Come and try</span>
+    <h1 class="hero__title">Your first session is</h1>
+    <span class="brush">free.</span>
     <p class="hero__lead">
-      No boat, no paddle, no experience — just show up. A Dragon Pass gets you a full month
+      No boat, no paddle, no experience &mdash; just show up. A Dragon Pass gets you a full month
       of training with the club before you decide whether to join. Wear clothes you can move
       and get wet in, bring a water bottle and a towel; we supply the boat, paddles, and PFDs.
     </p>
-    <p>{{ cta.ctaDragonPass("Get your Dragon Pass", site.dragonPassUrl) }}</p>
+    <div class="hero__ctas">
+      {{ cta.ctaDragonPass("Get your Dragon Pass", site.dragonPassUrl) }}
+    </div>
   </div>
 </section>
 
-<svg class="wave-divider" viewBox="0 0 1440 60" preserveAspectRatio="none" fill="currentColor" aria-hidden="true">
-  <path d="M0,32 C240,64 480,0 720,24 C960,48 1200,8 1440,32 L1440,60 L0,60 Z"></path>
-</svg>
-
 <section class="section section--surface">
   <div class="container">
-    <h2>Where we train</h2>
+    <div class="divider mono-label">Where we train</div>
     <p>{{ site.location }}
       {% if site.location.includes("TODO") %}<span class="placeholder-tag">content coming soon</span>{% endif %}
     </p>
@@ -33,7 +32,7 @@ permalink: /join/
 
 <section class="section">
   <div class="container">
-    <h2>Training schedule</h2>
+    <div class="divider mono-label">Training schedule</div>
     <table>
       <thead>
         <tr><th>Day</th><th>Time</th><th>Notes</th></tr>
@@ -54,7 +53,7 @@ permalink: /join/
 
 <section class="section section--surface">
   <div class="container">
-    <h2>Resources</h2>
+    <div class="divider mono-label">Resources</div>
     <div class="card-grid">
       <div class="card reveal">
         <h3>Paddling technique</h3>
@@ -70,10 +69,10 @@ permalink: /join/
   </div>
 </section>
 
-<section class="section">
+<section class="section section--dark">
   <div class="container">
     <h2>Already a member?</h2>
     <p>Head to TeamApp for schedules, crew lists, and club communication.</p>
-    <a class="btn btn--primary" href="{{ site.teamAppUrl }}" target="_blank" rel="noopener">Open TeamApp</a>
+    <a class="btn btn--ghost" href="{{ site.teamAppUrl }}" target="_blank" rel="noopener">Open TeamApp</a>
   </div>
 </section>

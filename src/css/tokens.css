@@ -1,21 +1,37 @@
 :root {
-  /* Colors — red/black dragon-boat branding */
-  --color-primary: #b3122a;
-  --color-primary-dark: #7a0c1c;
-  --color-accent: #e8b923;
-  --color-bg: #0d0d0f;
-  --color-surface: #17171a;
-  --color-text: #f4f1ea;
-  --color-text-muted: #a9a6a0;
+  /* Colors — sampled from the club's real site (yarrariverdragons.com.au) */
+  --black: #000000;
+  --white: #ffffff;
+  --off-white: #f6f4f1;
+  --red: #eb2227;
+  --red-dark: #b8161b;
+  --ink: #171717;
+  --muted: #6b6b6b;
+  --border: rgba(0, 0, 0, 0.12);
 
-  /* Type scale — ~1.25 ratio */
+  /* Aliases used throughout main.css */
+  --color-bg: var(--white);
+  --color-surface: var(--off-white);
+  --color-text: var(--ink);
+  --color-text-muted: var(--muted);
+  --color-primary: var(--red);
+  --color-primary-dark: var(--red-dark);
+  --color-accent: var(--red);
+
+  /* Type families — DM Sans throughout, matching the live site; brush script for the one signature accent */
+  --font-body-family: "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "DM Sans", system-ui, sans-serif;
+  --font-brush: "Caveat", cursive;
+
+  /* Type scale */
   --font-caption: 0.8rem;
   --font-body: 1rem;
   --font-lead: 1.25rem;
   --font-h3: 1.563rem;
-  --font-h2: 1.953rem;
-  --font-h1: 2.441rem;
-  --font-hero: 3.815rem;
+  --font-h2: 2.2rem;
+  --font-h1: 3rem;
+  --font-hero: clamp(2.75rem, 6vw, 5rem);
+  --font-brush-size: clamp(2.5rem, 7vw, 5.5rem);
 
   /* Spacing scale */
   --space-1: 4px;
@@ -25,16 +41,19 @@
   --space-5: 32px;
   --space-6: 48px;
   --space-7: 64px;
+  --space-8: 96px;
 
   /* Radius */
-  --radius: 12px;
+  --radius-sharp: 3px;
+  --radius: 10px;
+  --radius-photo: 14px;
 
   /* Elevation */
-  --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-2: 0 4px 16px rgba(0, 0, 0, 0.45);
-  --shadow-3: 0 12px 32px rgba(0, 0, 0, 0.5);
+  --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.16);
+  --shadow-3: 0 20px 48px rgba(0, 0, 0, 0.28);
 
   /* Motion */
   --transition-fast: 150ms ease;
-  --transition-smooth: 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-smooth: 450ms cubic-bezier(0.22, 1, 0.36, 1);
 }

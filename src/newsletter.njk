@@ -3,11 +3,12 @@ title: Newsletter
 layout: base.njk
 permalink: /newsletter/
 ---
-<section class="hero">
-  <div class="container">
-    <h1 class="hero__title">Newsletter archive</h1>
+<section class="hero hero--plain">
+  <div class="hero__inner">
+    <span class="eyebrow mono-label">Archive</span>
+    <h1 class="hero__title">Newsletter</h1>
     <p class="hero__lead">
-      Race results and the calendar live inside each issue below — that's deliberate for now,
+      Race results and the calendar live inside each issue below &mdash; that's deliberate for now,
       not a missing feature.
     </p>
   </div>
@@ -20,7 +21,7 @@ permalink: /newsletter/
       {% for n in newsletters %}
         {% if n.year != currentYear %}
           {% if not loop.first %}</ul>{% endif %}
-          <h2>{{ n.year }}</h2>
+          <div class="divider mono-label">{{ n.year }}</div>
           <ul>
           {% set currentYear = n.year %}
         {% endif %}
@@ -28,7 +29,7 @@ permalink: /newsletter/
         {% if loop.last %}</ul>{% endif %}
       {% endfor %}
     {% else %}
-      <p>Newsletter archive coming soon — committee adds issues directly to this folder.</p>
+      <p>Newsletter archive coming soon &mdash; committee adds issues directly to this folder.</p>
     {% endif %}
   </div>
 </section>
