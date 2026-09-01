@@ -1,16 +1,16 @@
 <nav class="nav">
   <div class="container nav__bar">
-    <a class="nav__brand" href="/"><img src="/assets/yrd-logo.png" alt="{{ site.clubName }}"></a>
+    <a class="nav__brand" href="{{ '/' | url }}"><img src="{{ '/assets/yrd-logo.png' | url }}" alt="{{ site.clubName }}"></a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links">
       <span class="sr-only">Menu</span>
       <span class="nav__toggle-bars" aria-hidden="true"></span>
     </button>
     <ul class="nav__links" id="nav-links">
-      <li><a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a></li>
-      <li><a href="/about/" {% if page.url == "/about/" %}aria-current="page"{% endif %}>About</a></li>
-      <li><a href="/join/" {% if page.url == "/join/" %}aria-current="page"{% endif %}>Join Us</a></li>
-      <li><a href="/newsletter/" {% if page.url == "/newsletter/" %}aria-current="page"{% endif %}>Newsletter</a></li>
-      <li><a href="/gallery/" {% if page.url == "/gallery/" %}aria-current="page"{% endif %}>Gallery</a></li>
+      <li><a href="{{ '/' | url }}" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a></li>
+      <li><a href="{{ '/about/' | url }}" {% if page.url == "/about/" %}aria-current="page"{% endif %}>About</a></li>
+      <li><a href="{{ '/join/' | url }}" {% if page.url == "/join/" %}aria-current="page"{% endif %}>Join Us</a></li>
+      <li><a href="{{ '/newsletter/' | url }}" {% if page.url == "/newsletter/" %}aria-current="page"{% endif %}>Newsletter</a></li>
+      <li><a href="{{ '/gallery/' | url }}" {% if page.url == "/gallery/" %}aria-current="page"{% endif %}>Gallery</a></li>
     </ul>
   </div>
 </nav>

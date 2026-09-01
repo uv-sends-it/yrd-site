@@ -1,6 +1,6 @@
 {# Tilted photo card for the fanned cluster — swap `src` for new photos as the club supplies them. #}
 {% macro photoCard(className, src, tag) %}
-<div class="photo-card reveal {{ className }}" style="background-image: url('{{ src }}');">
+<div class="photo-card reveal {{ className }}" style="background-image: url('{{ src | url }}');">
   {% if tag %}<span class="photo-card__tag">{{ tag }}</span>{% endif %}
 </div>
 {% endmacro %}

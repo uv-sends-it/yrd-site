@@ -25,7 +25,7 @@ permalink: /newsletter/
           <ul>
           {% set currentYear = n.year %}
         {% endif %}
-        <li><a href="{{ n.url }}">{{ n.month }}/{{ n.year }} newsletter</a></li>
+        <li><a href="{{ n.url | url }}">{{ n.month }}/{{ n.year }} newsletter</a></li>
         {% if loop.last %}</ul>{% endif %}
       {% endfor %}
     {% else %}

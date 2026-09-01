@@ -5,7 +5,7 @@ layout: base.njk
 {% import "cta-dragonpass.njk" as cta %}
 {% import "photo-card.njk" as photo %}
 
-<section class="hero" style="background-image: url('/assets/photo-hero-4.jpg');">
+<section class="hero" style="background-image: url('{{ '/assets/photo-hero-4.jpg' | url }}');">
   <div class="hero__inner">
     <span class="eyebrow mono-label">Open trial &mdash; first month free</span>
     <h1 class="hero__title">Paddle the Yarra.</h1>
@@ -16,7 +16,7 @@ layout: base.njk
     </p>
     <div class="hero__ctas">
       {{ cta.ctaDragonPass(null, site.dragonPassUrl) }}
-      <a class="btn btn--ghost" href="/join/">See a session</a>
+      <a class="btn btn--ghost" href="{{ '/join/' | url }}">See a session</a>
     </div>
   </div>
 </section>
@@ -43,7 +43,7 @@ layout: base.njk
       {% if newsletters.length %}
         {% set latest = newsletters[0] %}
         <h3>{{ latest.month }}/{{ latest.year }} newsletter</h3>
-        <a href="{{ latest.url }}">Read it here &rarr;</a>
+        <a href="{{ latest.url | url }}">Read it here &rarr;</a>
       {% else %}
         <h3>Newsletter archive coming soon</h3>
       {% endif %}
@@ -66,6 +66,6 @@ layout: base.njk
       {{ photo.photoCard("photo-card--2", "/assets/photo-about.jpg") }}
       {{ photo.photoCard("photo-card--3", "/assets/photo-hero-4.jpg") }}
     </div>
-    <p><a href="/gallery/">See more on Instagram &rarr;</a></p>
+    <p><a href="{{ '/gallery/' | url }}">See more on Instagram &rarr;</a></p>
   </div>
 </section>
