@@ -1,0 +1,40 @@
+:root {
+  /* Colors — red/black dragon-boat branding */
+  --color-primary: #b3122a;
+  --color-primary-dark: #7a0c1c;
+  --color-accent: #e8b923;
+  --color-bg: #0d0d0f;
+  --color-surface: #17171a;
+  --color-text: #f4f1ea;
+  --color-text-muted: #a9a6a0;
+
+  /* Type scale — ~1.25 ratio */
+  --font-caption: 0.8rem;
+  --font-body: 1rem;
+  --font-lead: 1.25rem;
+  --font-h3: 1.563rem;
+  --font-h2: 1.953rem;
+  --font-h1: 2.441rem;
+  --font-hero: 3.815rem;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+
+  /* Radius */
+  --radius: 12px;
+
+  /* Elevation */
+  --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-3: 0 12px 32px rgba(0, 0, 0, 0.5);
+
+  /* Motion */
+  --transition-fast: 150ms ease;
+  --transition-smooth: 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}

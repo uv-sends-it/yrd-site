@@ -1,0 +1,44 @@
+---
+title: Home
+layout: base.njk
+---
+{% import "cta-dragonpass.njk" as cta %}
+
+<section class="hero">
+  <div class="container">
+    <p class="hero__eyebrow">Melbourne Dragon Boat Club</p>
+    <h1 class="hero__title">{{ site.clubName }}</h1>
+    <p class="hero__lead">
+      {{ site.tagline }}
+      {% if site.tagline.startsWith("TODO") %}<span class="placeholder-tag">content coming soon</span>{% endif %}
+    </p>
+    <p class="hero__lead">{{ site.bridgeLine }}</p>
+    <p>{{ cta.ctaDragonPass(null, site.dragonPassUrl) }}</p>
+  </div>
+</section>
+
+<svg class="wave-divider" viewBox="0 0 1440 60" preserveAspectRatio="none" fill="currentColor" aria-hidden="true">
+  <path d="M0,32 C240,64 480,0 720,24 C960,48 1200,8 1440,32 L1440,60 L0,60 Z"></path>
+</svg>
+
+<section class="section section--surface">
+  <div class="container card-grid">
+    <div class="card reveal">
+      <h3>Latest from the club</h3>
+      {% if newsletters.length %}
+        {% set latest = newsletters[0] %}
+        <p>Newsletter — {{ latest.month }}/{{ latest.year }}</p>
+        <a href="{{ latest.url }}">Read it here &rarr;</a>
+      {% else %}
+        <p>Newsletter archive coming soon.</p>
+      {% endif %}
+    </div>
+    <div class="card reveal">
+      <h3>Next on the water</h3>
+      {% set next = schedule.sessions[0] %}
+      <p>{{ next.day }} &middot; {{ next.time }}</p>
+      <p>{{ next.notes }}</p>
+      <span class="placeholder-tag">content coming soon</span>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,8 @@
+{# Usage: {% include "card.njk" %} after setting cardTitle / cardBody / cardTag vars, or call via macro below #}
+{% macro card(title, body, tag) %}
+<div class="card reveal">
+  <h3>{{ title }}</h3>
+  <p>{{ body }}</p>
+  {% if tag %}<span class="placeholder-tag">{{ tag }}</span>{% endif %}
+</div>
+{% endmacro %}

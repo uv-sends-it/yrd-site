@@ -1,0 +1,12 @@
+<nav class="nav">
+  <div class="container nav__bar">
+    <a class="nav__brand" href="/">{{ site.clubName }}</a>
+    <ul class="nav__links">
+      <li><a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a></li>
+      <li><a href="/about/" {% if page.url == "/about/" %}aria-current="page"{% endif %}>About</a></li>
+      <li><a href="/join/" {% if page.url == "/join/" %}aria-current="page"{% endif %}>Join Us</a></li>
+      <li><a href="/newsletter/" {% if page.url == "/newsletter/" %}aria-current="page"{% endif %}>Newsletter</a></li>
+      <li><a href="/gallery/" {% if page.url == "/gallery/" %}aria-current="page"{% endif %}>Gallery</a></li>
+    </ul>
+  </div>
+</nav>

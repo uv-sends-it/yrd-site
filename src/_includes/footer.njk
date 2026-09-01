@@ -1,0 +1,11 @@
+<footer class="footer">
+  <div class="container">
+    <p>&copy; {{ year }} {{ site.clubName }}. Paddling the Yarra since day one.</p>
+    <p>
+      <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      {% if site.email == "TODO" %}<span class="placeholder-tag">content coming soon</span>{% endif %}
+      &middot;
+      <a href="https://instagram.com/{{ site.instagramHandle }}" target="_blank" rel="noopener">@{{ site.instagramHandle }}</a>
+    </p>
+  </div>
+</footer>

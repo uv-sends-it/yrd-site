@@ -1,0 +1,82 @@
+---
+title: About
+layout: base.njk
+permalink: /about/
+---
+<section class="hero">
+  <div class="container">
+    <h1 class="hero__title">Who we are</h1>
+    <p class="hero__lead">
+      Yarra River Dragons has been paddling Melbourne's Yarra River since 2016, built on the
+      community spirit of dragon boating: every crew moves together, or not at all.
+      TODO: refresh from current site's full "Who are we" copy.
+      <span class="placeholder-tag">content coming soon</span>
+    </p>
+    <p class="hero__lead">
+      We acknowledge the Traditional Owners of the land on which we train, the Wurundjeri
+      people of the Kulin Nation, and pay our respects to Elders past and present.
+    </p>
+    <p class="hero__lead">
+      Yarra River Dragons is a proud LGBTQ+ inclusive club — everyone is welcome on our boats.
+    </p>
+  </div>
+</section>
+
+<svg class="wave-divider" viewBox="0 0 1440 60" preserveAspectRatio="none" fill="currentColor" aria-hidden="true">
+  <path d="M0,32 C240,0 480,64 720,32 C960,0 1200,56 1440,24 L1440,60 L0,60 Z"></path>
+</svg>
+
+<section class="section">
+  <div class="container">
+    <h2>Crew categories</h2>
+    <p>TODO: confirm categories <span class="placeholder-tag">content coming soon</span></p>
+    <div class="card-grid">
+      <div class="card reveal"><h3>Open</h3></div>
+      <div class="card reveal"><h3>Mixed</h3></div>
+      <div class="card reveal"><h3>Women's</h3></div>
+      <div class="card reveal"><h3>Masters</h3></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container">
+    <h2>Committee</h2>
+    <div class="card-grid">
+      {% for member in committee %}
+      <div class="card reveal">
+        <h3>{{ member.name }}</h3>
+        <p>{{ member.role }}</p>
+        <a href="mailto:{{ member.email }}">{{ member.email }}</a>
+        {% if member.name == "TODO" %}<span class="placeholder-tag">content coming soon</span>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Our sponsors</h2>
+    <div class="card-grid">
+      {% for sponsor in sponsors %}
+      <div class="card reveal">
+        <h3>{{ sponsor.name }}</h3>
+        {% if sponsor.website != "TODO" %}<a href="{{ sponsor.website }}" target="_blank" rel="noopener">Visit site</a>{% endif %}
+        {% if sponsor.name == "TODO" %}<span class="placeholder-tag">content coming soon</span>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container">
+    <h2>Get in touch</h2>
+    <p>
+      <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      {% if site.email == "TODO" %}<span class="placeholder-tag">content coming soon</span>{% endif %}
+    </p>
+    <p><a href="https://instagram.com/{{ site.instagramHandle }}" target="_blank" rel="noopener">@{{ site.instagramHandle }}</a></p>
+  </div>
+</section>

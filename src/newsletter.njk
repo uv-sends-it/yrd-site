@@ -1,0 +1,34 @@
+---
+title: Newsletter
+layout: base.njk
+permalink: /newsletter/
+---
+<section class="hero">
+  <div class="container">
+    <h1 class="hero__title">Newsletter archive</h1>
+    <p class="hero__lead">
+      Race results and the calendar live inside each issue below — that's deliberate for now,
+      not a missing feature.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% if newsletters.length %}
+      {% set currentYear = "" %}
+      {% for n in newsletters %}
+        {% if n.year != currentYear %}
+          {% if not loop.first %}</ul>{% endif %}
+          <h2>{{ n.year }}</h2>
+          <ul>
+          {% set currentYear = n.year %}
+        {% endif %}
+        <li><a href="{{ n.url }}">{{ n.month }}/{{ n.year }} newsletter</a></li>
+        {% if loop.last %}</ul>{% endif %}
+      {% endfor %}
+    {% else %}
+      <p>Newsletter archive coming soon — committee adds issues directly to this folder.</p>
+    {% endif %}
+  </div>
+</section>
