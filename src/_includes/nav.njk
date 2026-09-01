@@ -1,9 +1,11 @@
+{% import "icon.njk" as ic %}
 <nav class="nav">
   <div class="container nav__bar">
     <a class="nav__brand" href="{{ '/' | url }}"><img src="{{ '/assets/yrd-logo.png' | url }}" alt="{{ site.clubName }}"></a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links">
       <span class="sr-only">Menu</span>
-      <span class="nav__toggle-bars" aria-hidden="true"></span>
+      <span class="icon-open">{{ ic.icon("menu-2") }}</span>
+      <span class="icon-close">{{ ic.icon("x") }}</span>
     </button>
     <ul class="nav__links" id="nav-links">
       <li><a href="{{ '/' | url }}" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a></li>

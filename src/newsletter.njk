@@ -3,9 +3,11 @@ title: Newsletter
 layout: base.njk
 permalink: /newsletter/
 ---
+{% import "icon.njk" as ic %}
 <section class="hero hero--plain">
+  <div class="glow-field"></div>
   <div class="hero__inner">
-    <span class="eyebrow mono-label">Archive</span>
+    <span class="eyebrow mono-label">{{ ic.icon("calendar-event", 16) }} Archive</span>
     <h1 class="hero__title">Newsletter</h1>
     <p class="hero__lead">
       Race results and the calendar live inside each issue below &mdash; that's deliberate for now,
@@ -21,7 +23,7 @@ permalink: /newsletter/
       {% for n in newsletters %}
         {% if n.year != currentYear %}
           {% if not loop.first %}</ul>{% endif %}
-          <div class="divider mono-label">{{ n.year }}</div>
+          <div class="divider mono-label">{{ ic.icon("calendar-event", 16) }} {{ n.year }}</div>
           <ul>
           {% set currentYear = n.year %}
         {% endif %}

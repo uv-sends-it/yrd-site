@@ -1,5 +1,6 @@
+{% import "icon.njk" as ic %}
 {% macro ctaDragonPass(label, dragonPassUrl) %}
 <a class="btn btn--primary" href="{{ dragonPassUrl }}" target="_blank" rel="noopener">
-  {{ label or "Come Try It — First Month Free" }}
+  {{ label or "Come Try It — First Month Free" }} {{ ic.icon("arrow-right", 16) }}
 </a>
 {% endmacro %}

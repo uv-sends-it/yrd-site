@@ -4,10 +4,11 @@ layout: base.njk
 permalink: /join/
 ---
 {% import "cta-dragonpass.njk" as cta %}
+{% import "icon.njk" as ic %}
 
 <section class="hero" style="background-image: url('{{ '/assets/photo-hero-2.jpg' | url }}');">
   <div class="hero__inner">
-    <span class="eyebrow mono-label">Come and try</span>
+    <span class="eyebrow mono-label">{{ ic.icon("activity", 16) }} Come and try</span>
     <h1 class="hero__title">Your first session is</h1>
     <span class="brush">free.</span>
     <p class="hero__lead">
@@ -23,7 +24,7 @@ permalink: /join/
 
 <section class="section section--surface">
   <div class="container">
-    <div class="divider mono-label">Where we train</div>
+    <div class="divider mono-label">{{ ic.icon("map-pin", 16) }} Where we train</div>
     <p>{{ site.location }}
       {% if site.location.includes("TODO") %}<span class="placeholder-tag">content coming soon</span>{% endif %}
     </p>
@@ -32,7 +33,7 @@ permalink: /join/
 
 <section class="section">
   <div class="container">
-    <div class="divider mono-label">Training schedule</div>
+    <div class="divider mono-label">{{ ic.icon("clock", 16) }} Training schedule</div>
     <table>
       <thead>
         <tr><th>Day</th><th>Time</th><th>Notes</th></tr>
@@ -69,10 +70,11 @@ permalink: /join/
   </div>
 </section>
 
-<section class="section section--dark">
+<section class="section">
+  <div class="glow-field"></div>
   <div class="container">
     <h2>Already a member?</h2>
     <p>Head to TeamApp for schedules, crew lists, and club communication.</p>
-    <a class="btn btn--ghost" href="{{ site.teamAppUrl }}" target="_blank" rel="noopener">Open TeamApp</a>
+    <a class="btn btn--ghost" href="{{ site.teamAppUrl }}" target="_blank" rel="noopener">Open TeamApp {{ ic.icon("arrow-right", 16) }}</a>
   </div>
 </section>

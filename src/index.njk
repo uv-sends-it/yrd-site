@@ -4,10 +4,11 @@ layout: base.njk
 ---
 {% import "cta-dragonpass.njk" as cta %}
 {% import "photo-card.njk" as photo %}
+{% import "icon.njk" as ic %}
 
 <section class="hero" style="background-image: url('{{ '/assets/photo-hero-4.jpg' | url }}');">
   <div class="hero__inner">
-    <span class="eyebrow mono-label">Open trial &mdash; first month free</span>
+    <span class="eyebrow mono-label">{{ ic.icon("activity", 16) }} Open trial &mdash; first month free</span>
     <h1 class="hero__title">Paddle the Yarra.</h1>
     <span class="brush">Train as one crew.</span>
     <p class="hero__lead">
@@ -23,33 +24,45 @@ layout: base.njk
 
 <div class="readout">
   <div class="readout__item">
-    <span class="readout__value"><span data-stroke-rate>64</span><span class="unit">SPM</span></span>
-    <span class="readout__label">Current stroke rate</span>
+    {{ ic.icon("activity", 28) }}
+    <span>
+      <span class="readout__value"><span data-stroke-rate>64</span><span class="unit">SPM</span></span>
+      <span class="readout__label">Current stroke rate</span>
+    </span>
   </div>
   <div class="readout__item">
-    <span class="readout__value">{{ schedule.sessions[0].day }}</span>
-    <span class="readout__label">Next session</span>
+    {{ ic.icon("calendar-event", 28) }}
+    <span>
+      <span class="readout__value">{{ schedule.sessions[0].day }}</span>
+      <span class="readout__label">Next session</span>
+    </span>
   </div>
   <div class="readout__item">
-    <span class="readout__value">2016</span>
-    <span class="readout__label">On the water since</span>
+    {{ ic.icon("sailboat", 28) }}
+    <span>
+      <span class="readout__value">2016</span>
+      <span class="readout__label">On the water since</span>
+    </span>
   </div>
 </div>
 
 <section class="section section--surface">
+  <div class="glow-field"></div>
   <div class="container card-grid">
     <div class="card reveal">
-      <span class="mono-label" style="color: var(--red)">Latest from the club</span>
+      {{ ic.icon("calendar-event", 22) }}
+      <span class="mono-label" style="color: var(--red); display: block; margin-top: var(--space-2)">Latest from the club</span>
       {% if newsletters.length %}
         {% set latest = newsletters[0] %}
         <h3>{{ latest.month }}/{{ latest.year }} newsletter</h3>
-        <a href="{{ latest.url | url }}">Read it here &rarr;</a>
+        <a href="{{ latest.url | url }}">Read it here {{ ic.icon("arrow-right", 16) }}</a>
       {% else %}
         <h3>Newsletter archive coming soon</h3>
       {% endif %}
     </div>
     <div class="card reveal">
-      <span class="mono-label" style="color: var(--red)">Next on the water</span>
+      {{ ic.icon("clock", 22) }}
+      <span class="mono-label" style="color: var(--red); display: block; margin-top: var(--space-2)">Next on the water</span>
       {% set next = schedule.sessions[0] %}
       <h3>{{ next.day }} &middot; {{ next.time }}</h3>
       <p>{{ next.notes }}</p>
@@ -60,12 +73,12 @@ layout: base.njk
 
 <section class="section">
   <div class="container">
-    <div class="divider mono-label">Life on the water</div>
+    <div class="divider mono-label">{{ ic.icon("users", 16) }} Life on the water</div>
     <div class="photo-cluster">
       {{ photo.photoCard("photo-card--1", "/assets/photo-hero-2.jpg") }}
       {{ photo.photoCard("photo-card--2", "/assets/photo-about.jpg") }}
       {{ photo.photoCard("photo-card--3", "/assets/photo-hero-4.jpg") }}
     </div>
-    <p><a href="{{ '/gallery/' | url }}">See more on Instagram &rarr;</a></p>
+    <p><a href="{{ '/gallery/' | url }}">See more on Instagram {{ ic.icon("arrow-right", 16) }}</a></p>
   </div>
 </section>

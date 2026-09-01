@@ -3,9 +3,10 @@ title: About
 layout: base.njk
 permalink: /about/
 ---
+{% import "icon.njk" as ic %}
 <section class="hero" style="background-image: url('{{ '/assets/photo-about.jpg' | url }}');">
   <div class="hero__inner">
-    <span class="eyebrow mono-label">On the water since 2016</span>
+    <span class="eyebrow mono-label">{{ ic.icon("sailboat", 16) }} On the water since 2016</span>
     <h1 class="hero__title">Who we are.</h1>
     <span class="brush">One boat, one crew.</span>
     <p class="hero__lead">
@@ -30,7 +31,7 @@ permalink: /about/
 
 <section class="section">
   <div class="container">
-    <div class="divider mono-label">Crew categories</div>
+    <div class="divider mono-label">{{ ic.icon("users", 16) }} Crew categories</div>
     <p>TODO: confirm categories <span class="placeholder-tag">content coming soon</span></p>
     <div class="card-grid">
       <div class="card reveal"><h3>Open</h3></div>
@@ -43,13 +44,13 @@ permalink: /about/
 
 <section class="section section--surface">
   <div class="container">
-    <div class="divider mono-label">Committee</div>
+    <div class="divider mono-label">{{ ic.icon("users", 16) }} Committee</div>
     <div class="card-grid">
       {% for member in committee %}
       <div class="card reveal">
         <span class="mono-label" style="color: var(--red)">{{ member.role }}</span>
         <h3>{{ member.name }}</h3>
-        <a href="mailto:{{ member.email }}">{{ member.email }}</a>
+        <a href="mailto:{{ member.email }}">{{ ic.icon("mail", 16) }} {{ member.email }}</a>
         {% if member.name == "TODO" %}<span class="placeholder-tag">content coming soon</span>{% endif %}
       </div>
       {% endfor %}
@@ -59,12 +60,12 @@ permalink: /about/
 
 <section class="section">
   <div class="container">
-    <div class="divider mono-label">Our sponsors</div>
+    <div class="divider mono-label">{{ ic.icon("trophy", 16) }} Our sponsors</div>
     <div class="card-grid">
       {% for sponsor in sponsors %}
       <div class="card reveal">
         <h3>{{ sponsor.name }}</h3>
-        {% if sponsor.website != "TODO" %}<a href="{{ sponsor.website }}" target="_blank" rel="noopener">Visit site</a>{% endif %}
+        {% if sponsor.website != "TODO" %}<a href="{{ sponsor.website }}" target="_blank" rel="noopener">Visit site {{ ic.icon("arrow-right", 16) }}</a>{% endif %}
         {% if sponsor.name == "TODO" %}<span class="placeholder-tag">content coming soon</span>{% endif %}
       </div>
       {% endfor %}
@@ -72,13 +73,14 @@ permalink: /about/
   </div>
 </section>
 
-<section class="section section--dark">
+<section class="section section--surface">
+  <div class="glow-field"></div>
   <div class="container">
     <h2>Get in touch</h2>
     <p>
-      <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      <a href="mailto:{{ site.email }}">{{ ic.icon("mail", 16) }} {{ site.email }}</a>
       {% if site.email == "TODO" %}<span class="placeholder-tag">content coming soon</span>{% endif %}
     </p>
-    <p><a href="https://instagram.com/{{ site.instagramHandle }}" target="_blank" rel="noopener">@{{ site.instagramHandle }}</a></p>
+    <p><a href="https://instagram.com/{{ site.instagramHandle }}" target="_blank" rel="noopener">{{ ic.icon("brand-instagram", 16) }} @{{ site.instagramHandle }}</a></p>
   </div>
 </section>

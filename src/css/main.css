@@ -11,11 +11,14 @@ html {
 
 body {
   margin: 0;
-  background: var(--white);
-  color: var(--ink);
+  background: var(--black);
+  color: var(--text);
   font-family: var(--font-body-family);
   font-size: var(--font-body);
   line-height: 1.6;
+  /* Faint dot grid for depth — same idea as Watermelon UI's blueprint texture, tuned way down */
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -31,7 +34,7 @@ h1, h2, h3 {
   letter-spacing: -0.01em;
   line-height: 1.05;
   margin: 0 0 var(--space-3);
-  color: var(--black);
+  color: var(--white);
 }
 
 h2 { font-size: var(--font-h2); }
@@ -57,6 +60,11 @@ a:hover {
   padding: 0 var(--space-4);
 }
 
+.icon {
+  flex-shrink: 0;
+  vertical-align: -0.2em;
+}
+
 /* Utility label — nav, eyebrows, stat readouts */
 .mono-label {
   font-family: var(--font-body-family);
@@ -72,22 +80,15 @@ a:hover {
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-1) var(--space-3);
-  border: 1px solid currentColor;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: var(--radius-sharp);
-  color: var(--red);
-}
-
-/* On a photo hero, a plain red border reads poorly against sky/water — give it a dark scrim */
-.hero__inner .eyebrow {
   color: var(--white);
-  border-color: rgba(255, 255, 255, 0.6);
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(4px);
 }
 
-.hero__inner .placeholder-tag {
-  background: rgba(0, 0, 0, 0.55);
-  color: var(--white);
+.eyebrow .icon {
+  color: var(--red);
 }
 
 /* Signature brush accent — the one handwritten gesture per page, echoing the club's own logotype */
@@ -98,8 +99,59 @@ a:hover {
   text-transform: none;
   letter-spacing: normal;
   font-size: var(--font-brush-size);
-  color: var(--red);
   line-height: 0.9;
+  background: linear-gradient(100deg, #ff5b5f 0%, var(--red) 45%, #ff9a5a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Ambient glow blobs — slow drifting radial gradients behind hero/section content */
+.glow-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.glow-field::before,
+.glow-field::after {
+  content: "";
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  max-width: 640px;
+  max-height: 640px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+  animation: drift 22s ease-in-out infinite alternate;
+}
+
+.glow-field::before {
+  background: var(--red);
+  top: -20%;
+  left: -10%;
+}
+
+.glow-field::after {
+  background: #7a1220;
+  bottom: -25%;
+  right: -10%;
+  animation-delay: -8s;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(6%, 4%) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-field::before,
+  .glow-field::after {
+    animation: none;
+  }
 }
 
 /* Nav */
@@ -107,7 +159,8 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: var(--white);
+  background: rgba(3, 3, 4, 0.75);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
 }
 
@@ -144,7 +197,7 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   font-size: 0.875rem;
-  color: var(--black);
+  color: var(--text);
   transition: color var(--transition-fast);
 }
 
@@ -169,27 +222,20 @@ a:hover {
   border: none;
   padding: var(--space-2);
   cursor: pointer;
+  color: var(--white);
 }
 
-.nav__toggle-bars,
-.nav__toggle-bars::before,
-.nav__toggle-bars::after {
+.nav__toggle .icon-close {
+  display: none;
+}
+
+.nav__toggle[aria-expanded="true"] .icon-open {
+  display: none;
+}
+
+.nav__toggle[aria-expanded="true"] .icon-close {
   display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--black);
-  position: relative;
 }
-
-.nav__toggle-bars::before,
-.nav__toggle-bars::after {
-  content: "";
-  position: absolute;
-  left: 0;
-}
-
-.nav__toggle-bars::before { top: -7px; }
-.nav__toggle-bars::after { top: 7px; }
 
 @media (max-width: 760px) {
   .nav__toggle {
@@ -204,7 +250,8 @@ a:hover {
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--white);
+    background: rgba(3, 3, 4, 0.97);
+    backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border);
     padding: var(--space-2) 0;
   }
@@ -240,7 +287,7 @@ a:hover {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.35) 55%, rgba(0, 0, 0, 0.15) 100%);
+  background: linear-gradient(0deg, rgba(3, 3, 4, 0.92) 0%, rgba(3, 3, 4, 0.45) 55%, rgba(3, 3, 4, 0.2) 100%);
   z-index: 0;
 }
 
@@ -264,7 +311,7 @@ a:hover {
 }
 
 .hero__lead {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(245, 244, 242, 0.8);
   font-size: var(--font-lead);
   max-width: 46ch;
   font-family: var(--font-body-family);
@@ -280,7 +327,7 @@ a:hover {
   margin: var(--space-5) 0 0;
 }
 
-/* Stat / readout row — bordered boxes, borrowed structurally from Watermelon's stat pills */
+/* Stat / readout row — bordered glass boxes, borrowed structurally from Watermelon's stat pills */
 .readout {
   display: flex;
   flex-wrap: wrap;
@@ -292,9 +339,26 @@ a:hover {
 
 .readout__item {
   flex: 1 1 160px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--glass);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sharp);
+  border-radius: var(--radius);
   padding: var(--space-3) var(--space-4);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.readout__item:hover {
+  border-color: rgba(235, 34, 39, 0.5);
+  box-shadow: var(--shadow-glow);
+}
+
+.readout__item .icon {
+  color: var(--red);
+  width: 28px;
+  height: 28px;
 }
 
 .readout__value {
@@ -302,7 +366,7 @@ a:hover {
   font-family: var(--font-display);
   font-weight: 800;
   font-size: var(--font-h3);
-  color: var(--red);
+  color: var(--white);
 }
 
 .readout__value .unit {
@@ -321,6 +385,50 @@ a:hover {
   font-weight: 600;
 }
 
+/* Marquee ticker */
+.ticker {
+  overflow: hidden;
+  background: var(--red);
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: ticker 26s linear infinite;
+}
+
+.ticker__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-5);
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 0.95rem;
+  color: var(--black);
+  white-space: nowrap;
+}
+
+.ticker__item .icon {
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track {
+    animation: none;
+  }
+}
+
 /* Fanned photo cluster — real club photography, tilted per Watermelon's scattered-card motif */
 .photo-cluster {
   position: relative;
@@ -334,18 +442,19 @@ a:hover {
   width: 220px;
   aspect-ratio: 4 / 3;
   border-radius: var(--radius-photo);
-  border: 4px solid var(--white);
+  border: 1px solid var(--border);
   box-shadow: var(--shadow-3);
   overflow: hidden;
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: flex-end;
-  transition: transform var(--transition-smooth), z-index 0s;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), z-index 0s;
 }
 
 .photo-card:hover {
   transform: translateY(-10px) rotate(0deg) scale(1.04) !important;
+  box-shadow: var(--shadow-glow);
   z-index: 5;
 }
 
@@ -408,12 +517,12 @@ a:hover {
 
 .btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-2);
+  box-shadow: var(--shadow-glow);
   text-decoration: none;
 }
 
 .btn--ghost {
-  border-color: var(--white);
+  border-color: rgba(255, 255, 255, 0.35);
   color: var(--white);
 }
 
@@ -423,28 +532,7 @@ a:hover {
   text-decoration: none;
 }
 
-/* On light sections, ghost buttons need dark borders */
-.section .btn--ghost {
-  border-color: var(--black);
-  color: var(--black);
-}
-
-.section .btn--ghost:hover {
-  border-color: var(--red);
-  color: var(--red);
-}
-
-.section--dark .btn--ghost {
-  border-color: var(--white);
-  color: var(--white);
-}
-
-.section--dark .btn--ghost:hover {
-  border-color: var(--red);
-  color: var(--red);
-}
-
-/* Cards */
+/* Cards — glass panels */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -452,47 +540,38 @@ a:hover {
 }
 
 .card {
-  background: var(--white);
+  background: var(--glass);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: var(--space-4);
   box-shadow: var(--shadow-1);
-  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-2);
+  border-color: rgba(235, 34, 39, 0.4);
+  box-shadow: var(--shadow-glow);
 }
 
 .card h3 {
   font-size: var(--font-h3);
 }
 
+.card .icon {
+  color: var(--red);
+  margin-bottom: var(--space-2);
+}
+
 /* Section */
 .section {
+  position: relative;
   padding: var(--space-7) 0;
 }
 
 .section--surface {
-  background: var(--off-white);
-}
-
-.section--dark {
-  background: var(--black);
-  color: var(--white);
-}
-
-.section--dark h2, .section--dark h3 {
-  color: var(--white);
-}
-
-.section--dark p {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.footer p {
-  color: inherit;
+  background: var(--surface);
 }
 
 .divider {
@@ -501,6 +580,10 @@ a:hover {
   gap: var(--space-3);
   color: var(--muted);
   margin: 0 0 var(--space-5);
+}
+
+.divider .icon {
+  color: var(--red);
 }
 
 .divider::before,
@@ -522,21 +605,29 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 700;
-  background: rgba(235, 34, 39, 0.12);
-  color: var(--red-dark);
+  background: rgba(235, 34, 39, 0.18);
+  color: #ff9297;
 }
 
 /* Footer */
 .footer {
   padding: var(--space-6) 0;
   background: var(--black);
-  color: rgba(255, 255, 255, 0.7);
+  border-top: 1px solid var(--border);
+  color: var(--muted);
   font-family: var(--font-body-family);
   font-size: var(--font-caption);
 }
 
+.footer p {
+  color: inherit;
+}
+
 .footer a {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
 }
 
 .footer a:hover {

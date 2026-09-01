@@ -1,18 +1,21 @@
 :root {
-  /* Colors — sampled from the club's real site (yarrariverdragons.com.au) */
-  --black: #000000;
+  /* Colors — the club's real black/red, tuned for a dark UI */
+  --black: #030304;
   --white: #ffffff;
-  --off-white: #f6f4f1;
+  --surface: #101012;
+  --surface-2: #18181b;
   --red: #eb2227;
   --red-dark: #b8161b;
-  --ink: #171717;
-  --muted: #6b6b6b;
-  --border: rgba(0, 0, 0, 0.12);
+  --red-glow: rgba(235, 34, 39, 0.45);
+  --text: #f5f4f2;
+  --muted: #9b9a9e;
+  --border: rgba(255, 255, 255, 0.1);
+  --glass: rgba(255, 255, 255, 0.045);
 
   /* Aliases used throughout main.css */
-  --color-bg: var(--white);
-  --color-surface: var(--off-white);
-  --color-text: var(--ink);
+  --color-bg: var(--black);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
   --color-text-muted: var(--muted);
   --color-primary: var(--red);
   --color-primary-dark: var(--red-dark);
@@ -45,13 +48,14 @@
 
   /* Radius */
   --radius-sharp: 3px;
-  --radius: 10px;
-  --radius-photo: 14px;
+  --radius: 14px;
+  --radius-photo: 16px;
 
   /* Elevation */
-  --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.16);
-  --shadow-3: 0 20px 48px rgba(0, 0, 0, 0.28);
+  --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-3: 0 20px 56px rgba(0, 0, 0, 0.65);
+  --shadow-glow: 0 0 0 1px rgba(235, 34, 39, 0.4), 0 8px 32px var(--red-glow);
 
   /* Motion */
   --transition-fast: 150ms ease;

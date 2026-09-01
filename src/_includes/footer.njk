@@ -1,11 +1,12 @@
+{% import "icon.njk" as ic %}
 <footer class="footer">
   <div class="container">
     <p>&copy; {{ year }} {{ site.clubName }}. Paddling the Yarra since day one.</p>
     <p>
-      <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      <a href="mailto:{{ site.email }}">{{ ic.icon("mail", 16) }} {{ site.email }}</a>
       {% if site.email == "TODO" %}<span class="placeholder-tag">content coming soon</span>{% endif %}
       &middot;
-      <a href="https://instagram.com/{{ site.instagramHandle }}" target="_blank" rel="noopener">@{{ site.instagramHandle }}</a>
+      <a href="https://instagram.com/{{ site.instagramHandle }}" target="_blank" rel="noopener">{{ ic.icon("brand-instagram", 16) }} @{{ site.instagramHandle }}</a>
     </p>
   </div>
 </footer>

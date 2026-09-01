@@ -1,0 +1,11 @@
+{% import "icon.njk" as ic %}
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    {% for i in range(0, 2) %}
+    <span class="ticker__item">{{ ic.icon("activity", 16) }} Open trial &mdash; first month free</span>
+    <span class="ticker__item">{{ ic.icon("sailboat", 16) }} On the water since 2016</span>
+    <span class="ticker__item">{{ ic.icon("users", 16) }} No experience needed</span>
+    <span class="ticker__item">{{ ic.icon("map-pin", 16) }} Paddle the Yarra, Melbourne</span>
+    {% endfor %}
+  </div>
+</div>
