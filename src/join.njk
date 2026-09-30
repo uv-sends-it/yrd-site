@@ -24,6 +24,38 @@ permalink: /join/
 
 <section class="section section--surface">
   <div class="container">
+    <div class="divider mono-label">{{ ic.icon("sailboat", 16) }} Your first session</div>
+    <ol class="first-session">
+      <li class="first-session__step reveal">
+        <span class="first-session__number">01</span>
+        <span class="first-session__icon">{{ ic.icon("calendar-event", 24) }}</span>
+        <h3>Get your Dragon Pass</h3>
+        <p>Register once online. Your first month of club training is free.</p>
+      </li>
+      <li class="first-session__step reveal">
+        <span class="first-session__number">02</span>
+        <span class="first-session__icon">{{ ic.icon("map-pin", 24) }}</span>
+        <h3>Meet the crew</h3>
+        <p>Come to the Yarra in clothes you can move and get wet in. Bring water and a towel.</p>
+      </li>
+      <li class="first-session__step reveal">
+        <span class="first-session__number">03</span>
+        <span class="first-session__icon">{{ ic.icon("sailboat", 24) }}</span>
+        <h3>We sort the gear</h3>
+        <p>We provide the boat, paddle and PFD, then show you the basics before you launch.</p>
+      </li>
+      <li class="first-session__step reveal">
+        <span class="first-session__number">04</span>
+        <span class="first-session__icon">{{ ic.icon("users", 24) }}</span>
+        <h3>Paddle as a crew</h3>
+        <p>No experience needed. Follow the stroke, learn the rhythm and see how it feels.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
     <div class="divider mono-label">{{ ic.icon("map-pin", 16) }} Where we train</div>
     <p>{{ site.location }}
       {% if site.location.includes("TODO") %}<span class="placeholder-tag">content coming soon</span>{% endif %}
@@ -31,9 +63,19 @@ permalink: /join/
   </div>
 </section>
 
-<section class="section">
+<section class="section section--surface">
   <div class="container">
-    <div class="divider mono-label">{{ ic.icon("clock", 16) }} Training schedule</div>
+    <div class="section-heading-row">
+      <div class="divider mono-label">{{ ic.icon("clock", 16) }} Training schedule</div>
+      <a class="btn btn--calendar" href="{{ site.calendarSubscriptionHelpUrl }}" target="_blank" rel="noopener">
+        {{ ic.icon("calendar-event", 18) }} Subscribe to calendar
+      </a>
+    </div>
+    <p class="calendar-note">
+      Add YRD's public events to Apple Calendar, Google Calendar or Outlook and they will keep syncing as Team App changes.
+      Members can subscribe from Team App for any access-group events that are not public.
+    </p>
+    <div class="table-wrap">
     <table>
       <thead>
         <tr><th>Day</th><th>Time</th><th>Notes</th></tr>
@@ -48,11 +90,12 @@ permalink: /join/
         {% endfor %}
       </tbody>
     </table>
+    </div>
     <span class="placeholder-tag">content coming soon</span>
   </div>
 </section>
 
-<section class="section section--surface">
+<section class="section">
   <div class="container">
     <div class="divider mono-label">Resources</div>
     <div class="card-grid">

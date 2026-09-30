@@ -14,8 +14,19 @@ permalink: /gallery/
 
 <section class="section">
   <div class="container">
-    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/{{ site.instagramHandle }}/" data-instgrm-version="14"></blockquote>
+    <div class="gallery-panel">
+      <div class="gallery-panel__intro">
+        <span class="mono-label">Club feed</span>
+        <h2>Life on the water.</h2>
+        <p>Training sessions, race days and crew moments from Yarra River Dragons.</p>
+      </div>
+      <div class="gallery-panel__embed">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/{{ site.instagramHandle }}/" data-instgrm-version="14"></blockquote>
+      </div>
+      <div class="gallery-panel__action">
+        <a class="btn btn--primary" href="https://instagram.com/{{ site.instagramHandle }}" target="_blank" rel="noopener">{{ ic.icon("brand-instagram", 16) }} Follow @{{ site.instagramHandle }} {{ ic.icon("arrow-right", 16) }}</a>
+      </div>
+    </div>
     <script async src="//www.instagram.com/embed.js"></script>
-    <p><a href="https://instagram.com/{{ site.instagramHandle }}" target="_blank" rel="noopener">{{ ic.icon("brand-instagram", 16) }} @{{ site.instagramHandle }} on Instagram {{ ic.icon("arrow-right", 16) }}</a></p>
   </div>
 </section>

@@ -1,0 +1,49 @@
+name: UI checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Install Playwright test runner
+        run: npm install --no-save --package-lock=false @playwright/test@1.63.0
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Interaction and responsive checks
+        run: npx playwright test tests/site.spec.js
+
+      - name: Restore visual baseline
+        id: visual-baseline
+        uses: actions/cache@v4
+        with:
+          path: tests/**/*-snapshots
+          key: yrd-visual-baseline-${{ runner.os }}-v1
+
+      - name: Establish visual baseline
+        if: steps.visual-baseline.outputs.cache-hit != 'true'
+        run: npx playwright test tests/visual.spec.js --update-snapshots
+
+      - name: Compare visual baseline
+        if: steps.visual-baseline.outputs.cache-hit == 'true'
+        run: npx playwright test tests/visual.spec.js
+
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          if-no-files-found: ignore

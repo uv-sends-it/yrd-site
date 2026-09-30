@@ -18,7 +18,7 @@ permalink: /about/
 </section>
 
 <section class="section section--surface">
-  <div class="container">
+  <div class="container club-note">
     <p>
       We acknowledge the Traditional Owners of the land on which we train, the Wurundjeri
       people of the Kulin Nation, and pay our respects to Elders past and present.
@@ -33,7 +33,7 @@ permalink: /about/
   <div class="container">
     <div class="divider mono-label">{{ ic.icon("users", 16) }} Crew categories</div>
     <p>TODO: confirm categories <span class="placeholder-tag">content coming soon</span></p>
-    <div class="card-grid">
+    <div class="card-grid card-grid--crew">
       <div class="card reveal"><h3>Open</h3></div>
       <div class="card reveal"><h3>Mixed</h3></div>
       <div class="card reveal"><h3>Women's</h3></div>
@@ -45,7 +45,7 @@ permalink: /about/
 <section class="section section--surface">
   <div class="container">
     <div class="divider mono-label">{{ ic.icon("users", 16) }} Committee</div>
-    <div class="card-grid">
+    <div class="card-grid card-grid--people">
       {% for member in committee %}
       <div class="card reveal">
         <span class="mono-label" style="color: var(--red)">{{ member.role }}</span>
@@ -61,7 +61,7 @@ permalink: /about/
 <section class="section">
   <div class="container">
     <div class="divider mono-label">{{ ic.icon("trophy", 16) }} Our sponsors</div>
-    <div class="card-grid">
+    <div class="card-grid card-grid--sponsors">
       {% for sponsor in sponsors %}
       <div class="card reveal">
         <h3>{{ sponsor.name }}</h3>

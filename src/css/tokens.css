@@ -1,19 +1,21 @@
 :root {
-  /* Colors — the club's real black/red, tuned for a dark UI */
-  --black: #030304;
+  /* Colors — club black/red identity on a warm light canvas */
+  --black: #111113;
   --white: #ffffff;
-  --surface: #101012;
-  --surface-2: #18181b;
+  --surface: #f7f5f2;
+  --surface-2: #efede9;
   --red: #eb2227;
   --red-dark: #b8161b;
-  --red-glow: rgba(235, 34, 39, 0.45);
-  --text: #f5f4f2;
-  --muted: #9b9a9e;
-  --border: rgba(255, 255, 255, 0.1);
-  --glass: rgba(255, 255, 255, 0.045);
+  --red-glow: rgba(235, 34, 39, 0.18);
+  --text: #19191c;
+  --muted: #66656b;
+  --border: rgba(17, 17, 19, 0.12);
+  --glass: rgba(255, 255, 255, 0.90);
+  --red-soft: rgba(235, 34, 39, 0.08);
+  --border-strong: rgba(17, 17, 19, 0.20);
 
   /* Aliases used throughout main.css */
-  --color-bg: var(--black);
+  --color-bg: var(--white);
   --color-surface: var(--surface);
   --color-text: var(--text);
   --color-text-muted: var(--muted);
@@ -46,16 +48,22 @@
   --space-7: 64px;
   --space-8: 96px;
 
+  /* Layout */
+  --container: 1120px;
+  --container-narrow: 760px;
+  --touch-target: 48px;
+
   /* Radius */
   --radius-sharp: 3px;
   --radius: 14px;
   --radius-photo: 16px;
 
   /* Elevation */
-  --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.5);
-  --shadow-3: 0 20px 56px rgba(0, 0, 0, 0.65);
-  --shadow-glow: 0 0 0 1px rgba(235, 34, 39, 0.4), 0 8px 32px var(--red-glow);
+  --shadow-1: 0 1px 3px rgba(17, 17, 19, 0.08);
+  --shadow-2: 0 8px 24px rgba(17, 17, 19, 0.12);
+  --shadow-3: 0 20px 56px rgba(17, 17, 19, 0.18);
+  --shadow-card: 0 10px 30px rgba(17, 17, 19, 0.08);
+  --shadow-glow: 0 0 0 1px rgba(235, 34, 39, 0.18), 0 10px 30px var(--red-glow);
 
   /* Motion */
   --transition-fast: 150ms ease;

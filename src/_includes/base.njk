@@ -5,24 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }} — {{ site.clubName }}</title>
   <meta name="description" content="{{ site.tagline }}">
+  <link rel="alternate" type="text/calendar" title="{{ site.clubName }} public events" href="{{ site.calendarPublicFeedUrl }}">
   <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   {% include "nav.njk" %}
   {% include "ticker.njk" %}
   <script>
     (function () {
       var toggle = document.querySelector(".nav__toggle");
       var links = document.getElementById("nav-links");
+      if (!toggle || !links) return;
+
+      function closeMenu(returnFocus) {
+        links.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+        if (returnFocus) toggle.focus();
+      }
+
       toggle.addEventListener("click", function () {
         var open = links.classList.toggle("is-open");
-        toggle.setAttribute("aria-expanded", open);
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+
+      links.addEventListener("click", function (event) {
+        if (event.target.closest("a")) closeMenu(false);
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && links.classList.contains("is-open")) {
+          closeMenu(true);
+        }
       });
     })();
   </script>
-  <main>
+  <main id="main-content">
     {{ content | safe }}
   </main>
+  <a class="mobile-join-cta" href="{{ site.dragonPassUrl }}" target="_blank" rel="noopener" data-mobile-join-cta>
+    <span>Try dragon boating free</span>
+    <span aria-hidden="true">&rarr;</span>
+  </a>
   {% include "footer.njk" %}
   <script>
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -48,6 +72,15 @@
       document.querySelectorAll(".reveal").forEach(function (el) {
         el.classList.add("is-visible");
       });
+    }
+
+    var mobileJoinCta = document.querySelector("[data-mobile-join-cta]");
+    var hero = document.querySelector(".hero");
+    if (mobileJoinCta && hero && "IntersectionObserver" in window) {
+      var heroObserver = new IntersectionObserver(function (entries) {
+        mobileJoinCta.classList.toggle("is-visible", !entries[0].isIntersecting);
+      }, { threshold: 0 });
+      heroObserver.observe(hero);
     }
 
     // Signature detail: stroke-rate readout drifts within a real racing range (60-72 SPM).
