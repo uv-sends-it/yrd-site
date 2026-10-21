@@ -4,7 +4,14 @@
   "bridgeLine": "No experience needed — we train paddlers from scratch.",
   "dragonPassUrl": "https://revolutionise.com.au/yarrariver/registration/",
   "teamAppUrl": "https://yrd.teamapp.com/?_webpage=v1",
+  "calendarSubscriptionHelpUrl": "https://yrd.teamapp.com/events_subscriptions/help",
+  "calendarPublicFeedUrl": "https://icalendar.teamapp.com/clubs/52473/events_subscriptions.ics?non_member=public_events_only",
   "instagramHandle": "yarrariverdragons",
-  "location": "Yarra River, Melbourne — TODO: confirm exact launch site",
-  "email": "TODO"
+  "location": "Community Boating Hub @ the Dock, 912 Collins Street, Docklands VIC 3008",
+  "email": "admin@yarrariverdragons.com.au",
+  "umamiScriptUrl": "https://cloud.umami.is/script.js",
+  "umamiWebsiteId": "156a89dc-389b-4073-aefd-b636c16cd3b0",
+  "contactFormEndpoint": "https://formsubmit.co/ajax/admin@yarrariverdragons.com.au",
+  "canonicalUrl": "https://yarrariverdragons.com.au",
+  "chatModelId": "onnx-community/Llama-3.2-1B-Instruct-q4f16"
 }

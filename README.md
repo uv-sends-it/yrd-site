@@ -18,16 +18,72 @@ npm run build
 Output goes to `_site/`. Pushing to `main` deploys automatically via GitHub Actions
 (`.github/workflows/deploy.yml`) to GitHub Pages.
 
+## Production domain
+
+The Pages build is configured for the production root domain:
+
+`https://yarrariverdragons.com.au`
+
+The old repository path prefix (`/yrd-site/`) is deliberately not used in production.
+The repository uses a custom GitHub Actions Pages workflow, so GitHub's custom-domain setting
+is authoritative and a repository `CNAME` file is neither required nor used.
+
+Before changing DNS at VentraIP:
+
+1. Open **Repository Settings → Pages**.
+2. Set **Custom domain** to `yarrariverdragons.com.au`.
+3. Save it and leave the DNS check pending.
+4. Then change only the website DNS records at VentraIP.
+5. Once DNS passes in GitHub Pages, enable **Enforce HTTPS**.
+
+For the apex domain use GitHub Pages' current `A` records, and point `www` by CNAME to
+`uv-sends-it.github.io`. Do not modify mail-related MX, SPF, DKIM or DMARC records.
+
 ## Content
 
 Editable data lives in `content/*.json`. Anything still marked `"TODO"` renders with a
 visible "content coming soon" tag on the site — replace the value to make it live.
 
-Newsletter issues: see [CONTRIBUTING.md](./CONTRIBUTING.md).
+No public newsletter archive is currently exposed on the site.
+
+Design rules and the rationale behind the visual system live in [DESIGN.md](./DESIGN.md).
+
+## UI checks
+
+GitHub Actions runs Playwright interaction, responsive-layout and visual-regression checks.
+The workflow installs Playwright without adding it to the production dependency graph.
+
+For local browser checks:
+
+```
+npm install --no-save --package-lock=false @playwright/test@1.63.0
+npx playwright install chromium
+npx playwright test tests/site.spec.js
+```
+
+The first CI run establishes the cached visual baseline. When an intentional redesign should
+become the new baseline, increment the visual baseline version in
+`.github/workflows/ui-tests.yml`.
+
+## Calendar subscriptions
+
+The public website links to Team App's calendar subscription helper and advertises only the
+`non_member=public_events_only` feed. Never commit a member-specific Team App calendar URL
+containing a `secret=` parameter; those URLs are scoped to that member's access groups.
 
 ## Deferred to v1.1
 
 - Admin content editor (Decap/Tina CMS)
-- Structured `races.json` extracted from newsletters
 - Home page stat strip and member testimonials
-- Standalone blog/news section
+
+## Local chat fallback
+
+Ask YRD uses a two-layer approach:
+
+1. Reviewed FAQ matches answer common visitor questions immediately.
+2. A local Llama 3.2 1B Instruct q4f16 model is used only for unmatched questions on browsers
+   with WebGPU. It receives only the current question plus reviewed YRD facts.
+
+The local model is lazy-loaded, so it does not affect normal page load or common FAQ replies.
+It is constrained to short answers and may return `NEED_CONTACT`; unsupported browsers go
+straight to the contact fallback.

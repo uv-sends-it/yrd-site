@@ -48,17 +48,12 @@ layout: base.njk
 
 <section class="section section--surface">
   <div class="glow-field"></div>
-  <div class="container card-grid">
+  <div class="container card-grid home-grid">
     <div class="card reveal">
-      {{ ic.icon("calendar-event", 22) }}
-      <span class="mono-label" style="color: var(--red); display: block; margin-top: var(--space-2)">Latest from the club</span>
-      {% if newsletters.length %}
-        {% set latest = newsletters[0] %}
-        <h3>{{ latest.month }}/{{ latest.year }} newsletter</h3>
-        <a href="{{ latest.url | url }}">Read it here {{ ic.icon("arrow-right", 16) }}</a>
-      {% else %}
-        <h3>Newsletter archive coming soon</h3>
-      {% endif %}
+      {{ ic.icon("map-pin", 22) }}
+      <span class="mono-label" style="color: var(--red); display: block; margin-top: var(--space-2)">Your first Saturday</span>
+      <h3>Arrive by 8:00 am</h3>
+      <p>We’ll get you inducted and fitted with a PFD before the 8:15 am session starts.</p>
     </div>
     <div class="card reveal">
       {{ ic.icon("clock", 22) }}
@@ -66,7 +61,6 @@ layout: base.njk
       {% set next = schedule.sessions[0] %}
       <h3>{{ next.day }} &middot; {{ next.time }}</h3>
       <p>{{ next.notes }}</p>
-      <span class="placeholder-tag">content coming soon</span>
     </div>
   </div>
 </section>

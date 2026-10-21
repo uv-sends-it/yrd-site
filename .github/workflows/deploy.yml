@@ -19,11 +19,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
+
       - run: npm ci
-      - run: npx eleventy --pathprefix="/${{ github.event.repository.name }}/"
+
+      - name: Build for yarrariverdragons.com.au
+        run: npm run build
+
+      - name: Verify root-domain build
+        run: |
+          test -f _site/index.html
+          grep -q 'href="/css/main.css"' _site/index.html
+          grep -q 'https://yarrariverdragons.com.au' _site/index.html
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
