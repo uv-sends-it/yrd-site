@@ -1,6 +1,26 @@
 [
-  { "name": "TODO", "role": "President", "email": "TODO" },
-  { "name": "TODO", "role": "Vice President", "email": "TODO" },
-  { "name": "TODO", "role": "Treasurer", "email": "TODO" },
-  { "name": "TODO", "role": "Secretary", "email": "TODO" }
+  {
+    "name": "Andrew Gilovitch",
+    "role": "President"
+  },
+  {
+    "name": "Clement Lo",
+    "role": "Vice President"
+  },
+  {
+    "name": "Derek Eer",
+    "role": "Treasurer"
+  },
+  {
+    "name": "Roise Elle Brown",
+    "role": "General"
+  },
+  {
+    "name": "Patrick Myer",
+    "role": "General"
+  },
+  {
+    "name": "Damien Wadsworth",
+    "role": "General"
+  }
 ]
