@@ -46,9 +46,10 @@ permalink: /about/
     <div class="card-grid card-grid--people">
       {% for member in committee %}
       <div class="card reveal">
+        {% if member.photo %}<img class="committee-photo" src="{{ member.photo | url }}" alt="Portrait of {{ member.name }}" loading="lazy">{% endif %}
         <span class="mono-label" style="color: var(--red)">{{ member.role }}</span>
         <h3>{{ member.name }}</h3>
-        <a href="mailto:{{ member.email }}">{{ ic.icon("mail", 16) }} {{ member.email }}</a>
+        {% if member.email %}<a href="mailto:{{ member.email }}">{{ ic.icon("mail", 16) }} {{ member.email }}</a>{% endif %}
         {% if member.name == "TODO" %}<span class="placeholder-tag">content coming soon</span>{% endif %}
       </div>
       {% endfor %}
