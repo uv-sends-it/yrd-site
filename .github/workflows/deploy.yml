@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Monday and Thursday mornings in Melbourne (about 8–9am depending on daylight saving).
+    - cron: "0 22 * * 0,3"
 
 permissions:
   contents: read
@@ -17,13 +20,42 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      TZ: Australia/Melbourne
     steps:
       - uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
+
       - run: npm ci
-      - run: npx eleventy --pathprefix="/${{ github.event.repository.name }}/"
+
+      - name: Sync next session from private TeamApp calendar
+        env:
+          TEAMAPP_PRIVATE_ICS_URL: ${{ secrets.TEAMAPP_PRIVATE_ICS_URL }}
+        run: |
+          if [ -z "$TEAMAPP_PRIVATE_ICS_URL" ]; then
+            echo "TEAMAPP_PRIVATE_ICS_URL is not configured; using repository fallback schedule."
+            exit 0
+          fi
+          mkdir -p .tmp
+          curl --fail --silent --show-error --location "$TEAMAPP_PRIVATE_ICS_URL" -o .tmp/teamapp.ics
+          node scripts/sync-teamapp-schedule.mjs .tmp/teamapp.ics content/schedule.json
+
+      - name: Build for yarrariverdragons.com.au
+        run: npm run build
+
+      - name: Verify root-domain build
+        run: |
+          test -f _site/index.html
+          grep -q 'href="/css/main.css"' _site/index.html
+          grep -q 'https://yarrariverdragons.com.au' _site/index.html
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

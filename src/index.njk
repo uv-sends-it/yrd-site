@@ -33,8 +33,8 @@ layout: base.njk
   <div class="readout__item">
     {{ ic.icon("calendar-event", 28) }}
     <span>
-      <span class="readout__value">{{ schedule.sessions[0].day }}</span>
-      <span class="readout__label">Next session</span>
+      <span class="readout__value">1 month</span>
+      <span class="readout__label">Free trial</span>
     </span>
   </div>
   <div class="readout__item">
@@ -48,25 +48,24 @@ layout: base.njk
 
 <section class="section section--surface">
   <div class="glow-field"></div>
-  <div class="container card-grid">
+  <div class="container card-grid home-grid">
     <div class="card reveal">
-      {{ ic.icon("calendar-event", 22) }}
-      <span class="mono-label" style="color: var(--red); display: block; margin-top: var(--space-2)">Latest from the club</span>
-      {% if newsletters.length %}
-        {% set latest = newsletters[0] %}
-        <h3>{{ latest.month }}/{{ latest.year }} newsletter</h3>
-        <a href="{{ latest.url | url }}">Read it here {{ ic.icon("arrow-right", 16) }}</a>
+      {{ ic.icon("clock", 22) }}
+      <span class="mono-label" style="color: var(--red); display: block; margin-top: var(--space-2)">Next session</span>
+      {% set next = schedule.sessions[0] %}
+      {% if next.cancelled %}
+      <h3>Session cancelled</h3>
+      <p>Check TeamApp or Facebook for the latest update.</p>
       {% else %}
-        <h3>Newsletter archive coming soon</h3>
+      <h3>{{ next.day }} &middot; {{ next.time }}</h3>
+      <p>{{ next.notes }}</p>
       {% endif %}
     </div>
     <div class="card reveal">
-      {{ ic.icon("clock", 22) }}
-      <span class="mono-label" style="color: var(--red); display: block; margin-top: var(--space-2)">Next on the water</span>
-      {% set next = schedule.sessions[0] %}
-      <h3>{{ next.day }} &middot; {{ next.time }}</h3>
-      <p>{{ next.notes }}</p>
-      <span class="placeholder-tag">content coming soon</span>
+      {{ ic.icon("map-pin", 22) }}
+      <span class="mono-label" style="color: var(--red); display: block; margin-top: var(--space-2)">Where we paddle</span>
+      <h3>Community Boating Hub</h3>
+      <p>912 Collins Street, Docklands.</p>
     </div>
   </div>
 </section>

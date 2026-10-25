@@ -1,0 +1,311 @@
+{
+  "updated": "2026-10-21",
+  "style": {
+    "maxSentences": 2,
+    "maxWords": 45,
+    "language": "Australian English",
+    "rules": [
+      "Answer the question first.",
+      "Use short, plain sentences.",
+      "Do not add background unless it helps the user act.",
+      "Do not pretend to have feelings, plans or personal experiences.",
+      "If the answer is not in this file, offer the contact form."
+    ]
+  },
+  "facts": [
+    {
+      "id": "dragon_boating",
+      "patterns": [
+        "what is dragon boating",
+        "what's dragon boating",
+        "whats dragon boating",
+        "what is a dragon boat",
+        "what do you do in dragon boating"
+      ],
+      "keywords": [
+        "dragon boating",
+        "dragon boat"
+      ],
+      "answer": "Dragon boating is a team paddling sport. A crew paddles one long boat together, usually to a drummer’s rhythm. Beginners are welcome at YRD."
+    },
+    {
+      "id": "swimming",
+      "patterns": [
+        "i can't swim",
+        "i cannot swim",
+        "i don't know how to swim",
+        "do i need to swim",
+        "can't swim",
+        "not a swimmer"
+      ],
+      "keywords": [
+        "swim",
+        "swimming",
+        "pfd",
+        "lifejacket"
+      ],
+      "answer": "You can still come and try. We provide a PFD. Tell the crew before your session if you can’t swim or feel unsure in the water.",
+      "action": {
+        "type": "contact",
+        "label": "Tell the crew"
+      }
+    },
+    {
+      "id": "signup",
+      "patterns": [
+        "how do i sign up",
+        "how can i sign up",
+        "how do i register",
+        "where do i register",
+        "how to join",
+        "dragon pass"
+      ],
+      "keywords": [
+        "signup",
+        "register",
+        "registration",
+        "dragon pass"
+      ],
+      "answer": "Get a Dragon Pass online. Your first month is free.",
+      "action": {
+        "type": "link",
+        "label": "Get your Dragon Pass",
+        "href": "https://revolutionise.com.au/yarrariver/registration/"
+      }
+    },
+    {
+      "id": "rock_up",
+      "patterns": [
+        "can i just rock up",
+        "can i just show up",
+        "can i turn up",
+        "do i need to book",
+        "do i need to register first"
+      ],
+      "keywords": [
+        "rock up",
+        "show up",
+        "book",
+        "booking"
+      ],
+      "answer": "Please register first with a Dragon Pass. New paddlers should arrive by 8:00 am.",
+      "action": {
+        "type": "link",
+        "label": "Register",
+        "href": "https://revolutionise.com.au/yarrariver/registration/"
+      }
+    },
+    {
+      "id": "gear",
+      "patterns": [
+        "what should i bring",
+        "what do i bring",
+        "what gear do i need",
+        "do i need a paddle",
+        "do i need a life jacket"
+      ],
+      "keywords": [
+        "bring",
+        "gear",
+        "paddle",
+        "pfd",
+        "towel",
+        "sunscreen"
+      ],
+      "answer": "Wear clothes and shoes that can get wet. Bring water, a towel and sun protection. We provide the paddle and PFD."
+    },
+    {
+      "id": "location",
+      "patterns": [
+        "where are you",
+        "where do you train",
+        "where is training",
+        "what is the address",
+        "where is the club"
+      ],
+      "keywords": [
+        "location",
+        "address",
+        "docklands",
+        "912 collins"
+      ],
+      "answer": "We train at the Community Boating Hub @ the Dock, 912 Collins Street, Docklands."
+    },
+    {
+      "id": "schedule",
+      "patterns": [
+        "when do you train",
+        "what time is training",
+        "training times",
+        "training schedule",
+        "next session",
+        "when is the next session"
+      ],
+      "keywords": [
+        "schedule",
+        "training time",
+        "next session"
+      ],
+      "answer": "The next session is Saturday at 8:15 am. New paddlers should arrive by 8:00 am.",
+      "action": {
+        "type": "link",
+        "label": "View schedule",
+        "href": "/join/"
+      }
+    },
+    {
+      "id": "beginner",
+      "patterns": [
+        "i have never paddled",
+        "no experience",
+        "is it for beginners",
+        "do i need to be fit",
+        "i'm not fit",
+        "never done this"
+      ],
+      "keywords": [
+        "beginner",
+        "beginners",
+        "no experience",
+        "fitness"
+      ],
+      "answer": "Yes, beginners are welcome. You don’t need paddling experience."
+    },
+    {
+      "id": "trial_cost",
+      "patterns": [
+        "is it free",
+        "how much does it cost",
+        "what does it cost",
+        "trial cost",
+        "first month free",
+        "membership cost",
+        "how much is membership"
+      ],
+      "keywords": [
+        "cost",
+        "price",
+        "fee",
+        "fees",
+        "membership"
+      ],
+      "answer": "Your first month is free. 2026/27 annual memberships are Adult $375, Junior $296, Student $296 and Two States $135.",
+      "action": {
+        "type": "link",
+        "label": "Dragon Pass details",
+        "href": "https://yarrariverdragons.com.au/come-and-try/dragon-pass/"
+      }
+    },
+    {
+      "id": "parking_transport",
+      "patterns": [
+        "is there parking",
+        "where can i park",
+        "how do i get there",
+        "which tram"
+      ],
+      "keywords": [
+        "parking",
+        "tram",
+        "transport"
+      ],
+      "answer": "Trams 11 and 48 stop nearby at D18, Victoria Harbour. Parking is available around the Hub and near Woolworths on Seafarers Lane."
+    },
+    {
+      "id": "calendar",
+      "patterns": [
+        "can i subscribe to the calendar",
+        "calendar subscription",
+        "add schedule to calendar",
+        "ical",
+        "ics"
+      ],
+      "keywords": [
+        "calendar",
+        "subscribe",
+        "ical",
+        "ics"
+      ],
+      "answer": "Yes. Use “Subscribe to calendar” on the Join page.",
+      "action": {
+        "type": "link",
+        "label": "Open schedule",
+        "href": "/join/"
+      }
+    },
+    {
+      "id": "facilities",
+      "patterns": [
+        "are there toilets",
+        "is there a toilet",
+        "are there showers",
+        "can i shower",
+        "are there change rooms",
+        "can i get changed",
+        "are there lockers",
+        "is there storage"
+      ],
+      "keywords": [
+        "toilet",
+        "toilets",
+        "shower",
+        "showers",
+        "change room",
+        "lockers",
+        "storage",
+        "facilities"
+      ],
+      "answer": "Yes. The Hub has toilets, change rooms, showers and lockers/storage."
+    },
+    {
+      "id": "health_accessibility",
+      "patterns": [
+        "i have an injury",
+        "i have a medical condition",
+        "is it accessible",
+        "i have a disability",
+        "can you accommodate me",
+        "health condition"
+      ],
+      "keywords": [
+        "injury",
+        "medical condition",
+        "accessibility",
+        "disability"
+      ],
+      "answer": "Tell the crew about any injury, medical condition or accessibility need before training. We’ll work out what is suitable with you.",
+      "action": {
+        "type": "contact",
+        "label": "Tell the crew"
+      }
+    },
+    {
+      "id": "cancellation",
+      "patterns": [
+        "what if training is cancelled",
+        "how do i know if training is cancelled",
+        "does training get cancelled",
+        "what about bad weather",
+        "is training on if it rains"
+      ],
+      "keywords": [
+        "cancelled",
+        "cancellation",
+        "bad weather",
+        "rain",
+        "storm",
+        "lightning"
+      ],
+      "answer": "Check TeamApp or the YRD Facebook page if conditions look uncertain. Session cancellations will be posted there."
+    }
+  ],
+  "modelRules": [
+    "Use only the supplied YRD facts plus a basic definition of dragon boating.",
+    "Answer only the current question. Do not continue or invent a conversation.",
+    "Use Australian English.",
+    "Use at most two short sentences and 40 words.",
+    "Answer directly. Do not introduce yourself.",
+    "Do not claim feelings, plans, experiences or personal opinions.",
+    "If the facts do not support the answer, return exactly NEED_CONTACT."
+  ]
+}

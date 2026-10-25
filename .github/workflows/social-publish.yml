@@ -1,0 +1,47 @@
+name: Social content handoff
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/newsletters/**"
+      - "content/social/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    env:
+      SITE_URL: https://yarrariverdragons.com.au
+      BEFORE_SHA: ${{ github.event.before }}
+      AFTER_SHA: ${{ github.sha }}
+      ACTIVEPIECES_SOCIAL_WEBHOOK_URL: ${{ secrets.ACTIVEPIECES_SOCIAL_WEBHOOK_URL }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build promotion payload
+        run: node scripts/build-social-payload.mjs > social-payload.json
+
+      - name: Show planned handoff
+        run: cat social-payload.json
+
+      - name: Send to Activepieces
+        if: env.ACTIVEPIECES_SOCIAL_WEBHOOK_URL != ''
+        run: |
+          curl --fail-with-body --silent --show-error \
+            -H "Content-Type: application/json" \
+            --data-binary @social-payload.json \
+            "$ACTIVEPIECES_SOCIAL_WEBHOOK_URL"
+
+      - name: Explain inactive automation
+        if: env.ACTIVEPIECES_SOCIAL_WEBHOOK_URL == ''
+        run: echo "Social automation is ready but inactive. Add the ACTIVEPIECES_SOCIAL_WEBHOOK_URL repository secret after creating the approval workflow."

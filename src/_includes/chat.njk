@@ -1,0 +1,76 @@
+<div class="chatbot"
+  data-chatbot
+  data-assistant-url="{{ '/assets/assistant.json' | url }}"
+  data-contact-endpoint="{{ site.contactFormEndpoint }}"
+  data-contact-email="{{ site.email }}"
+  data-model-id="{{ site.chatModelId }}">
+  <button class="chatbot__launcher" type="button" aria-expanded="false" aria-controls="yrd-chat-panel" data-chat-open>
+    <span class="chatbot__launcher-icon" aria-hidden="true">?</span>
+    <span>Ask YRD</span>
+  </button>
+
+  <section class="chatbot__panel" id="yrd-chat-panel" role="dialog" aria-labelledby="yrd-chat-title" hidden data-chat-panel>
+    <header class="chatbot__header">
+      <div>
+        <strong id="yrd-chat-title">Ask YRD</strong>
+        <span>Quick answers for new paddlers</span>
+      </div>
+      <button class="chatbot__close" type="button" aria-label="Close chat" data-chat-close>&times;</button>
+    </header>
+
+    <div class="chatbot__messages" aria-live="polite" aria-relevant="additions text" data-chat-messages>
+      <div class="chat-message chat-message--bot">
+        Hi! Ask me anything about trying dragon boating.
+      </div>
+    </div>
+
+    <div class="chatbot__quick" data-chat-quick>
+      <button type="button" data-chat-prompt="I don't know how to swim. What should I do?">I can't swim</button>
+      <button type="button" data-chat-prompt="How do I sign up?">How do I sign up?</button>
+      <button type="button" data-chat-prompt="Can I just rock up?">Can I just rock up?</button>
+      <button type="button" data-chat-prompt="What should I bring?">What should I bring?</button>
+    </div>
+
+    <form class="chatbot__ask" data-chat-form>
+      <label class="sr-only" for="yrd-chat-question">Ask YRD a question</label>
+      <input id="yrd-chat-question" name="question" type="text" autocomplete="off" maxlength="240"
+        placeholder="Ask a question…" required data-chat-input>
+      <button type="submit" aria-label="Send question">&rarr;</button>
+    </form>
+
+    <div class="chatbot__contact-prompt" data-chat-contact-prompt>
+      <span>Still unsure?</span>
+      <button type="button" data-chat-contact>Contact the crew</button>
+    </div>
+
+    <form class="chatbot__contact" hidden data-contact-form>
+      <div class="chatbot__contact-heading">
+        <div>
+          <strong>Contact the crew</strong>
+          <span>Send a quick message to YRD.</span>
+        </div>
+        <button type="button" aria-label="Back to chat" data-contact-back>&times;</button>
+      </div>
+
+      <label>
+        <span>Name</span>
+        <input type="text" name="name" autocomplete="name" maxlength="80" required>
+      </label>
+      <label>
+        <span>Email</span>
+        <input type="email" name="email" autocomplete="email" maxlength="120" required>
+      </label>
+      <label>
+        <span>Query or feedback</span>
+        <textarea name="message" rows="4" maxlength="1000" required data-contact-message></textarea>
+      </label>
+      <input class="chatbot__honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn btn--primary chatbot__contact-submit" type="submit">Send to YRD &rarr;</button>
+      <p class="chatbot__form-status" role="status" data-contact-status></p>
+    </form>
+
+    <p class="chatbot__privacy">
+      Answers use YRD club info. Contact details are only sent if you submit the form.
+    </p>
+  </section>
+</div>

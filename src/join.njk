@@ -24,6 +24,59 @@ permalink: /join/
 
 <section class="section section--surface">
   <div class="container">
+    {% set next = schedule.sessions[0] %}
+    <div class="session-callout reveal">
+      <div>
+        <span class="mono-label" style="color: var(--red)">Next session</span>
+        {% if next.cancelled %}
+        <h2>Session cancelled</h2>
+        <p>Check TeamApp or Facebook for the latest update.</p>
+        {% else %}
+        <h2>{{ next.day }} &middot; {{ next.time }}</h2>
+        <p>{{ next.notes }}</p>
+        {% endif %}
+      </div>
+      <a class="btn btn--calendar" href="{{ site.teamAppUrl }}" target="_blank" rel="noopener">
+        {{ ic.icon("calendar-event", 18) }} Open TeamApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--surface">
+  <div class="container">
+    <div class="divider mono-label">{{ ic.icon("sailboat", 16) }} Your first session</div>
+    <ol class="first-session">
+      <li class="first-session__step reveal">
+        <span class="first-session__number">01</span>
+        <span class="first-session__icon">{{ ic.icon("calendar-event", 24) }}</span>
+        <h3>Get your Dragon Pass</h3>
+        <p>Register once online. Your first month of club training is free.</p>
+      </li>
+      <li class="first-session__step reveal">
+        <span class="first-session__number">02</span>
+        <span class="first-session__icon">{{ ic.icon("map-pin", 24) }}</span>
+        <h3>Meet the crew</h3>
+        <p>Arrive by 8:00 am for induction and PFD fitting. Come in clothes you can move and get wet in, and bring water and a towel.</p>
+      </li>
+      <li class="first-session__step reveal">
+        <span class="first-session__number">03</span>
+        <span class="first-session__icon">{{ ic.icon("sailboat", 24) }}</span>
+        <h3>We sort the gear</h3>
+        <p>We provide the boat, paddle and PFD, then show you the basics before you launch.</p>
+      </li>
+      <li class="first-session__step reveal">
+        <span class="first-session__number">04</span>
+        <span class="first-session__icon">{{ ic.icon("users", 24) }}</span>
+        <h3>Paddle as a crew</h3>
+        <p>No experience needed. Follow the stroke, learn the rhythm and see how it feels.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
     <div class="divider mono-label">{{ ic.icon("map-pin", 16) }} Where we train</div>
     <p>{{ site.location }}
       {% if site.location.includes("TODO") %}<span class="placeholder-tag">content coming soon</span>{% endif %}
@@ -31,46 +84,27 @@ permalink: /join/
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="divider mono-label">{{ ic.icon("clock", 16) }} Training schedule</div>
-    <table>
-      <thead>
-        <tr><th>Day</th><th>Time</th><th>Notes</th></tr>
-      </thead>
-      <tbody>
-        {% for s in schedule.sessions %}
-        <tr>
-          <td>{{ s.day }}</td>
-          <td>{{ s.time }}</td>
-          <td>{{ s.notes }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <span class="placeholder-tag">content coming soon</span>
-  </div>
-</section>
-
 <section class="section section--surface">
   <div class="container">
-    <div class="divider mono-label">Resources</div>
+    <div class="divider mono-label">{{ ic.icon("users", 16) }} Before you paddle</div>
     <div class="card-grid">
       <div class="card reveal">
-        <h3>Paddling technique</h3>
-        <p>TODO: refresh technique guide from current site's Resources page.</p>
-        <span class="placeholder-tag">content coming soon</span>
+        <h3>Facilities</h3>
+        <p>The Community Boating Hub has toilets, change rooms, showers, and lockers/storage available.</p>
       </div>
       <div class="card reveal">
-        <h3>What gear to bring</h3>
-        <p>TODO: refresh gear guide from current site's Resources page.</p>
-        <span class="placeholder-tag">content coming soon</span>
+        <h3>Health & accessibility</h3>
+        <p>Dragon boating can range from recreational to competitive intensity. If you are managing a medical condition, injury, disability, or accessibility need, talk with your health professional and let the YRD crew know before your session so participation can be adapted where appropriate.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Weather & cancellations</h3>
+        <p>If a session is cancelled, members will be updated in TeamApp and/or on the YRD Facebook page. If conditions look uncertain, check for an update before leaving home.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section section--surface">
   <div class="glow-field"></div>
   <div class="container">
     <h2>Already a member?</h2>
