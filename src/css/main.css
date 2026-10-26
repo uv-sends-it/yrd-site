@@ -1271,3 +1271,19 @@ tbody tr:last-child td {
     font-size: 0.78rem;
   }
 }
+
+/* Newcomer readability and accessible touch layout (UI skills audit) */
+.welcome-intro { max-width: var(--container-narrow); margin-bottom: var(--space-5); }
+.welcome-lead { font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 600; max-width: 55ch; }
+.welcome-options { margin-bottom: var(--space-5); grid-template-columns: repeat(3,minmax(0,1fr)); }
+.welcome-options .card { background: transparent; box-shadow: none; border: 0; border-left: 3px solid var(--red-dark); border-radius: 0; padding: var(--space-2) var(--space-4); }
+.welcome-options .card::before { display: none; }
+.welcome-options .card:hover { box-shadow: none; transform: none; border-color: var(--red-dark); }
+.welcome-options .card h3 { font-size: var(--font-lead); text-transform: none; }
+.welcome-options .card p { max-width: 34ch; margin-bottom: 0; }
+.section h2, .section h3, .section h4 { text-transform: none; line-height: 1.18; text-wrap: balance; }
+[id] { scroll-margin-top: 100px; }
+.nav__toggle { min-width: 48px; min-height: 48px; }
+.reveal { opacity: 1; transform: none; }
+@media (max-width: 760px) { .welcome-options { grid-template-columns: 1fr; gap: var(--space-4); } .chatbot__ask input { font-size: 1rem; } }
+@media (prefers-reduced-motion: reduce) { .card, .card::before, .readout__item { transition: none; } }
