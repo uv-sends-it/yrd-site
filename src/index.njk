@@ -26,12 +26,12 @@ layout: base.njk
 <section class="section section--surface" aria-labelledby="who-is-it-for">
   <div class="container">
     <div class="divider mono-label">{{ ic.icon("heart", 16) }} Who is it for?</div>
-    <div style="max-width: 760px; margin-bottom: var(--space-4);">
+    <div class="welcome-intro">
       <h2 id="who-is-it-for">There's room for you in our boat.</h2>
-      <p style="font-size: clamp(1.05rem, 2vw, 1.3rem);">Never paddled before? Perfect. Neither had any of us when we started.</p>
+      <p class="welcome-lead">Never paddled before? Perfect. Neither had any of us when we started.</p>
       <p>Come as you are. All ages, abilities, genders, identities, cultures and backgrounds are welcome, including Aboriginal and Torres Strait Islander people.</p>
     </div>
-    <div class="card-grid" style="margin-bottom: var(--space-4);">
+    <div class="card-grid welcome-options">
       <div class="card reveal">
         {{ ic.icon("users", 26) }}
         <h3>New to dragon boating?</h3>
@@ -57,10 +57,10 @@ layout: base.njk
 
 <div class="readout">
   <div class="readout__item">
-    {{ ic.icon("activity", 28) }}
+    {{ ic.icon("users", 28) }}
     <span>
-      <span class="readout__value"><span data-stroke-rate>64</span><span class="unit">SPM</span></span>
-      <span class="readout__label">Current stroke rate</span>
+      <span class="readout__value">First-timers</span>
+      <span class="readout__label">Welcome aboard</span>
     </span>
   </div>
   <div class="readout__item">
