@@ -8,8 +8,16 @@
     "role": "Vice President"
   },
   {
+    "name": "Christine Watson",
+    "role": "Secretary"
+  },
+  {
     "name": "Derek Eer",
     "role": "Treasurer"
+  },
+  {
+    "name": "Damien Wadsworth",
+    "role": "General"
   },
   {
     "name": "Rosie Elle Brown",
@@ -17,10 +25,6 @@
   },
   {
     "name": "Patrick Myer",
-    "role": "General"
-  },
-  {
-    "name": "Damien Wadsworth",
     "role": "General"
   }
 ]

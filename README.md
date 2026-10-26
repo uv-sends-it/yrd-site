@@ -101,3 +101,16 @@ Ask YRD uses a two-layer approach:
 The local model is lazy-loaded, so it does not affect normal page load or common FAQ replies.
 It is constrained to short answers and may return `NEED_CONTACT`; unsupported browsers go
 straight to the contact fallback.
+
+## Committee and coaches
+
+Maintain office bearers and the general committee in `content/committee.json`.
+Entries with `"role": "General"` appear by name under **General committee**;
+other entries display their office-bearer titles. Individual contact details
+are not published. Visitors contact the club using `content/site.json`.
+
+Maintain coaching names and roles in `content/coaches.json`. The initial list
+comes from the club's former public Who are we? page; please confirm it remains
+current with the committee. A verified, permission-cleared photo can be added
+to either data file using `"photo": "/assets/filename.jpg"` after uploading it
+to `src/assets/`. Never substitute someone else's portrait.
