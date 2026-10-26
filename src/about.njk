@@ -40,18 +40,54 @@ permalink: /about/
   </div>
 </section>
 
-<section class="section section--surface">
+<section class="section section--surface" id="committee" aria-labelledby="committee-heading">
   <div class="container">
     <div class="divider mono-label">{{ ic.icon("users", 16) }} Committee</div>
-    <div class="card-grid card-grid--people">
-      {% for member in committee %}
-      <div class="card reveal">
-        {% if member.photo %}<img class="committee-photo" src="{{ member.photo | url }}" alt="Portrait of {{ member.name }}" loading="lazy">{% endif %}
-        <span class="mono-label" style="color: var(--red)">{{ member.role }}</span>
-        <h3>{{ member.name }}</h3>
-        {% if member.email %}<a href="mailto:{{ member.email }}">{{ ic.icon("mail", 16) }} {{ member.email }}</a>{% endif %}
-        {% if member.name == "TODO" %}<span class="placeholder-tag">content coming soon</span>{% endif %}
+    <h2 id="committee-heading">Our committee</h2>
+    <p class="people-intro">Meet the volunteers who help keep Yarra River Dragons running.</p>
+    <div class="people-group">
+      <h3 class="people-group__title">Office bearers</h3>
+      <div class="card-grid card-grid--people">
+        {% for member in committee %}
+        {% if member.role != "General" %}
+        <article class="card reveal person-card">
+          {% if member.photo %}<img class="person-card__photo" src="{{ member.photo | url }}" alt="Portrait of {{ member.name }}" loading="lazy">{% endif %}
+          <span class="mono-label person-card__role">{{ member.role }}</span>
+          <h4 class="person-card__name">{{ member.name }}</h4>
+        </article>
+        {% endif %}
+        {% endfor %}
       </div>
+    </div>
+    <div class="people-group">
+      <h3 class="people-group__title">General committee</h3>
+      <div class="card-grid card-grid--people">
+        {% for member in committee %}
+        {% if member.role == "General" %}
+        <article class="card reveal person-card">
+          {% if member.photo %}<img class="person-card__photo" src="{{ member.photo | url }}" alt="Portrait of {{ member.name }}" loading="lazy">{% endif %}
+          <h4 class="person-card__name">{{ member.name }}</h4>
+        </article>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <p class="people-contact">Questions for the committee? <a href="mailto:{{ site.email }}">Contact the club {{ ic.icon("arrow-right", 16) }}</a></p>
+  </div>
+</section>
+
+<section class="section" id="coaches" aria-labelledby="coaches-heading">
+  <div class="container">
+    <div class="divider mono-label">{{ ic.icon("activity", 16) }} Coaching</div>
+    <h2 id="coaches-heading">Our coaches</h2>
+    <p class="people-intro">From your first paddle stroke to race day, our coaches help the crew find their rhythm.</p>
+    <div class="card-grid card-grid--people">
+      {% for coach in coaches %}
+      <article class="card reveal person-card">
+        {% if coach.photo %}<img class="person-card__photo" src="{{ coach.photo | url }}" alt="Portrait of {{ coach.name }}" loading="lazy">{% endif %}
+        <span class="mono-label person-card__role">{{ coach.role }}</span>
+        <h3 class="person-card__name">{{ coach.name }}</h3>
+      </article>
       {% endfor %}
     </div>
   </div>

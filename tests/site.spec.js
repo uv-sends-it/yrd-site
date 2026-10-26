@@ -108,3 +108,44 @@ test("printed poster Come & Try URL redirects to Join", async ({ page }) => {
   await page.waitForURL("**/join/");
   await expect(page).toHaveURL(/\/join\/$/);
 });
+
+test("About separates committee and coaches with a single club contact", async ({ page }) => {
+  await page.goto("/about/");
+  const committee = page.locator("#committee");
+  const groups = committee.locator(".people-group");
+  const officers = groups.nth(0).locator(".person-card");
+  const general = groups.nth(1).locator(".person-card");
+
+  await expect(committee.getByRole("heading", { name: "Our committee" })).toBeVisible();
+  await expect(officers).toHaveCount(4);
+  await expect(general).toHaveCount(3);
+  await expect(officers.nth(0)).toContainText("Andrew Gilovitch");
+  await expect(officers.nth(0)).toContainText("President");
+  await expect(officers.nth(1)).toContainText("Clement Lo");
+  await expect(officers.nth(2)).toContainText("Christine Watson");
+  await expect(officers.nth(2)).toContainText("Secretary");
+  await expect(officers.nth(3)).toContainText("Derek Eer");
+  await expect(general.nth(0)).toContainText("Damien Wadsworth");
+  await expect(general.nth(1)).toContainText("Rosie Elle Brown");
+  await expect(general.nth(2)).toContainText("Patrick Myer");
+  await expect(committee.locator(".person-card a")).toHaveCount(0);
+  await expect(committee.getByRole("link", { name: /Contact the club/i }))
+    .toHaveAttribute("href", "mailto:admin@yarrariverdragons.com.au");
+
+  const coaches = page.locator("#coaches");
+  await expect(coaches.getByRole("heading", { name: "Our coaches" })).toBeVisible();
+  await expect(coaches.locator(".person-card")).toHaveCount(3);
+  await expect(coaches).toContainText("Thom Cullem");
+  await expect(coaches).toContainText("John Cuzzupi");
+  await expect(coaches).toContainText("Jess Sharpe");
+  await expect(coaches.locator("a[href^='mailto:']")).toHaveCount(0);
+});
+
+test("Join Us links directly to the coaches on About", async ({ page }) => {
+  await page.goto("/join/");
+  const link = page.getByRole("link", { name: /Meet our coaches/i });
+  await expect(link).toHaveAttribute("href", "/about/#coaches");
+  await link.click();
+  await expect(page).toHaveURL(/\/about\/#coaches$/);
+  await expect(page.locator("#coaches")).toBeVisible();
+});
