@@ -26,15 +26,31 @@ layout: base.njk
 <section class="section section--surface" aria-labelledby="who-is-it-for">
   <div class="container">
     <div class="divider mono-label">{{ ic.icon("heart", 16) }} Who is it for?</div>
-    <div style="max-width: 780px;">
-      <h2 id="who-is-it-for">Come as you are. There's a place for you in the crew.</h2>
-      <p>Dragon boating is for people of all ages, abilities, genders, identities, cultures and backgrounds. Aboriginal and Torres Strait Islander people, and people who may need extra support to participate, are warmly welcome at Yarra River Dragons.</p>
-      <p>Everyone was new once. You don't need experience to come and try. If you have questions, accessibility needs or would like some help getting started, have a chat with us. We'll listen and work with you on reasonable adjustments or support where we can.</p>
-      <p><strong>Worried about the cost?</strong> Financial support may be available. You're welcome to contact us for a confidential conversation about your circumstances.</p>
-      <div class="hero__ctas" style="margin-top: var(--space-4);">
-        <a class="btn btn--primary" href="{{ '/join/' | url }}">Come and try {{ ic.icon("arrow-right", 16) }}</a>
-        <a class="btn btn--ghost" href="mailto:{{ site.email }}?subject=Chat%20about%20joining%20YRD">Have a chat with us {{ ic.icon("mail", 16) }}</a>
+    <div style="max-width: 760px; margin-bottom: var(--space-4);">
+      <h2 id="who-is-it-for">There's room for you in our boat.</h2>
+      <p style="font-size: clamp(1.05rem, 2vw, 1.3rem);">Never paddled before? Perfect. Neither had any of us when we started.</p>
+      <p>Come as you are. All ages, abilities, genders, identities, cultures and backgrounds are welcome, including Aboriginal and Torres Strait Islander people.</p>
+    </div>
+    <div class="card-grid" style="margin-bottom: var(--space-4);">
+      <div class="card reveal">
+        {{ ic.icon("users", 26) }}
+        <h3>New to dragon boating?</h3>
+        <p>We'll show you the ropes. No experience needed &mdash; just come and give it a go.</p>
       </div>
+      <div class="card reveal">
+        {{ ic.icon("heart", 26) }}
+        <h3>Need a little support?</h3>
+        <p>Let's chat about what would help you take part. We'll do our best to make reasonable adjustments.</p>
+      </div>
+      <div class="card reveal">
+        {{ ic.icon("message-circle", 26) }}
+        <h3>Cost holding you back?</h3>
+        <p>Financial support may be available. Talk to us privately &mdash; we're happy to listen.</p>
+      </div>
+    </div>
+    <div class="hero__ctas">
+      <a class="btn btn--primary" href="{{ '/join/' | url }}">Come and try {{ ic.icon("arrow-right", 16) }}</a>
+      <a class="btn btn--ghost" href="mailto:{{ site.email }}?subject=Chat%20about%20joining%20YRD">Ask us anything {{ ic.icon("mail", 16) }}</a>
     </div>
   </div>
 </section>
