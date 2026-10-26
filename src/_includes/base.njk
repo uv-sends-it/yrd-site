@@ -16,7 +16,6 @@
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   {% include "nav.njk" %}
-  {% include "ticker.njk" %}
   <script>
     (function () {
       var toggle = document.querySelector(".nav__toggle");
@@ -87,13 +86,6 @@
       heroObserver.observe(hero);
     }
 
-    var strokeEls = document.querySelectorAll("[data-stroke-rate]");
-    if (strokeEls.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setInterval(function () {
-        var spm = 60 + Math.round(Math.random() * 12);
-        strokeEls.forEach(function (el) { el.textContent = spm; });
-      }, 1600);
-    }
   </script>
   <script src="{{ '/assets/analytics.js' | url }}"></script>
   <script type="module" src="{{ '/assets/chat.js' | url }}"></script>
