@@ -1,0 +1,179 @@
+{% import "icon.njk" as ic %}
+{% import "cta-dragonpass.njk" as dragonpass %}
+
+<section class="ex-hero ex-hero--try" aria-labelledby="try-title">
+  <div class="ex-hero__photo">
+    <img src="{{ '/assets/photo-hero-2.jpg' | url }}" alt="Yarra River Dragons crew paddling on the Yarra" width="1400" height="930" fetchpriority="high">
+  </div>
+  <div class="container ex-hero__inner">
+    <p class="ex-kicker ex-kicker--light">Come &amp; try <span aria-hidden="true">/</span> Yarra River Dragons</p>
+    <h1 id="try-title">Your first paddle<br>starts <span>here.</span></h1>
+    <p class="ex-hero__lead">Never held a paddle? Good. Come meet the crew, learn the basics and see what it's like on the water. Your first month of training is free.</p>
+    <div class="ex-actions">
+      <a class="ex-button ex-button--red" href="#register">Get your free Dragon Pass {{ ic.icon("arrow-down", 20) }}</a>
+      <a class="ex-text-link ex-text-link--light" href="#first-morning">What happens on the day? {{ ic.icon("arrow-down", 18) }}</a>
+    </div>
+    <ul class="ex-hero__reassurance" aria-label="Things to know">
+      <li>{{ ic.icon("check", 17) }} No experience needed</li>
+      <li>{{ ic.icon("check", 17) }} Gear provided</li>
+      <li>{{ ic.icon("check", 17) }} Start with one session</li>
+    </ul>
+  </div>
+</section>
+
+<section class="ex-section ex-section--trial" aria-labelledby="trial-title">
+  <div class="container ex-trial">
+    <div class="ex-trial__heading">
+      <p class="ex-kicker">Your invitation</p>
+      <h2 id="trial-title">Let's make<br>Saturday happen.</h2>
+      <p>You don't need to sign up as a club member today. Register for a free trial first, then give the sport a go.</p>
+    </div>
+    <div class="ex-trial__ticket">
+      {% set next = schedule.sessions[0] %}
+      <div class="ex-trial__ticket-top">
+        <span>01 / Your first session</span>
+        {% if next.cancelled %}<strong>Check for changes</strong>{% else %}<strong>First month free</strong>{% endif %}
+      </div>
+      {% if next.cancelled %}
+        <h3>Session cancelled</h3>
+        <p>Confirm the next available training session with the crew before you register or travel.</p>
+      {% elif schedule.source == "teamapp-build-sync" %}
+        <h3>{{ next.day }}<br><span>{{ next.time }}</span></h3>
+        <p>For your first session, aim to arrive by 8:00 am for induction.</p>
+      {% else %}
+        <h3>Saturday<br><span>8:15 am</span></h3>
+        <p>New paddlers arrive by 8:00 am for induction. Training times can change, so <a href="{{ site.teamAppUrl }}" target="_blank" rel="noopener">check TeamApp</a> before travelling.</p>
+      {% endif %}
+      <div class="ex-trial__ticket-location">{{ ic.icon("map-pin", 25) }}<span><strong>Community Boating Hub</strong><small>912 Collins Street, Docklands VIC 3008</small></span></div>
+      <a class="ex-text-link" href="{{ site.mapsUrl }}" target="_blank" rel="noopener noreferrer">Open directions {{ ic.icon("arrow-up-right", 18) }}</a>
+      <div class="ex-trial__ticket-bottom">Yarra River Dragons <span>Come as you are ↗</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="ex-section ex-section--first" id="first-morning" aria-labelledby="first-title">
+  <div class="container">
+    <div class="ex-section__topline">
+      <p class="ex-kicker">From the footpath to the boat</p>
+      <h2 id="first-title">Here's exactly<br>how it works.</h2>
+      <p>Nothing mysterious. Just four simple steps and a friendly crew to guide you.</p>
+    </div>
+    <div class="ex-first-layout">
+      <ol class="first-session ex-first-list">
+        <li class="first-session__step">
+          <span class="first-session__number">01</span>
+          <div class="first-session__icon">{{ ic.icon("clipboard-check", 24) }}</div>
+          <h3>Get your Dragon Pass</h3>
+          <p>Complete the official online registration before attending. Your first month of club training is free.</p>
+        </li>
+        <li class="first-session__step">
+          <span class="first-session__number">02</span>
+          <div class="first-session__icon">{{ ic.icon("map-pin", 24) }}</div>
+          <h3>Meet the crew</h3>
+          <p>Arrive by 8:00 am for induction. Come to the Community Boating Hub and tell us you're new.</p>
+        </li>
+        <li class="first-session__step">
+          <span class="first-session__number">03</span>
+          <div class="first-session__icon">{{ ic.icon("shield-check", 24) }}</div>
+          <h3>We sort the gear</h3>
+          <p>We'll provide a paddle and personal flotation device (life jacket), and show you the basics.</p>
+        </li>
+        <li class="first-session__step">
+          <span class="first-session__number">04</span>
+          <div class="first-session__icon">{{ ic.icon("sailboat", 24) }}</div>
+          <h3>Paddle together</h3>
+          <p>Follow the rhythm and see how dragon boating feels. You don't need any previous paddling experience.</p>
+        </li>
+      </ol>
+      <figure class="ex-first-photo">
+        <img src="{{ '/assets/photo-about.jpg' | url }}" alt="Yarra River Dragons members paddling together" width="1000" height="1100" loading="lazy">
+        <figcaption>There's nothing quite like being part of the crew.</figcaption>
+      </figure>
+    </div>
+    <p class="ex-first-coaches">Our coaches will guide you through the basics. <a href="{{ '/about/' | url }}#coaches">Meet our coaches {{ ic.icon("arrow-up-right", 17) }}</a></p>
+  </div>
+</section>
+
+<section class="ex-section ex-section--pack" aria-labelledby="pack-title">
+  <div class="container">
+    <div class="ex-section__topline ex-section__topline--compact">
+      <p class="ex-kicker">Less stuff, more paddling</p>
+      <h2 id="pack-title">Bring yourself.<br>We'll bring the boat.</h2>
+    </div>
+    <div class="ex-pack-grid">
+      <div class="ex-pack-panel ex-pack-panel--bring">
+        <h3>{{ ic.icon("backpack", 27) }} What to bring</h3>
+        <ul><li>Comfy clothes and shoes that can get wet</li><li>A water bottle and towel</li><li>Sun protection</li><li>A change of clothes if you like</li></ul>
+      </div>
+      <div class="ex-pack-panel ex-pack-panel--provide">
+        <h3>{{ ic.icon("check-circle", 27) }} What we've got</h3>
+        <ul><li>Boat and paddle</li><li>Personal flotation device (life jacket)</li><li>Coaching and beginner guidance</li><li>Toilets, change rooms, showers and storage at the Hub</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ex-section ex-section--register" id="register" aria-labelledby="register-title">
+  <div class="container ex-register">
+    <div>
+      <p class="ex-kicker ex-kicker--light">Ready when you are</p>
+      <h2 id="register-title">Make your first<br>paddle official.</h2>
+      <p>To join a training session, first register for a free Dragon Pass through the official club registration system.</p>
+      <div class="ex-actions">
+        {{ dragonpass.ctaDragonPass("Register for your free month", site.dragonPassUrl) }}
+      </div>
+      <p class="ex-register__fineprint">{{ ic.icon("external-link", 15) }} Registration opens in a new tab on Revolutionise. Finishing the registration there is what signs you up; clicking here does not confirm a booking.</p>
+    </div>
+    <aside class="ex-register__after">
+      <p class="ex-kicker ex-kicker--light">After you register</p>
+      <h3>Keep these details handy</h3>
+      <p>Arrive by <strong>8:00 am</strong> for induction at the Community Boating Hub. Check TeamApp for updates before heading out.</p>
+      <div class="ex-register__links">
+        <a href="{{ site.mapsUrl }}" target="_blank" rel="noopener noreferrer">{{ ic.icon("map-pin", 18) }} Get directions</a>
+        <a href="{{ site.calendarPublicFeedUrl }}" target="_blank" rel="noopener">{{ ic.icon("calendar-event", 18) }} Subscribe to public events</a>
+        <a href="mailto:{{ site.email }}?subject=My%20first%20paddle%20at%20YRD">{{ ic.icon("mail", 18) }} Ask the crew</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="ex-section ex-section--location" aria-labelledby="location-title">
+  <div class="container ex-location">
+    <div>
+      <p class="ex-kicker">Find us on the waterfront</p>
+      <h2 id="location-title">Meet at the<br>Community Boating Hub.</h2>
+      <p>{{ site.location }}</p>
+      <p>Not sure where to go when you arrive? <a href="mailto:{{ site.email }}?subject=Finding%20my%20first%20YRD%20session">Ask us beforehand</a> so we can help.</p>
+      <a class="ex-text-link" href="{{ site.mapsUrl }}" target="_blank" rel="noopener noreferrer">Get directions {{ ic.icon("arrow-up-right", 18) }}</a>
+    </div>
+    <div class="ex-location__map">
+      <iframe title="Map showing Community Boating Hub, 912 Collins Street, Docklands" src="https://www.google.com/maps?q=Community%20Boating%20Hub%2C%20912%20Collins%20Street%2C%20Docklands%20VIC%203008&output=embed" width="600" height="340" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="ex-section ex-section--questions" aria-labelledby="first-faq-title">
+  <div class="container ex-questions">
+    <div>
+      <p class="ex-kicker">Before you head down</p>
+      <h2 id="first-faq-title">One more question?</h2>
+      <p>We know a new sport can feel like a big step. Here's the practical stuff, with no guesswork.</p>
+      <a class="ex-text-link" href="mailto:{{ site.email }}?subject=Come%20%26%20Try%20question">Talk to a real person {{ ic.icon("arrow-up-right", 18) }}</a>
+    </div>
+    <div class="ex-faq">
+      <details><summary>Can I turn up without registering? {{ ic.icon("plus", 22) }}</summary><p>Please register for a Dragon Pass before coming. It helps the club prepare and covers the official trial process.</p></details>
+      <details><summary>What if I haven't done sport for a while? {{ ic.icon("plus", 22) }}</summary><p>You don't need paddling experience. Sessions can be energetic, so tell the crew about any injury, health condition or accessibility requirement before attending.</p></details>
+      <details><summary>Can I try if I can't swim? {{ ic.icon("plus", 22) }}</summary><p>We provide a personal flotation device (life jacket). Please contact the crew before coming so we can discuss water safety and whether the session is suitable.</p></details>
+      <details><summary>What if the weather is bad? {{ ic.icon("plus", 22) }}</summary><p>Training plans can change. Check <a href="{{ site.teamAppUrl }}" target="_blank" rel="noopener">TeamApp</a> or the club's Facebook updates before travelling if conditions look uncertain.</p></details>
+      <details><summary>What happens after the free month? {{ ic.icon("plus", 22) }}</summary><p>You can decide whether you want to continue. Ask the club for current membership options. Financial assistance may be available if cost is a barrier.</p></details>
+      <details><summary>Can I talk privately about support needs? {{ ic.icon("plus", 22) }}</summary><p>Of course. <a href="mailto:{{ site.email }}?subject=Private%20question%20about%20joining">Email the crew</a> to discuss accessibility adjustments or financial assistance confidentially.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="ex-ending" aria-labelledby="try-ending">
+  <div class="container ex-ending__inner">
+    <div><p class="ex-kicker ex-kicker--light">Come as you are</p><h2 id="try-ending">A new Saturday<br>starts here.</h2><p>Register for your free trial, meet the crew, then decide if dragon boating is your thing.</p></div>
+    {{ dragonpass.ctaDragonPass("Get my free Dragon Pass", site.dragonPassUrl) }}
+  </div>
+</section>
