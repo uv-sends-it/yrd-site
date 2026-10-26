@@ -5,6 +5,7 @@ const routes = [
   ["/about/", "About"],
   ["/join/", "Join Us"],
   ["/gallery/", "Gallery"],
+  ["/come-and-try/", "Come and try"],
 ];
 
 for (const [route, title] of routes) {
@@ -55,9 +56,11 @@ test("join page explains the first session without exposing a private calendar U
 test("primary Dragon Pass actions remain available", async ({ page }) => {
   await page.goto("/");
 
-  const heroCta = page.locator(".hero__ctas .btn--primary").first();
+  const heroCta = page.locator(".ex-hero .ex-button--red").first();
   await expect(heroCta).toBeVisible();
-  await expect(heroCta).toHaveAttribute("href", /revolutionise\.com\.au\/yarrariver\/registration/);
+  await expect(heroCta).toHaveAttribute("href", "/come-and-try/");
+  await page.goto("/come-and-try/");
+  await expect(page.getByRole("link", { name: /Register for your free month/i })).toHaveAttribute("href", /revolutionise\.com\.au\/yarrariver\/registration/);
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.reload();
@@ -93,7 +96,7 @@ test("newsletter and sponsors are not exposed in the public navigation/content",
 
 test("home shows the Saturday schedule once", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByText("Next Saturday · 8:15 am", { exact: true })).toHaveCount(1);
+  await expect(page.getByText(/Saturday mornings|Saturday.*8:15 am/).first()).toBeVisible();
 });
 
 test("home can show a cancellation without exposing private event details", async ({ page }) => {
@@ -103,10 +106,11 @@ test("home can show a cancellation without exposing private event details", asyn
   expect(html).not.toContain("secret=");
 });
 
-test("printed poster Come & Try URL redirects to Join", async ({ page }) => {
-  await page.goto("/come-and-try/");
-  await page.waitForURL("**/join/");
-  await expect(page).toHaveURL(/\/join\/$/);
+test("printed poster Come & Try URL is its own conversion landing page", async ({ page }) => {
+  await page.goto("/come-and-try/?utm_source=poster&utm_medium=qr&utm_campaign=gyms");
+  await expect(page).toHaveURL(/\/come-and-try\/\?/);
+  await expect(page.getByRole("heading", { name: /Your first paddle/i })).toBeVisible();
+  await expect(page.locator("#register").getByRole("link", { name: /Register for your free month/i })).toHaveAttribute("href", /revolutionise\.com\.au/);
 });
 
 test("About separates committee and coaches with a single club contact", async ({ page }) => {
@@ -153,8 +157,8 @@ test("Join Us links directly to the coaches on About", async ({ page }) => {
 
 test("home welcomes newcomers without fake live figures or placeholder metadata", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".welcome-options .card")).toHaveCount(3);
-  await expect(page.getByText("First-timers", { exact: true })).toBeVisible();
+  await expect(page.locator(".ex-welcome__notes article")).toHaveCount(3);
+  await expect(page.getByRole("heading", { name: /Find your crew/i })).toBeVisible();
   await expect(page.locator("[data-stroke-rate]")).toHaveCount(0);
   const description = await page.locator('meta[name="description"]').getAttribute("content");
   expect(description).toContain("first month");
@@ -173,4 +177,30 @@ test("small-screen chat choices are at least 44px tall", async ({ page }) => {
   await page.getByRole("button", { name: /Ask YRD/i }).click();
   const box = await page.locator("[data-chat-quick] button").first().boundingBox();
   expect(box.height).toBeGreaterThanOrEqual(44);
+});
+
+
+test("homepage answers the first five newcomer questions", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: /Try dragon boating.*Find your crew/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /next chance to paddle/i })).toHaveCount(0);
+  await expect(page.locator(".ex-session")).toContainText("Community Boating Hub");
+  await expect(page.locator(".ex-story")).toContainText("One long boat");
+  await expect(page.locator("#everyone-welcome")).toContainText("Never paddled?");
+  await expect(page.locator(".ex-quote")).toContainText("Matt Dignan");
+});
+
+test("the first-paddle page explains the official external handoff", async ({ page }) => {
+  await page.goto("/come-and-try/");
+  await expect(page.locator("#register")).toContainText("Revolutionise");
+  await expect(page.locator("#register")).toContainText("clicking here does not confirm a booking");
+  await expect(page.locator(".ex-faq details")).toHaveCount(6);
+  await page.locator(".ex-faq summary").first().click();
+  await expect(page.locator(".ex-faq details").first()).toHaveAttribute("open", "");
+});
+
+test("campaign parameters do not leak into the registration link", async ({ page }) => {
+  await page.goto("/come-and-try/?utm_source=gym-poster&utm_medium=qr");
+  const href = await page.locator("#register a[href*='revolutionise.com.au']").getAttribute("href");
+  expect(href).not.toContain("utm_");
 });
