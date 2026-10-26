@@ -10,7 +10,7 @@
     <ul class="nav__links" id="nav-links">
       <li><a href="{{ '/' | url }}" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a></li>
       <li><a href="{{ '/about/' | url }}" {% if page.url == "/about/" %}aria-current="page"{% endif %}>About</a></li>
-      <li><a href="{{ '/join/' | url }}" {% if page.url == "/join/" %}aria-current="page"{% endif %}>Join Us</a></li>
+      <li><a href="{{ '/come-and-try/' | url }}" {% if page.url == "/come-and-try/" or page.url == "/join/" %}aria-current="page"{% endif %}>Come &amp; Try</a></li>
       <li><a href="{{ '/gallery/' | url }}" {% if page.url == "/gallery/" %}aria-current="page"{% endif %}>Gallery</a></li>
     </ul>
   </div>
