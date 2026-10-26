@@ -2,9 +2,27 @@
   var firedDepths = new Set();
   var engaged = false;
 
+  // Preserve campaign labels for the duration of the visitor's browsing session.
+  // We do not store personal data or pass campaign parameters to Revolutionise.
+  var campaign = {};
+  try {
+    var qs = new URLSearchParams(location.search);
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (key) {
+      var v = qs.get(key);
+      if (v && /^[a-z0-9 _.-]{1,80}$/i.test(v)) campaign[key] = v;
+    });
+    if (Object.keys(campaign).length) sessionStorage.setItem("yrd_campaign", JSON.stringify(campaign));
+    else campaign = JSON.parse(sessionStorage.getItem("yrd_campaign") || "{}");
+  } catch (_) { campaign = {}; }
+
+  function withCampaign(data) {
+    return Object.assign({}, campaign, data || {});
+  }
+
+
   function track(name, data) {
     if (window.umami && typeof window.umami.track === "function") {
-      window.umami.track(name, data || {});
+      window.umami.track(name, withCampaign(data));
     }
   }
 
@@ -56,7 +74,7 @@
       return;
     }
 
-    if (link.pathname === "/join/" || link.pathname.endsWith("/join/")) {
+    if (["/join/","/come-and-try/"].includes(link.pathname)) {
       track("join_info_clicked", { source: source });
       return;
     }
