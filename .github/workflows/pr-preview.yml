@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: yrd-pr-preview-${{ github.event.pull_request.number }
+  group: yrd-pr-preview-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
@@ -45,7 +45,7 @@ jobs:
       - name: Upload preview files
         uses: actions/upload-artifact@v4
         with:
-          name: preview-pr-${{ github.event.pull_request.number }
+          name: preview-pr-${{ github.event.pull_request.number }}
           path: _site/
           if-no-files-found: error
           retention-days: 7
@@ -63,14 +63,14 @@ jobs:
       - name: Download preview
         uses: actions/download-artifact@v4
         with:
-          name: preview-pr-${{ github.event.pull_request.number }
+          name: preview-pr-${{ github.event.pull_request.number }}
           path: _site/
 
       - name: Ensure dedicated Cloudflare Pages project
         shell: bash
         env:
-          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }
-          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           set -euo pipefail
           if [ -z "$CF_TOKEN" ] || [ -z "$CF_ACCOUNT" ]; then
@@ -99,13 +99,13 @@ jobs:
         id: publish
         uses: cloudflare/wrangler-action@v4
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }
-          command: pages deploy _site --project-name=yrd-site-pr-previews --branch=pr-${{ github.event.pull_request.number }
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy _site --project-name=yrd-site-pr-previews --branch=pr-${{ github.event.pull_request.number }}
 
       - name: Put preview link in workflow summary
         env:
-          PREVIEW_URL: ${{ steps.publish.outputs['pages-deployment-alias-url'] || steps.publish.outputs['deployment-url'] }
+          PREVIEW_URL: ${{ steps.publish.outputs['pages-deployment-alias-url'] || steps.publish.outputs['deployment-url'] }}
         run: |
           test -n "$PREVIEW_URL"
           echo "### Website preview" >> "$GITHUB_STEP_SUMMARY"
@@ -116,7 +116,7 @@ jobs:
         uses: actions/github-script@v7
         continue-on-error: true
         env:
-          PREVIEW_URL: ${{ steps.publish.outputs['pages-deployment-alias-url'] || steps.publish.outputs['deployment-url'] }
+          PREVIEW_URL: ${{ steps.publish.outputs['pages-deployment-alias-url'] || steps.publish.outputs['deployment-url'] }}
         with:
           script: |
             const marker = '<!-- yrd-pr-preview -->';
