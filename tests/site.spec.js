@@ -149,3 +149,28 @@ test("Join Us links directly to the coaches on About", async ({ page }) => {
   await expect(page).toHaveURL(/\/about\/#coaches$/);
   await expect(page.locator("#coaches")).toBeVisible();
 });
+
+
+test("home welcomes newcomers without fake live figures or placeholder metadata", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".welcome-options .card")).toHaveCount(3);
+  await expect(page.getByText("First-timers", { exact: true })).toBeVisible();
+  await expect(page.locator("[data-stroke-rate]")).toHaveCount(0);
+  const description = await page.locator('meta[name="description"]').getAttribute("content");
+  expect(description).toContain("first month");
+  expect(description).not.toContain("TODO");
+});
+
+test("about page has no public placeholder introduction", async ({ page }) => {
+  await page.goto("/about/");
+  await expect(page.locator(".hero__lead")).toContainText("Melbourne dragon boating club");
+  expect(await page.locator(".hero__lead").innerText()).not.toContain("TODO");
+});
+
+test("small-screen chat choices are at least 44px tall", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await page.getByRole("button", { name: /Ask YRD/i }).click();
+  const box = await page.locator("[data-chat-quick] button").first().boundingBox();
+  expect(box.height).toBeGreaterThanOrEqual(44);
+});
