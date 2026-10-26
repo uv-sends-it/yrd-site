@@ -69,3 +69,7 @@ token scopes part of the deployment boundary.
 
 When a preview is reviewed and the PR is merged, the standard production
 deployment remains unchanged.
+
+## Activation note
+
+The preview workflow is now also installed on `main`, so GitHub can register the `pull_request` trigger. The preview and its Cloudflare project stay separate from production; the live site's design/content is unchanged.
