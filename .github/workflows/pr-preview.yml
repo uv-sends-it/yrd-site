@@ -67,7 +67,7 @@ jobs:
       deployments: write
     environment:
       name: pr-previews
-      url: ${{ steps.publish.outputs['pages-deployment-alias-url'] || steps.publish.outputs['deployment-url'] }
+      url: ${{ steps.publish.outputs['pages-deployment-alias-url'] || steps.publish.outputs['deployment-url'] }}
     env:
       CF_PAGES_PROJECT: yrd-site-pr-previews
     steps:
