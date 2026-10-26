@@ -4,8 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }} — {{ site.clubName }}</title>
-  <meta name="description" content="{{ site.tagline }}">
-  <link rel="canonical" href="{{ site.canonicalUrl }}{{ page.url }}">
+  <meta name="description" content="{{ description or site.tagline }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ title }} — {{ site.clubName }}">
+  <meta property="og:description" content="{{ description or site.tagline }}">
+  <meta property="og:image" content="{{ site.canonicalUrl }}/assets/photo-hero-4.jpg">
+  <meta property="og:image:alt" content="Yarra River Dragons paddling together on the Yarra">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="{{ site.canonicalUrl }}{{ canonicalPath or page.url }}">
   <link rel="alternate" type="text/calendar" title="{{ site.clubName }} public events" href="{{ site.calendarPublicFeedUrl }}">
   {% if site.umamiWebsiteId %}
   <script defer src="{{ site.umamiScriptUrl }}" data-website-id="{{ site.umamiWebsiteId }}"></script>
@@ -47,8 +53,8 @@
   <main id="main-content">
     {{ content | safe }}
   </main>
-  <a class="mobile-join-cta" href="{{ site.dragonPassUrl }}" target="_blank" rel="noopener" data-mobile-join-cta>
-    <span>Try dragon boating free</span>
+  <a class="mobile-join-cta" href="{{ '/come-and-try/' | url }}" data-mobile-join-cta>
+    <span>Come &amp; try for free</span>
     <span aria-hidden="true">&rarr;</span>
   </a>
   {% include "chat.njk" %}
