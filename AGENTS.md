@@ -1,0 +1,3 @@
+# YRD site agent notes
+
+Read DESIGN.md and docs/UI_SKILLS_PLAYBOOK.md before changing UI. Keep Eleventy/Nunjucks and CSS tokens. The target user is a first-time visitor curious about paddling. Preserve photos, the club's warm light appearance and its inclusive Australian English. Avoid fabricated live stats, published TODOs, generic SaaS cards, unnecessary JS dependencies and animation for its own sake. Ensure at least 44px touch targets, accessible focus and semantic HTML, reduced-motion support, safe areas, and no horizontal overflow. Keep a single dominant Dragon Pass CTA. Run build, Playwright and desktop/mobile visual checks; don't assume green CI means user-tested.
