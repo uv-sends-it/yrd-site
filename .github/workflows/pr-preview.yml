@@ -1,0 +1,133 @@
+name: PR website preview
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: yrd-pr-preview-${{ github.event.pull_request.number }
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build preview
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Keep preview traffic out of production analytics
+        run: |
+          node -e 'const fs = require("node:fs"); const path = "content/site.json"; const site = JSON.parse(fs.readFileSync(path, "utf8")); site.umamiWebsiteId = ""; fs.writeFileSync(path, JSON.stringify(site, null, 2) + "\n");'
+
+      - name: Build website
+        run: npm run build
+
+      - name: Check build and disable search indexing
+        run: |
+          test -f _site/index.html
+          test -f _site/join/index.html
+          printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > _site/_headers
+
+      - name: Upload preview files
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-pr-${{ github.event.pull_request.number }
+          path: _site/
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy:
+    name: Publish preview
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    env:
+      PAGES_PROJECT: yrd-site-pr-previews
+    steps:
+      - name: Download preview
+        uses: actions/download-artifact@v4
+        with:
+          name: preview-pr-${{ github.event.pull_request.number }
+          path: _site/
+
+      - name: Ensure dedicated Cloudflare Pages project
+        shell: bash
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }
+        run: |
+          set -euo pipefail
+          if [ -z "$CF_TOKEN" ] || [ -z "$CF_ACCOUNT" ]; then
+            echo "::error::Missing CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID repository secret"
+            exit 1
+          fi
+          api="https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/pages/projects"
+          response="$RUNNER_TEMP/cloudflare-project.json"
+          status=$(curl --silent --show-error --retry 3 --output "$response" --write-out '%{http_code}' --header "Authorization: Bearer $CF_TOKEN" "$api/$PAGES_PROJECT")
+          case "$status" in
+            200)
+              jq -e '.success == true and .result.production_branch == "main"' "$response" >/dev/null
+              ;;
+            404)
+              curl --fail-with-body --silent --show-error --request POST --header "Authorization: Bearer $CF_TOKEN" --header "Content-Type: application/json" --data '{"name":"yrd-site-pr-previews","production_branch":"main"}' "$api" > "$response"
+              jq -e '.success == true' "$response" >/dev/null
+              ;;
+            *)
+              echo "::error::Cloudflare Pages project lookup failed (HTTP $status)"
+              jq -r '.errors[]?.message' "$response" || true
+              exit 1
+              ;;
+          esac
+
+      - name: Deploy static files
+        id: publish
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }
+          command: pages deploy _site --project-name=yrd-site-pr-previews --branch=pr-${{ github.event.pull_request.number }
+
+      - name: Put preview link in workflow summary
+        env:
+          PREVIEW_URL: ${{ steps.publish.outputs['pages-deployment-alias-url'] || steps.publish.outputs['deployment-url'] }
+        run: |
+          test -n "$PREVIEW_URL"
+          echo "### Website preview" >> "$GITHUB_STEP_SUMMARY"
+          echo "[Open this PR preview]($PREVIEW_URL)" >> "$GITHUB_STEP_SUMMARY"
+          echo "Production is unchanged." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Comment with preview link
+        uses: actions/github-script@v7
+        continue-on-error: true
+        env:
+          PREVIEW_URL: ${{ steps.publish.outputs['pages-deployment-alias-url'] || steps.publish.outputs['deployment-url'] }
+        with:
+          script: |
+            const marker = '<!-- yrd-pr-preview -->';
+            const url = process.env.PREVIEW_URL;
+            if (!url) throw new Error('No preview URL returned');
+            const body = marker + '\n**[Open this PR website preview](' + url + ')**\n\nProduction remains unchanged.';
+            const options = { owner: context.repo.owner, repo: context.repo.repo, issue_number: context.issue.number };
+            const comments = await github.paginate(github.rest.issues.listComments, { ...options, per_page: 100 });
+            const previous = comments.find(c => c.user?.type === 'Bot' && c.body?.includes(marker));
+            if (previous) {
+              await github.rest.issues.updateComment({ owner: options.owner, repo: options.repo, comment_id: previous.id, body });
+            } else {
+              await github.rest.issues.createComment({ ...options, body });
+            }
