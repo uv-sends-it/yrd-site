@@ -84,7 +84,8 @@
     }
 
     var mobileJoinCta = document.querySelector("[data-mobile-join-cta]");
-    var hero = document.querySelector(".hero");
+    // Redesigned first-paddle pages and legacy club pages use different hero styles.
+    var hero = document.querySelector(".ex-hero, .hero");
     if (mobileJoinCta && hero && "IntersectionObserver" in window) {
       var heroObserver = new IntersectionObserver(function (entries) {
         mobileJoinCta.classList.toggle("is-visible", !entries[0].isIntersecting);
