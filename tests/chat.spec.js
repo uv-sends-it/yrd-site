@@ -12,7 +12,7 @@ test("Ask YRD answers the three core newcomer questions from reviewed facts", as
 
   await page.getByRole("button", { name: "I can't swim" }).click();
   await expect(page.locator(".chat-message--bot").last()).toContainText("PFD");
-  await expect(page.locator(".chat-message--bot").last()).toContainText("tell the YRD crew");
+  await expect(page.locator(".chat-message--bot").last()).toContainText("Tell the crew before your session");
 });
 
 test("contact fallback stays minimal", async ({ page }) => {

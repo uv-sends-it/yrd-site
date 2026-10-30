@@ -47,8 +47,8 @@ test("join page explains the first session without exposing a private calendar U
   await expect(page.locator(".first-session__step")).toHaveCount(4);
   await expect(page.getByRole("heading", { name: "Get your Dragon Pass" })).toBeVisible();
 
-  const teamApp = page.getByRole("link", { name: /Open TeamApp/i }).first();
-  await expect(teamApp).toHaveAttribute("href", /teamapp\.com/);
+  const publicCalendar = page.getByRole("link", { name: "Subscribe to public events" });
+  await expect(publicCalendar).toHaveAttribute("href", "https://icalendar.teamapp.com/clubs/52473/events_subscriptions.ics?non_member=public_events_only");
   const html = await page.content();
   expect(html).not.toContain("secret=");
 });
@@ -61,13 +61,61 @@ test("primary Dragon Pass actions remain available", async ({ page }) => {
   await expect(heroCta).toHaveAttribute("href", "/come-and-try/");
   await page.goto("/come-and-try/");
   await expect(page.getByRole("link", { name: /Register for your free month/i })).toHaveAttribute("href", /revolutionise\.com\.au\/yarrariver\/registration/);
-
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.reload();
-  const sticky = page.locator("[data-mobile-join-cta]");
-  await page.locator(".hero").evaluate((el) => window.scrollTo(0, el.getBoundingClientRect().bottom + window.scrollY + 80));
-  await expect(sticky).toBeVisible();
 });
+
+const stickyCtaPages = [
+  { route: "/", hero: ".ex-hero" },
+  { route: "/come-and-try/", hero: ".ex-hero" },
+  { route: "/join/", hero: ".ex-hero" },
+  { route: "/about/", hero: ".hero" },
+  { route: "/gallery/", hero: ".hero" },
+];
+
+for (const { route, hero } of stickyCtaPages) {
+  test(`mobile join CTA follows hero visibility on ${route}`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(route);
+
+    const sticky = page.locator("[data-mobile-join-cta]");
+    const heroSection = page.locator(hero);
+    await expect(heroSection).toBeInViewport();
+    // Playwright's toBeVisible() alone also passes for opacity: 0.
+    await expect(sticky).toHaveCSS("opacity", "0");
+    await expect(sticky).toHaveCSS("pointer-events", "none");
+
+    const scrollPastHero = () => heroSection.evaluate((el) => {
+      window.scrollTo({ top: el.getBoundingClientRect().bottom + window.scrollY + 80, behavior: "instant" });
+    });
+    await scrollPastHero();
+    await expect(heroSection).not.toBeInViewport();
+    await expect(sticky).toHaveCSS("opacity", "1");
+    await expect(sticky).toHaveCSS("pointer-events", "auto");
+    await expect(sticky).toBeInViewport({ ratio: 1 });
+    await expect(sticky).toHaveAttribute("href", "/come-and-try/");
+
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    await expect(heroSection).toBeInViewport();
+    await expect(sticky).toHaveCSS("opacity", "0");
+    await expect(sticky).toHaveCSS("pointer-events", "none");
+
+    await scrollPastHero();
+    await expect(sticky).toHaveCSS("opacity", "1");
+    await sticky.click();
+    await expect(page).toHaveURL(/\/come-and-try\/$/);
+    await expect(page.locator("main h1")).toContainText("Your first paddle");
+  });
+}
+
+for (const width of [768, 1280]) {
+  test(`mobile join CTA stays hidden at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    await page.locator(".ex-hero").evaluate((el) => {
+      window.scrollTo({ top: el.getBoundingClientRect().bottom + window.scrollY + 80, behavior: "instant" });
+    });
+    await expect(page.locator("[data-mobile-join-cta]")).toBeHidden();
+  });
+}
 
 test("skip link reaches the main content", async ({ page }) => {
   await page.goto("/");
@@ -80,10 +128,17 @@ test("skip link reaches the main content", async ({ page }) => {
 test("join page includes confirmed arrival, facilities and cancellation guidance", async ({ page }) => {
   await page.goto("/join/");
   await expect(page.getByText("Arrive by 8:00 am", { exact: false }).first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Facilities" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "What we've got" })).toBeVisible();
   await expect(page.getByText(/toilets, change rooms, showers/i)).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Health & accessibility" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Weather & cancellations" })).toBeVisible();
+  const health = page.locator("details").filter({ hasText: "What if I haven't done sport for a while?" });
+  await health.locator("summary").click();
+  await expect(health.locator("p")).toBeVisible();
+  await expect(health.locator("p")).toContainText("injury, health condition or accessibility requirement");
+  const weather = page.locator("details").filter({ hasText: "What if the weather is bad?" });
+  await weather.locator("summary").click();
+  await expect(weather.locator("p")).toBeVisible();
+  await expect(weather.locator("p")).toContainText("Training plans can change");
+  await expect(weather.getByRole("link", { name: "TeamApp" })).toHaveAttribute("href", "https://yrd.teamapp.com/?_webpage=v1");
 });
 
 test("newsletter and sponsors are not exposed in the public navigation/content", async ({ page }) => {
@@ -109,7 +164,7 @@ test("home can show a cancellation without exposing private event details", asyn
 test("printed poster Come & Try URL is its own conversion landing page", async ({ page }) => {
   await page.goto("/come-and-try/?utm_source=poster&utm_medium=qr&utm_campaign=gyms");
   await expect(page).toHaveURL(/\/come-and-try\/\?/);
-  await expect(page.getByRole("heading", { name: /Your first paddle/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Your first paddle/i, level: 1 })).toBeVisible();
   await expect(page.locator("#register").getByRole("link", { name: /Register for your free month/i })).toHaveAttribute("href", /revolutionise\.com\.au/);
 });
 
