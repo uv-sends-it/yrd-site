@@ -146,7 +146,7 @@
         "training time",
         "next session"
       ],
-      "answer": "Check TeamApp or the Join page for the next training session. Contact the crew to confirm first-session induction details, as weekday training times vary.",
+      "answer": "Check TeamApp or the Join page for the next training session. Contact the crew to confirm your first-session arrival and induction details.",
       "action": {
         "type": "link",
         "label": "View schedule",
