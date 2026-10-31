@@ -1,12 +1,15 @@
 ---
 title: Home
+seoTitle: Try Dragon Boating in Melbourne | Yarra River Dragons
+description: Try dragon boating on the Yarra in Docklands, Melbourne. No experience needed, first month free. Meet a friendly crew and find your first session.
 layout: base.njk
 ---
 {% import "cta-dragonpass.njk" as cta %}
 {% import "photo-card.njk" as photo %}
 {% import "icon.njk" as ic %}
 
-<section class="hero" style="background-image: url('{{ '/assets/photo-hero-4.jpg' | url }}');">
+<section class="hero hero--photo-seo" style="background-image: url('{{ '/assets/photo-hero-4.jpg' | url }}');">
+  <img class="hero__backdrop-photo" src="{{ '/assets/photo-hero-4.jpg' | url }}" alt="Yarra River Dragons paddling together on the Yarra in Melbourne" fetchpriority="high">
   <div class="hero__inner">
     <span class="eyebrow mono-label">{{ ic.icon("activity", 16) }} Open trial &mdash; first month free</span>
     <h1 class="hero__title">Paddle the Yarra.</h1>
@@ -56,13 +59,6 @@ layout: base.njk
 </section>
 
 <div class="readout">
-  <div class="readout__item">
-    {{ ic.icon("activity", 28) }}
-    <span>
-      <span class="readout__value"><span data-stroke-rate>64</span><span class="unit">SPM</span></span>
-      <span class="readout__label">Current stroke rate</span>
-    </span>
-  </div>
   <div class="readout__item">
     {{ ic.icon("calendar-event", 28) }}
     <span>

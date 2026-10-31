@@ -23,7 +23,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Verify TeamApp calendar ordering
-        run: node --test tests/calendar.test.mjs
+        run: node --test tests/calendar.test.mjs tests/arrival-guidance.test.mjs
 
       - name: Interaction and responsive checks
         run: npx playwright test tests/site.spec.js tests/chat.spec.js
@@ -33,7 +33,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: tests/**/*-snapshots
-          key: yrd-visual-baseline-${{ runner.os }}-v4
+          key: yrd-visual-baseline-${{ runner.os }}-v5
 
       - name: Establish visual baseline
         if: steps.visual-baseline.outputs.cache-hit != 'true'

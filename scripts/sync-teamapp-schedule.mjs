@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { arrivalGuidance } from "./arrival-guidance.mjs";
 
 const inputPath = process.argv[2];
 const outputPath = process.argv[3];
@@ -123,7 +124,7 @@ const output = {
       cancelled: next.cancelled,
       notes: next.cancelled
         ? "Cancelled. Check TeamApp or Facebook for the latest update."
-        : "New paddlers arrive by 8:00 am for induction and PFD fitting."
+        : arrivalGuidance(next.start)
     }
   ]
 };

@@ -76,7 +76,7 @@ test("skip link reaches the main content", async ({ page }) => {
 
 test("join page includes confirmed arrival, facilities and cancellation guidance", async ({ page }) => {
   await page.goto("/join/");
-  await expect(page.getByText("Arrive by 8:00 am", { exact: false }).first()).toBeVisible();
+  await expect(page.getByText(/Next training session not verified/i).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Facilities" })).toBeVisible();
   await expect(page.getByText(/toilets, change rooms, showers/i)).toBeVisible();
   await expect(page.getByRole("heading", { name: "Health & accessibility" })).toBeVisible();
@@ -148,4 +148,16 @@ test("Join Us links directly to the coaches on About", async ({ page }) => {
   await link.click();
   await expect(page).toHaveURL(/\/about\/#coaches$/);
   await expect(page.locator("#coaches")).toBeVisible();
+});
+
+test("homepage uses truthful metrics and discoverable social preview metadata", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("[data-stroke-rate]")).toHaveCount(0);
+  await expect(page.getByText("Current stroke rate")).toHaveCount(0);
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /photo-hero-4\.jpg$/);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /max-image-preview:large/);
+  await expect(page.locator('.hero img[alt*="Yarra River Dragons"]')).toHaveCount(1);
+  const json = await page.locator('script[type="application/ld+json"]').textContent();
+  const schema = JSON.parse(json);
+  expect(schema["@graph"].some((node) => node["@type"] === "WebPage" && node.primaryImageOfPage)).toBe(true);
 });

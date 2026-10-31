@@ -1,5 +1,7 @@
 ---
 title: Join Us
+seoTitle: Come & Try Dragon Boating in Melbourne | First Month Free
+description: Join Yarra River Dragons for a free first month of dragon boating training in Docklands. Get a Dragon Pass and learn what to bring to your first session.
 layout: base.njk
 permalink: /join/
 ---
@@ -57,7 +59,7 @@ permalink: /join/
         <span class="first-session__number">02</span>
         <span class="first-session__icon">{{ ic.icon("map-pin", 24) }}</span>
         <h3>Meet the crew</h3>
-        <p>Arrive by 8:00 am for induction and PFD fitting. Come in clothes you can move and get wet in, and bring water and a towel.</p>
+        <p>{{ next.notes if next and not next.cancelled else 'Please contact the crew to confirm arrival and induction details before attending.' }} Come in clothes you can move and get wet in, and bring water and a towel.</p>
       </li>
       <li class="first-session__step reveal">
         <span class="first-session__number">03</span>

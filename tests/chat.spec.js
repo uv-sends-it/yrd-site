@@ -8,7 +8,7 @@ test("Ask YRD answers the three core newcomer questions from reviewed facts", as
   await expect(page.locator(".chat-message--bot").last()).toContainText("Dragon Pass");
 
   await page.getByRole("button", { name: "Can I just rock up?" }).click();
-  await expect(page.locator(".chat-message--bot").last()).toContainText(/register first/i);
+  await expect(page.locator(".chat-message--bot").last()).toContainText(/register for a Dragon Pass/i);
 
   await page.getByRole("button", { name: "I can't swim" }).click();
   await expect(page.locator(".chat-message--bot").last()).toContainText("PFD");

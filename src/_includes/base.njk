@@ -3,8 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title }} — {{ site.clubName }}</title>
-  <meta name="description" content="{{ site.tagline }}">
+  <title>{{ seoTitle or (title + " — " + site.clubName) }}</title>
+  <meta name="description" content="{{ description or site.tagline }}">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.clubName }}">
+  <meta property="og:locale" content="en_AU">
+  <meta property="og:title" content="{{ seoTitle or (title + " — " + site.clubName) }}">
+  <meta property="og:description" content="{{ description or site.tagline }}">
+  <meta property="og:url" content="{{ site.canonicalUrl }}{{ page.url }}">
+  <meta property="og:image" content="{{ site.canonicalUrl }}/assets/photo-hero-4.jpg">
+  <meta property="og:image:alt" content="Yarra River Dragons team paddling together in Melbourne">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ seoTitle or (title + " — " + site.clubName) }}">
+  <meta name="twitter:description" content="{{ description or site.tagline }}">
+  <meta name="twitter:image" content="{{ site.canonicalUrl }}/assets/photo-hero-4.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["Organization", "SportsOrganization"],
+        "@id": "{{ site.canonicalUrl }}/#organization",
+        "name": "{{ site.clubName }}",
+        "url": "{{ site.canonicalUrl }}/",
+        "logo": "{{ site.canonicalUrl }}/assets/yrd-logo.png",
+        "image": "{{ site.canonicalUrl }}/assets/photo-hero-4.jpg",
+        "email": "{{ site.email }}",
+        "sameAs": ["https://www.instagram.com/{{ site.instagramHandle }}/"],
+        "location": {
+          "@type": "Place",
+          "name": "Community Boating Hub",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "912 Collins Street",
+            "addressLocality": "Docklands",
+            "addressRegion": "VIC",
+            "postalCode": "3008",
+            "addressCountry": "AU"
+          }
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "{{ site.canonicalUrl }}{{ page.url }}#webpage",
+        "url": "{{ site.canonicalUrl }}{{ page.url }}",
+        "name": "{{ seoTitle or (title + " — " + site.clubName) }}",
+        "description": "{{ description or site.tagline }}",
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "{{ site.canonicalUrl }}/assets/photo-hero-4.jpg"
+        },
+        "isPartOf": { "@id": "{{ site.canonicalUrl }}/#website" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "{{ site.canonicalUrl }}/#website",
+        "name": "{{ site.clubName }}",
+        "url": "{{ site.canonicalUrl }}/",
+        "publisher": { "@id": "{{ site.canonicalUrl }}/#organization" }
+      }
+    ]
+  }
+  </script>
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="canonical" href="{{ site.canonicalUrl }}{{ page.url }}">
   <link rel="alternate" type="text/calendar" title="{{ site.clubName }} public events" href="{{ site.calendarPublicFeedUrl }}">
