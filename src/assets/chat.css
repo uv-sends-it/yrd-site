@@ -114,3 +114,5 @@ body.chatbot-open .mobile-join-cta { opacity: 0; pointer-events: none; transform
 @media (prefers-reduced-motion: reduce) {
   .chatbot__launcher, .chatbot__panel { transition: none; }
 }
+
+.chatbot__quick button{min-height:44px}.chat-message__action{min-height:44px}@media(max-width:760px){.chatbot__ask input,.chatbot__contact input,.chatbot__contact textarea{font-size:16px}}
