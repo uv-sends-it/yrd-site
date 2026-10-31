@@ -8,7 +8,7 @@ test("Ask YRD answers the three core newcomer questions from reviewed facts", as
   await expect(page.locator(".chat-message--bot").last()).toContainText("Dragon Pass");
 
   await page.getByRole("button", { name: "Can I just rock up?" }).click();
-  await expect(page.locator(".chat-message--bot").last()).toContainText("Register first");
+  await expect(page.locator(".chat-message--bot").last()).toContainText(/register first/i);
 
   await page.getByRole("button", { name: "I can't swim" }).click();
   await expect(page.locator(".chat-message--bot").last()).toContainText("PFD");
@@ -27,7 +27,7 @@ test("contact fallback stays minimal", async ({ page }) => {
   await expect(form.getByLabel("Query or feedback")).toBeVisible();
 });
 
-test("analytics is opt-in until an Umami website id is configured", async ({ page }) => {
+test("configured Umami analytics loads", async ({ page }) => {
   const analyticsRequests = [];
   page.on("request", (request) => {
     if (request.url().includes("umami")) analyticsRequests.push(request.url());
@@ -35,7 +35,7 @@ test("analytics is opt-in until an Umami website id is configured", async ({ pag
 
   await page.goto("/");
   await page.waitForTimeout(250);
-  expect(analyticsRequests).toHaveLength(0);
+  expect(analyticsRequests.length).toBeGreaterThan(0);
 });
 
 test("chatbot starts closed and close button hides the panel", async ({ page }) => {
