@@ -77,41 +77,23 @@ const events = blocks
   })
   .filter((event) => event.start && event.start >= now && event.start <= maxFuture);
 
-function eventScore(event) {
-  const text = [event.summary, event.description, event.location].join(" ").toLowerCase();
-  const parts = melbourneParts(event.start);
-  const hour = Number(parts.hour);
-  const minute = Number(parts.minute);
-  let score = 0;
-
-  if (/\btraining\b/i.test(text)) score += 140;
-  if (/\bpaddl(?:e|ing|ers?)\b/i.test(text)) score += 90;
-  if (/come\s*(?:&|and)?\s*try/i.test(text)) score += 120;
-  if (/\bsession\b/i.test(text)) score += 45;
-
-  if (parts.weekday === "Sat") score += 110;
-  if (hour >= 7 && hour <= 10) score += 45;
-  if (hour === 8 && minute >= 0 && minute <= 30) score += 70;
-  if (hour === 8 && minute === 15) score += 80;
-
-  if (/community boating hub|912 collins|docklands/i.test(text)) score += 45;
-
-  if (/\b(regatta|race|racing|championship|competition|committee|meeting|agm|social|dinner|party|festival|fundraiser|workshop)\b/i.test(text)) {
-    score -= 220;
-  }
-
-  const daysAway = Math.max(0, Math.floor((event.start - now) / (24 * 60 * 60 * 1000)));
-  score -= Math.min(daysAway, 28);
-  return score;
+function isTraining(event) {
+  const summary = event.summary.toLowerCase();
+  const details = [event.description, event.location].join(" ").toLowerCase();
+  const sportsEvent = /\b(training|paddl(?:e|ing)|come\s*(?:&|and)?\s*try|practice|session)\b/i.test(summary);
+  const excluded = /\b(regatta|race|racing|championship|competition|committee|meeting|agm|social|dinner|party|festival|fundraiser|workshop)\b/i.test(summary);
+  // The event's name must establish a training context. Location alone never qualifies.
+  return sportsEvent && !excluded;
 }
 
+// "Next" means chronological, never the highest-scoring Saturday event.
+// When TeamApp has Wednesday practice before Saturday practice, Wednesday wins.
 const candidates = events
-  .map((event) => ({ ...event, score: eventScore(event) }))
-  .filter((event) => event.score >= 120)
-  .sort((a, b) => b.score - a.score || a.start - b.start);
+  .filter(isTraining)
+  .sort((a, b) => a.start - b.start);
 
 if (!candidates.length) {
-  console.log("No confident YRD training session found; keeping fallback schedule.");
+  console.log("No upcoming named YRD training session found; using an unconfirmed schedule notice.");
   process.exit(0);
 }
 
@@ -138,9 +120,10 @@ const output = {
   syncedAt: new Date().toISOString(),
   sessions: [
     {
+      start: next.start.toISOString(),
       day: displayDay,
       time,
-      label: isComeAndTry ? "Come & Try" : "Saturday training",
+      label: isComeAndTry ? "Come & Try" : "Training",
       cancelled: next.cancelled,
       notes: next.cancelled
         ? "Cancelled. Check TeamApp or Facebook for the latest update."
