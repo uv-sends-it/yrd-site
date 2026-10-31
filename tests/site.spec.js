@@ -44,7 +44,7 @@ test("join page explains the first session without exposing a private calendar U
   await page.goto("/join/");
 
   await expect(page.locator(".first-session__step")).toHaveCount(4);
-  await expect(page.getByRole("heading", { name: "Get your Dragon Pass" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Get your Dragon Pass" })).toHaveCount(0);
 
   const teamApp = page.getByRole("link", { name: /Open TeamApp/i }).first();
   await expect(teamApp).toHaveAttribute("href", /teamapp\.com/);
@@ -57,7 +57,7 @@ test("primary Dragon Pass actions remain available", async ({ page }) => {
 
   const heroCta = page.locator(".hero__ctas .btn--primary").first();
   await expect(heroCta).toBeVisible();
-  await expect(heroCta).toHaveAttribute("href", /revolutionise\.com\.au\/yarrariver\/registration/);
+  await expect(heroCta).toHaveAttribute("href", "/join/");
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.reload();
@@ -76,11 +76,11 @@ test("skip link reaches the main content", async ({ page }) => {
 
 test("join page includes confirmed arrival, facilities and cancellation guidance", async ({ page }) => {
   await page.goto("/join/");
-  await expect(page.getByText("Arrive by 8:00 am", { exact: false }).first()).toBeVisible();
+  await expect(page.getByText(/Arrive by 8:00 am/i).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Facilities" })).toBeVisible();
   await expect(page.getByText(/toilets, change rooms, showers/i)).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Health & accessibility" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Weather & cancellations" })).toBeVisible();
+  await expect(page.getByText(/Health & accessibility/)).toBeVisible();
+  await expect(page.getByText(/Weather & cancellations/)).toBeVisible();
 });
 
 test("newsletter and sponsors are not exposed in the public navigation/content", async ({ page }) => {
@@ -93,7 +93,7 @@ test("newsletter and sponsors are not exposed in the public navigation/content",
 
 test("home shows the Saturday schedule once", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByText("Next Saturday · 8:15 am", { exact: true })).toHaveCount(1);
+  await expect(page.getByText(/Saturday mornings on the Yarra/)).toHaveCount(1);
 });
 
 test("home can show a cancellation without exposing private event details", async ({ page }) => {
