@@ -1,32 +1,7 @@
 ---
-title: Gallery
+title: Moments on the water
 layout: base.njk
 permalink: /gallery/
 ---
-{% import "icon.njk" as ic %}
-<section class="hero" style="background-image: url('{{ '/assets/photo-hero-4.jpg' | url }}'); min-height: 360px;">
-  <div class="hero__inner">
-    <span class="eyebrow mono-label">{{ ic.icon("brand-instagram", 16) }} @{{ site.instagramHandle }}</span>
-    <h1 class="hero__title">Gallery</h1>
-    <p class="hero__lead">See what training and race day look like.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="gallery-panel">
-      <div class="gallery-panel__intro">
-        <span class="mono-label">Club feed</span>
-        <h2>Life on the water.</h2>
-        <p>Training sessions, race days and crew moments from Yarra River Dragons.</p>
-      </div>
-      <div class="gallery-panel__embed">
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/{{ site.instagramHandle }}/" data-instgrm-version="14"></blockquote>
-      </div>
-      <div class="gallery-panel__action">
-        <a class="btn btn--primary" href="https://instagram.com/{{ site.instagramHandle }}" target="_blank" rel="noopener">{{ ic.icon("brand-instagram", 16) }} Follow @{{ site.instagramHandle }} {{ ic.icon("arrow-right", 16) }}</a>
-      </div>
-    </div>
-    <script async src="//www.instagram.com/embed.js"></script>
-  </div>
-</section>
+<section class="water-page-hero container"><h1>Life on the Yarra.</h1><p>Real crew moments, early starts and days worth remembering.</p></section>
+<section class="section water-gallery"><div class="container"><div class="water-gallery__photos"><img src="/assets/photo-hero-4.jpg" alt="YRD crew paddling" loading="lazy"><img src="/assets/photo-about.jpg" alt="YRD crew members" loading="lazy"></div><div class="water-gallery__head"><h2>More from the crew</h2><a href="https://www.instagram.com/{{ site.instagramHandle }}/" target="_blank" rel="noopener noreferrer">Visit our Instagram</a></div><div class="water-embed"><button type="button" class="btn btn--ghost" data-instagram-load>Load Instagram feed</button><div data-instagram-embed hidden><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/{{ site.instagramHandle }}/" data-instgrm-version="14"></blockquote></div></div></div></section>
