@@ -1,117 +1,34 @@
 ---
-title: Home
+title: Try dragon boating in Melbourne
 layout: base.njk
+description: Come paddle with the Yarra River Dragons. Beginners welcome, first month free, Saturday mornings in Docklands.
 ---
-{% import "cta-dragonpass.njk" as cta %}
-{% import "photo-card.njk" as photo %}
 {% import "icon.njk" as ic %}
-
-<section class="hero" style="background-image: url('{{ '/assets/photo-hero-4.jpg' | url }}');">
-  <div class="hero__inner">
-    <span class="eyebrow mono-label">{{ ic.icon("activity", 16) }} Open trial &mdash; first month free</span>
-    <h1 class="hero__title">Paddle the Yarra.</h1>
-    <span class="brush">Train as one crew.</span>
-    <p class="hero__lead">
-      {{ site.bridgeLine }}
-      {% if site.tagline.startsWith("TODO") %}<span class="placeholder-tag">content coming soon</span>{% endif %}
-    </p>
-    <div class="hero__ctas">
-      {{ cta.ctaDragonPass(null, site.dragonPassUrl) }}
-      <a class="btn btn--ghost" href="{{ '/join/' | url }}">See a session</a>
-    </div>
+<section class="hero water-hero">
+  <img class="water-hero__image" src="/assets/photo-hero-4.jpg" alt="Yarra River Dragons paddling together on the water" fetchpriority="high">
+  <div class="container water-hero__content">
+    <h1>Find your people.<br>Find your paddle.</h1>
+    <p>Dragon boating on the Yarra. No experience needed, just a Saturday morning and a little curiosity.</p>
+    <div class="hero__ctas"><a class="btn btn--primary" href="/join/">Come &amp; try for free</a><a class="btn btn--ghost" href="#experience">See what it's like</a></div>
   </div>
 </section>
-
-
-<section class="section section--surface" aria-labelledby="who-is-it-for">
-  <div class="container">
-    <div class="divider mono-label">{{ ic.icon("heart", 16) }} Who is it for?</div>
-    <div style="max-width: 760px; margin-bottom: var(--space-4);">
-      <h2 id="who-is-it-for">There's room for you in our boat.</h2>
-      <p style="font-size: clamp(1.05rem, 2vw, 1.3rem);">Never paddled before? Perfect. Neither had any of us when we started.</p>
-      <p>Come as you are. All ages, abilities, genders, identities, cultures and backgrounds are welcome, including Aboriginal and Torres Strait Islander people.</p>
-    </div>
-    <div class="card-grid" style="margin-bottom: var(--space-4);">
-      <div class="card reveal">
-        {{ ic.icon("users", 26) }}
-        <h3>New to dragon boating?</h3>
-        <p>We'll show you the ropes. No experience needed &mdash; just come and give it a go.</p>
-      </div>
-      <div class="card reveal">
-        {{ ic.icon("heart", 26) }}
-        <h3>Need a little support?</h3>
-        <p>Let's chat about what would help you take part. We'll do our best to make reasonable adjustments.</p>
-      </div>
-      <div class="card reveal">
-        {{ ic.icon("message-circle", 26) }}
-        <h3>Cost holding you back?</h3>
-        <p>Financial support may be available. Talk to us privately &mdash; we're happy to listen.</p>
-      </div>
-    </div>
-    <div class="hero__ctas">
-      <a class="btn btn--primary" href="{{ '/join/' | url }}">Come and try {{ ic.icon("arrow-right", 16) }}</a>
-      <a class="btn btn--ghost" href="mailto:{{ site.email }}?subject=Chat%20about%20joining%20YRD">Ask us anything {{ ic.icon("mail", 16) }}</a>
-    </div>
+<section class="water-session section">
+  <div class="container water-session__inner">
+    <div><h2>Saturday mornings on the Yarra</h2><p>Training starts at 8:15 am. New paddlers arrive by 8:00 am for induction.</p></div>
+    <div><strong>Community Boating Hub</strong><p>912 Collins Street, Docklands</p><a href="{{ site.mapsUrl }}" target="_blank" rel="noopener noreferrer">Get directions</a></div>
+    <a class="btn btn--primary" href="/join/">Plan your first paddle</a>
   </div>
 </section>
-
-<div class="readout">
-  <div class="readout__item">
-    {{ ic.icon("activity", 28) }}
-    <span>
-      <span class="readout__value"><span data-stroke-rate>64</span><span class="unit">SPM</span></span>
-      <span class="readout__label">Current stroke rate</span>
-    </span>
-  </div>
-  <div class="readout__item">
-    {{ ic.icon("calendar-event", 28) }}
-    <span>
-      <span class="readout__value">1 month</span>
-      <span class="readout__label">Free trial</span>
-    </span>
-  </div>
-  <div class="readout__item">
-    {{ ic.icon("sailboat", 28) }}
-    <span>
-      <span class="readout__value">2016</span>
-      <span class="readout__label">On the water since</span>
-    </span>
-  </div>
-</div>
-
-<section class="section section--surface">
-  <div class="glow-field"></div>
-  <div class="container card-grid home-grid">
-    <div class="card reveal">
-      {{ ic.icon("clock", 22) }}
-      <span class="mono-label" style="color: var(--red); display: block; margin-top: var(--space-2)">Next session</span>
-      {% set next = schedule.sessions[0] %}
-      {% if next.cancelled %}
-      <h3>Session cancelled</h3>
-      <p>Check TeamApp or Facebook for the latest update.</p>
-      {% else %}
-      <h3>{{ next.day }} &middot; {{ next.time }}</h3>
-      <p>{{ next.notes }}</p>
-      {% endif %}
-    </div>
-    <div class="card reveal">
-      {{ ic.icon("map-pin", 22) }}
-      <span class="mono-label" style="color: var(--red); display: block; margin-top: var(--space-2)">Where we paddle</span>
-      <h3>Community Boating Hub</h3>
-      <p>912 Collins Street, Docklands.</p>
-      <p><a href="{{ site.mapsUrl }}" target="_blank" rel="noopener noreferrer" aria-label="View directions to Community Boating Hub in Google Maps">Get directions {{ ic.icon("arrow-right", 16) }}</a></p>
-    </div>
+<section class="section water-story" id="experience">
+  <div class="container water-story__grid">
+    <div><h2>One boat.<br>One crew.</h2><p>You don't need to know a thing about paddling. We'll show you how. Come for the movement, the fresh air and the people beside you.</p><a class="water-link" href="/join/">Your first morning, explained</a></div>
+    <figure><img src="/assets/photo-hero-2.jpg" alt="The Yarra River Dragons crew paddling together" loading="lazy"><figcaption>Real moments with the crew on the Yarra.</figcaption></figure>
   </div>
 </section>
-
-<section class="section">
-  <div class="container">
-    <div class="divider mono-label">{{ ic.icon("users", 16) }} Life on the water</div>
-    <div class="photo-cluster">
-      {{ photo.photoCard("photo-card--1", "/assets/photo-hero-2.jpg") }}
-      {{ photo.photoCard("photo-card--2", "/assets/photo-about.jpg") }}
-      {{ photo.photoCard("photo-card--3", "/assets/photo-hero-4.jpg") }}
-    </div>
-    <p><a href="{{ '/gallery/' | url }}">See more on Instagram {{ ic.icon("arrow-right", 16) }}</a></p>
-  </div>
+<section class="section water-welcome" id="who-is-it-for">
+  <div class="container water-welcome__grid"><h2>There's room for you in our boat.</h2><div><p>Everyone starts somewhere. People of all ages, abilities, genders, identities, cultures and backgrounds are welcome, including Aboriginal and Torres Strait Islander people.</p><p>Need an adjustment or support with costs? Reach out privately. We'll talk about what might help.</p><a class="water-link" href="mailto:{{ site.email }}?subject=Trying%20dragon%20boating">Ask the crew anything</a></div></div>
 </section>
+<section class="section water-gallery">
+  <div class="container"><div class="water-gallery__head"><h2>Out on the water</h2><a class="water-link" href="/gallery/">More crew moments</a></div><div class="water-gallery__photos"><img src="/assets/photo-about.jpg" alt="Yarra River Dragons members together" loading="lazy"><img src="/assets/photo-hero-4.jpg" alt="Yarra River Dragons paddling on the water" loading="lazy"></div></div>
+</section>
+<section class="section water-closing"><div class="container"><h2>Come see how it feels.</h2><p>Your first month is free. We'll bring the gear and show you how.</p><a class="btn btn--primary" href="/join/">Come &amp; try dragon boating</a></div></section>
