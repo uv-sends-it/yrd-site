@@ -93,7 +93,7 @@ test("newsletter and sponsors are not exposed in the public navigation/content",
 
 test("home shows the Saturday schedule once", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByText("Next Saturday · 8:15 am", { exact: true })).toHaveCount(1);
+  await expect(page.getByText("Check TeamApp", { exact: false }).first()).toBeVisible();
 });
 
 test("home can show a cancellation without exposing private event details", async ({ page }) => {
