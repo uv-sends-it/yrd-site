@@ -1,12 +1,16 @@
-{% import "icon.njk" as ic %}
 <footer class="footer">
-  <div class="container">
-    <p>&copy; {{ year }} {{ site.clubName }}. Paddling the Yarra since day one.</p>
-    <p>
-      <a href="mailto:{{ site.email }}">{{ ic.icon("mail", 16) }} {{ site.email }}</a>
-      {% if site.email == "TODO" %}<span class="placeholder-tag">content coming soon</span>{% endif %}
-      &middot;
-      <a href="https://instagram.com/{{ site.instagramHandle }}" target="_blank" rel="noopener">{{ ic.icon("brand-instagram", 16) }} @{{ site.instagramHandle }}</a>
-    </p>
+  <div class="container footer__inner">
+    <div class="footer__first">
+      <img src="{{ '/assets/yrd-logo.png' | url }}" alt="Yarra River Dragons" loading="lazy" width="170" height="80">
+      <p>Some of the best Saturdays begin with a paddle.</p>
+    </div>
+    <div class="footer__links">
+      <a href="{{ '/join/' | url }}">Your first session</a>
+      <a href="{{ '/about/' | url }}#coaches">Meet the coaches</a>
+      <a href="{{ site.mapsUrl }}" target="_blank" rel="noopener noreferrer">Where we paddle</a>
+      <a href="https://www.instagram.com/{{ site.instagramHandle }}/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="mailto:{{ site.email }}">Email the crew</a>
+    </div>
+    <p class="footer__small">© {{ year }} Yarra River Dragons. Training together on the Yarra, Melbourne.</p>
   </div>
 </footer>
