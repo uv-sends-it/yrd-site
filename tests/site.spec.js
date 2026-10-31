@@ -76,7 +76,7 @@ test("skip link reaches the main content", async ({ page }) => {
 
 test("join page includes confirmed arrival, facilities and cancellation guidance", async ({ page }) => {
   await page.goto("/join/");
-  await expect(page.getByText(/confirm arrival and induction details/i).first()).toBeVisible();
+  await expect(page.getByText(/Next training session not verified/i).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Facilities" })).toBeVisible();
   await expect(page.getByText(/toilets, change rooms, showers/i)).toBeVisible();
   await expect(page.getByRole("heading", { name: "Health & accessibility" })).toBeVisible();
