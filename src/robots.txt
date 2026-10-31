@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yarrariverdragons.com.au/sitemap.xml
