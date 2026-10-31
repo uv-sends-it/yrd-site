@@ -15,7 +15,7 @@ if (root) {
   const contactStatus = root.querySelector("[data-contact-status]");
 
   let knowledgePromise;
-  let generatorPromise;
+  
   let lastQuestion = "";
 
   function track(name, data = {}) {
@@ -79,9 +79,14 @@ if (root) {
       } else if (action.type === "link" && action.href) {
         const link = document.createElement("a");
         link.className = "chat-message__action";
-        link.href = action.href;
+        var allowedUrl;
+        try {
+          allowedUrl = new URL(action.href, window.location.origin);
+        } catch (_) { return item; }
+        if (!["https://revolutionise.com.au", window.location.origin, "https://yarrariverdragons.com.au"].includes(allowedUrl.origin)) return item;
+        link.href = allowedUrl.href;
         link.textContent = action.label || "Open link";
-        if (/^https?:/.test(action.href)) {
+        if (allowedUrl.origin !== window.location.origin) {
           link.target = "_blank";
           link.rel = "noopener";
         }
@@ -161,78 +166,8 @@ if (root) {
     return { fact: best, score: bestScore };
   }
 
-  function canUseLocalModel() {
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    if (!navigator.gpu) return false;
-    if (connection && connection.saveData) return false;
-    if (connection && /(^|-)2g$/.test(connection.effectiveType || "")) return false;
-    return true;
-  }
-
-  function concise(text, maxWords = 40) {
-    const clean = String(text || "")
-      .replace(/^assistant\s*:?\s*/i, "")
-      .replace(/\s+/g, " ")
-      .trim();
-
-    if (!clean) return "";
-    const sentences = clean.match(/[^.!?]+[.!?]?/g) || [clean];
-    const two = sentences.slice(0, 2).join(" ").trim();
-    const words = two.split(/\s+/);
-    if (words.length <= maxWords) return two;
-
-    const clipped = words.slice(0, maxWords).join(" ").replace(/[,:;]$/, "");
-    return clipped + ".";
-  }
-
-  async function answerWithModel(question, knowledge) {
-    if (!canUseLocalModel()) return null;
-
-    try {
-      if (!generatorPromise) {
-        generatorPromise = import("https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.1")
-          .then(({ pipeline }) => pipeline("text-generation", root.dataset.modelId, {
-            device: "webgpu"
-          }));
-      }
-
-      const generator = await generatorPromise;
-      const facts = (knowledge.facts || [])
-        .map((fact) => `${fact.id}: ${fact.answer}`)
-        .join("\n");
-
-      const rules = (knowledge.modelRules || []).map((rule) => `- ${rule}`).join("\n");
-
-      const output = await generator([
-        {
-          role: "system",
-          content: `You are Ask YRD, the Yarra River Dragons website helper.\n\nRULES:\n${rules}\n\nYRD FACTS:\n${facts}`
-        },
-        { role: "user", content: question }
-      ], {
-        max_new_tokens: 56,
-        do_sample: false,
-        repetition_penalty: 1.08
-      });
-
-      const generated = output?.[0]?.generated_text;
-      let answer = "";
-
-      if (Array.isArray(generated)) {
-        answer = generated.at(-1)?.content || "";
-      } else if (typeof generated === "string") {
-        answer = generated;
-      }
-
-      answer = concise(answer);
-      if (!answer || /NEED_CONTACT/i.test(answer)) return null;
-      return answer;
-    } catch (error) {
-      console.warn("Ask YRD local model unavailable", error);
-      return null;
-    }
-  }
-
+  // Unknown questions go to the reviewed contact fallback. No remote AI runtime
+  // or third-party model code is executed in the visitor's browser.
   async function handleQuestion(rawQuestion) {
     const question = rawQuestion.trim();
     if (!question) return;
@@ -249,8 +184,6 @@ if (root) {
     }
 
     input.disabled = true;
-    let waitTimer;
-    let waitMessage;
 
     try {
       const knowledge = await getKnowledge();
@@ -265,19 +198,6 @@ if (root) {
         return;
       }
 
-      waitTimer = window.setTimeout(() => {
-        waitMessage = appendMessage("One sec…", "status");
-      }, 450);
-
-      const modelAnswer = await answerWithModel(question, knowledge);
-      window.clearTimeout(waitTimer);
-      if (waitMessage) waitMessage.remove();
-
-      if (modelAnswer) {
-        appendMessage(modelAnswer, "bot");
-        track("chat_answered", { method: "local_model", intent: "unknown" });
-        return;
-      }
 
       appendMessage(
         "I’m not sure. Want to send this to the crew?",
@@ -286,8 +206,6 @@ if (root) {
       );
       track("chat_answered", { method: "contact_fallback", intent: "unknown" });
     } catch (error) {
-      window.clearTimeout(waitTimer);
-      if (waitMessage) waitMessage.remove();
       appendMessage(
         "I can’t load the club info right now. You can send this to the crew.",
         "bot",
@@ -338,7 +256,7 @@ if (root) {
       _subject: "YRD website enquiry",
       _template: "table",
       source: "YRD website chatbot",
-      page: window.location.href
+      page: window.location.origin + window.location.pathname
     };
 
     try {
@@ -354,7 +272,7 @@ if (root) {
       track("contact_submitted", { source: "chat" });
     } catch (error) {
       const email = root.dataset.contactEmail;
-      contactStatus.innerHTML = "";
+      contactStatus.replaceChildren();
       const text = document.createTextNode("Couldn’t send it. ");
       const link = document.createElement("a");
       link.href = `mailto:${email}`;
