@@ -88,7 +88,7 @@
         "book",
         "booking"
       ],
-      "answer": "Please register first with a Dragon Pass. New paddlers should arrive by 8:00 am.",
+      "answer": "Please register for a Dragon Pass before attending, and confirm your first-session arrival and induction arrangements with the crew.",
       "action": {
         "type": "link",
         "label": "Register",
@@ -146,7 +146,7 @@
         "training time",
         "next session"
       ],
-      "answer": "Training dates can change. Check TeamApp for the next session; new paddlers should ask the crew about induction timing.",
+      "answer": "Check TeamApp or the Join page for the next training session. Contact the crew to confirm first-session induction details, as weekday training times vary.",
       "action": {
         "type": "link",
         "label": "View schedule",
