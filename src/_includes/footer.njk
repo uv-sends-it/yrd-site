@@ -3,6 +3,10 @@
   <div class="container">
     <p>&copy; {{ year }} {{ site.clubName }}. Paddling the Yarra since day one.</p>
     <p>
+      <a href="{{ '/contact-us/' | url }}">Contact</a>
+      &middot;
+      <a href="{{ '/members/' | url }}">Members</a>
+      &middot;
       <a href="mailto:{{ site.email }}">{{ ic.icon("mail", 16) }} {{ site.email }}</a>
       {% if site.email == "TODO" %}<span class="placeholder-tag">content coming soon</span>{% endif %}
       &middot;
