@@ -22,6 +22,9 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
+      - name: Calendar selection regression tests
+        run: node --test tests/calendar.test.mjs
+
       - name: Interaction and responsive checks
         run: npx playwright test tests/site.spec.js tests/chat.spec.js
 
