@@ -77,38 +77,16 @@ const events = blocks
   })
   .filter((event) => event.start && event.start >= now && event.start <= maxFuture);
 
-function eventScore(event) {
-  const text = [event.summary, event.description, event.location].join(" ").toLowerCase();
-  const parts = melbourneParts(event.start);
-  const hour = Number(parts.hour);
-  const minute = Number(parts.minute);
-  let score = 0;
-
-  if (/\btraining\b/i.test(text)) score += 140;
-  if (/\bpaddl(?:e|ing|ers?)\b/i.test(text)) score += 90;
-  if (/come\s*(?:&|and)?\s*try/i.test(text)) score += 120;
-  if (/\bsession\b/i.test(text)) score += 45;
-
-  if (parts.weekday === "Sat") score += 110;
-  if (hour >= 7 && hour <= 10) score += 45;
-  if (hour === 8 && minute >= 0 && minute <= 30) score += 70;
-  if (hour === 8 && minute === 15) score += 80;
-
-  if (/community boating hub|912 collins|docklands/i.test(text)) score += 45;
-
-  if (/\b(regatta|race|racing|championship|competition|committee|meeting|agm|social|dinner|party|festival|fundraiser|workshop)\b/i.test(text)) {
-    score -= 220;
-  }
-
-  const daysAway = Math.max(0, Math.floor((event.start - now) / (24 * 60 * 60 * 1000)));
-  score -= Math.min(daysAway, 28);
-  return score;
+// Select the earliest upcoming session whose title identifies club training.
+// Day of week and start time must not bias "next" toward Saturday.
+function isTraining(event) {
+  const title = event.summary;
+  const included = /\b(training|paddling|paddle|practice|come\s*(?:&|and)\s*try|training session)\b/i.test(title);
+  const excluded = /\b(regatta|race|racing|championship|competition|committee|meeting|agm|social|dinner|party|festival|fundraiser|workshop)\b/i.test(title);
+  return included && !excluded;
 }
 
-const candidates = events
-  .map((event) => ({ ...event, score: eventScore(event) }))
-  .filter((event) => event.score >= 120)
-  .sort((a, b) => b.score - a.score || a.start - b.start);
+const candidates = events.filter(isTraining).sort((a, b) => a.start - b.start);
 
 if (!candidates.length) {
   console.log("No confident YRD training session found; keeping fallback schedule.");
@@ -138,9 +116,10 @@ const output = {
   syncedAt: new Date().toISOString(),
   sessions: [
     {
+      start: next.start.toISOString(),
       day: displayDay,
       time,
-      label: isComeAndTry ? "Come & Try" : "Saturday training",
+      label: isComeAndTry ? "Come & Try" : "Training",
       cancelled: next.cancelled,
       notes: next.cancelled
         ? "Cancelled. Check TeamApp or Facebook for the latest update."

@@ -1271,3 +1271,6 @@ tbody tr:last-child td {
     font-size: 0.78rem;
   }
 }
+
+/* Prevent legacy off-screen decoration from creating mobile horizontal scrolling. */
+html, body { overflow-x: clip; }
