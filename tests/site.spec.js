@@ -5,6 +5,8 @@ const routes = [
   ["/about/", "About"],
   ["/join/", "Join Us"],
   ["/gallery/", "Gallery"],
+  ["/members/", "Members"],
+  ["/contact-us/", "Contact Us"],
 ];
 
 for (const [route, title] of routes) {
@@ -160,4 +162,18 @@ test("homepage uses truthful metrics and discoverable social preview metadata", 
   const json = await page.locator('script[type="application/ld+json"]').textContent();
   const schema = JSON.parse(json);
   expect(schema["@graph"].some((node) => node["@type"] === "WebPage" && node.primaryImageOfPage)).toBe(true);
+});
+
+
+test("Google favicon and historic sitelink targets exist", async ({ page, request }) => {
+  await page.goto("/");
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute("href", "/favicon.svg");
+  expect((await request.get("/favicon.svg")).ok()).toBe(true);
+  for (const path of ["/members/", "/contact-us/", "/join/"]) {
+    expect((await request.get(path)).ok()).toBe(true);
+  }
+  const oldPass = await request.get("/come-and-try/dragon-pass/");
+  expect(oldPass.ok()).toBe(true);
+  expect(await oldPass.text()).toContain("/join/");
+  expect((await request.get("/sitemap.xml")).ok()).toBe(true);
 });
