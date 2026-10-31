@@ -5,8 +5,8 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    # Monday and Thursday mornings in Melbourne (about 8–9am depending on daylight saving).
-    - cron: "0 22 * * 0,3"
+    # Check each morning in Melbourne (8–9am depending on daylight saving).
+    - cron: "0 22 * * *"
 
 permissions:
   contents: read
