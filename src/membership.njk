@@ -21,45 +21,54 @@ permalink: /membership/
 
 <section class="section section--surface" id="dragon-pass">
   <div class="container">
-    <div class="divider mono-label">{{ ic.icon("sailboat", 16) }} Your next step</div>
-    <h2>Loved your Dragon Pass?</h2>
-    <p>We'd love to keep paddling with you! Choose the membership that suits you and register online. Options and fees vary by category and are shown during registration.</p>
-    <p><a class="btn btn--primary" href="{{ site.dragonPassUrl }}" target="_blank" rel="noopener noreferrer">Explore membership options {{ ic.icon("arrow-right", 16) }}</a></p>
-    <p>Not sure which option is right for you? Email <a href="mailto:newmembers@yarrariverdragons.com.au">newmembers@yarrariverdragons.com.au</a>. Financial support may be available; you're welcome to ask privately.</p>
-  </div>
-</section>
-
-<section class="section" id="new-member">
-  <div class="container">
-    <div class="divider mono-label">{{ ic.icon("users", 16) }} Welcome aboard</div>
-    <h2>Just joined? Here's what to do.</h2>
-    <ol class="first-session">
-      <li class="first-session__step reveal">
-        <span class="first-session__number">01</span>
-        <span class="first-session__icon">{{ ic.icon("users", 24) }}</span>
-        <h3>Join TeamApp</h3>
-        <p>Visit <a href="{{ site.teamAppUrl }}" target="_blank" rel="noopener noreferrer">YRD on TeamApp</a>, tap Join and request the Paddlers group. Access is granted after your Dragon Pass is complete and you've registered as a paid member.</p>
+    <div class="divider mono-label">{{ ic.icon("sailboat", 16) }} Your journey</div>
+    <h2>From your first paddle to the crew.</h2>
+    <p style="max-width:620px">Four simple steps. Already a member? Jump straight to step 3.</p>
+    <ol style="list-style:none; padding:0; margin:2rem 0; display:grid; gap:1rem">
+      <li style="display:grid; grid-template-columns:64px minmax(0,1fr); gap:1rem; align-items:start; position:relative">
+        <div style="background:#b21f2d; color:#fff; border-radius:18px; min-height:64px; display:grid; place-items:center; font-size:1.75rem" aria-hidden="true">🚣</div>
+        <div style="background:var(--surface,#fff); border:1px solid var(--border,#ddd); border-radius:18px; padding:1.25rem">
+          <span class="mono-label" style="color:var(--red)">01 · Try it free</span>
+          <h3 style="margin:.35rem 0">Your Dragon Pass</h3>
+          <p>Enjoy a month on the water. Meet the crew and see if dragon boating is for you.</p>
+          <a href="{{ '/join/' | url }}">How the free trial works {{ ic.icon("arrow-right",16) }}</a>
+        </div>
       </li>
-      <li class="first-session__step reveal">
-        <span class="first-session__number">02</span>
-        <span class="first-session__icon">{{ ic.icon("calendar-event", 24) }}</span>
-        <h3>RSVP for training</h3>
-        <p>Once approved, open Club Training and Events in TeamApp to confirm which sessions and events you'll attend.</p>
+      <li style="display:grid; grid-template-columns:64px minmax(0,1fr); gap:1rem; align-items:start">
+        <div style="background:#b21f2d; color:#fff; border-radius:18px; min-height:64px; display:grid; place-items:center; font-size:1.75rem" aria-hidden="true">❤️</div>
+        <div style="background:var(--surface,#fff); border:1px solid var(--border,#ddd); border-radius:18px; padding:1.25rem">
+          <span class="mono-label" style="color:var(--red)">02 · Stay with us</span>
+          <h3 style="margin:.35rem 0">Become a member</h3>
+          <p>Had fun? Choose your membership and register online. You'll see the options and fees before signing up.</p>
+          <a class="btn btn--primary" href="{{ site.dragonPassUrl }}" target="_blank" rel="noopener noreferrer">Explore membership options {{ ic.icon("arrow-right",16) }}</a>
+        </div>
       </li>
-      <li class="first-session__step reveal">
-        <span class="first-session__number">03</span>
-        <span class="first-session__icon">{{ ic.icon("mail", 24) }}</span>
-        <h3>Check your inbox</h3>
-        <p>We'll send regatta details, newsletters and other event news to your registered email address.</p>
+      <li id="new-member" style="display:grid; grid-template-columns:64px minmax(0,1fr); gap:1rem; align-items:start">
+        <div style="background:#b21f2d; color:#fff; border-radius:18px; min-height:64px; display:grid; place-items:center; font-size:1.75rem" aria-hidden="true">📱</div>
+        <div style="background:var(--surface,#fff); border:1px solid var(--border,#ddd); border-radius:18px; padding:1.25rem">
+          <span class="mono-label" style="color:var(--red)">03 · Get connected</span>
+          <h3 style="margin:.35rem 0">Join the club channels</h3>
+          <div style="display:grid; gap:.8rem; margin-top:1rem">
+            <div style="display:flex; gap:.75rem; align-items:start"><span aria-hidden="true">👥</span><div><strong>TeamApp</strong><p style="margin:.15rem 0">Join <a href="{{ site.teamAppUrl }}" target="_blank" rel="noopener noreferrer">YRD on TeamApp</a> and request the Paddlers group after paid registration.</p></div></div>
+            <div style="display:flex; gap:.75rem; align-items:start"><span aria-hidden="true">✉️</span><div><strong>Your inbox</strong><p style="margin:.15rem 0">Look out for regatta plans and club news at your registered email address.</p></div></div>
+            <div style="display:flex; gap:.75rem; align-items:start"><span aria-hidden="true">🔴</span><div><strong>Facebook group</strong><p style="margin:.15rem 0">Join the <a href="https://www.facebook.com/share/1Fw7mLLMQN/" target="_blank" rel="noopener noreferrer">YRD Facebook group</a> for crew moments and updates.</p></div></div>
+          </div>
+        </div>
       </li>
-      <li class="first-session__step reveal">
-        <span class="first-session__number">04</span>
-        <span class="first-session__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" role="img" aria-label="Facebook" style="display:block"><circle cx="12" cy="12" r="11" fill="#b21f2d"/><path fill="#ffffff" d="M13.6 20v-7h2.3l.35-2.75H13.6V8.5c0-.8.22-1.34 1.35-1.34h1.44V4.7a19 19 0 0 0-2.1-.11c-2.08 0-3.5 1.27-3.5 3.6v2.06H8.45V13h2.34v7z"/></svg></span>
-        <h3>Join the Facebook group</h3>
-        <p>Follow club updates in our <a href="https://www.facebook.com/share/1Fw7mLLMQN/" target="_blank" rel="noopener noreferrer">Facebook group</a>.</p>
+      <li style="display:grid; grid-template-columns:64px minmax(0,1fr); gap:1rem; align-items:start">
+        <div style="background:#b21f2d; color:#fff; border-radius:18px; min-height:64px; display:grid; place-items:center; font-size:1.75rem" aria-hidden="true">📅</div>
+        <div style="background:var(--surface,#fff); border:1px solid var(--border,#ddd); border-radius:18px; padding:1.25rem">
+          <span class="mono-label" style="color:var(--red)">04 · Paddle together</span>
+          <h3 style="margin:.35rem 0">RSVP and show up</h3>
+          <p>Once approved, RSVP to training and club events in TeamApp. You're part of the crew!</p>
+          <a href="{{ site.teamAppUrl }}" target="_blank" rel="noopener noreferrer">Open TeamApp {{ ic.icon("arrow-right",16) }}</a>
+        </div>
       </li>
     </ol>
-    <p><strong>Still on a Dragon Pass?</strong> Your newbie support mentor will help confirm your seat at training. TeamApp Paddlers access comes after you become a paid member.</p>
+    <div style="border-left:4px solid var(--red); padding:.8rem 1rem; background:var(--surface,#fff); border-radius:0 12px 12px 0">
+      <strong>Still on your Dragon Pass?</strong> Your newbie support mentor can help confirm your seat at training. Paddlers group access comes after paid registration.
+    </div>
+    <p style="margin-top:1rem">Questions or need financial support? <a href="mailto:newmembers@yarrariverdragons.com.au">Email our new member team</a> privately.</p>
   </div>
 </section>
 
