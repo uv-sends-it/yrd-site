@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-21",
+  "updated": "2026-11-08",
   "style": {
     "maxSentences": 2,
     "maxWords": 45,
@@ -187,13 +187,15 @@
         "price",
         "fee",
         "fees",
-        "membership"
+        "membership cost",
+        "membership price",
+        "how much"
       ],
-      "answer": "Your first month is free. 2026/27 annual memberships are Adult $375, Junior $296, Student $296 and Two States $135.",
+      "answer": "Your Dragon Pass gives you a free first month. Paid membership options and current fees are shown in the registration portal; prices vary by category.",
       "action": {
         "type": "link",
-        "label": "Dragon Pass details",
-        "href": "https://yarrariverdragons.com.au/come-and-try/dragon-pass/"
+        "label": "See membership options",
+        "href": "/membership/"
       }
     },
     {
@@ -221,12 +223,12 @@
         "ics"
       ],
       "keywords": [
-        "calendar",
         "subscribe",
         "ical",
-        "ics"
+        "ics",
+        "calendar subscription"
       ],
-      "answer": "Yes. Use “Subscribe to calendar” on the Join page.",
+      "answer": "For club training, check the Join page and TeamApp. Dragon Boat Victoria's regatta calendar is linked from our Membership page, but YRD does not attend every event.",
       "action": {
         "type": "link",
         "label": "Open schedule",
@@ -296,7 +298,141 @@
         "storm",
         "lightning"
       ],
-      "answer": "Check TeamApp or the YRD Facebook page if conditions look uncertain. Session cancellations will be posted there."
+      "answer": "Paid members should check TeamApp and club email for updates. If you're on a Dragon Pass, confirm with the crew before travelling."
+    },
+    {
+      "id": "paid_membership",
+      "patterns": [
+        "my dragon pass has finished",
+        "after my dragon pass",
+        "dragon pass expired",
+        "how do i become a paid member",
+        "how do i renew membership",
+        "i want to join the club",
+        "membership options"
+      ],
+      "keywords": [
+        "paid member",
+        "renew membership",
+        "after dragon pass",
+        "dragon pass expired",
+        "membership options"
+      ],
+      "answer": "Finished your free month? Choose a paid membership in the registration portal. Current options and fees are shown there.",
+      "action": {
+        "type": "link",
+        "label": "Membership next steps",
+        "href": "/membership/"
+      }
+    },
+    {
+      "id": "teamapp",
+      "patterns": [
+        "how do i join teamapp",
+        "how do i get paddlers access",
+        "how do i rsvp",
+        "where do i rsvp",
+        "i just joined what next",
+        "new member onboarding"
+      ],
+      "keywords": [
+        "teamapp",
+        "paddlers group",
+        "rsvp",
+        "new member",
+        "joined club"
+      ],
+      "answer": "After registering as a paid member, join YRD on TeamApp, request the Paddlers group and wait for approval. Then RSVP for training and club events.",
+      "action": {
+        "type": "link",
+        "label": "New member guide",
+        "href": "/membership/"
+      }
+    },
+    {
+      "id": "regattas",
+      "patterns": [
+        "when is the next regatta",
+        "what races are coming up",
+        "does yrd attend every regatta",
+        "where is the race calendar",
+        "dbv events",
+        "race dates"
+      ],
+      "keywords": [
+        "regatta",
+        "regattas",
+        "races",
+        "race calendar",
+        "dbv",
+        "championships"
+      ],
+      "answer": "See the Dragon Boat Victoria calendar through our Membership page. Not every DBV event is a YRD race entry; check TeamApp and your registered email for confirmed club plans.",
+      "action": {
+        "type": "link",
+        "label": "Explore regattas",
+        "href": "/membership/"
+      }
+    },
+    {
+      "id": "facebook_group",
+      "patterns": [
+        "where is the facebook group",
+        "how do i join the facebook group",
+        "does yrd have facebook",
+        "join facebook"
+      ],
+      "keywords": [
+        "facebook group",
+        "facebook"
+      ],
+      "answer": "Our member guide links to the YRD Facebook group. Paid members should also use TeamApp and their registered email for confirmed club updates.",
+      "action": {
+        "type": "link",
+        "label": "Find the Facebook group",
+        "href": "/membership/"
+      }
+    },
+    {
+      "id": "member_email",
+      "patterns": [
+        "where do club emails go",
+        "how do i get club updates",
+        "how do i get regatta emails",
+        "who do i contact about membership"
+      ],
+      "keywords": [
+        "registered email",
+        "club emails",
+        "member updates",
+        "newmembers"
+      ],
+      "answer": "Club news and regatta plans go to the email used for membership registration. For joining help, email newmembers@yarrariverdragons.com.au.",
+      "action": {
+        "type": "link",
+        "label": "Membership guide",
+        "href": "/membership/"
+      }
+    },
+    {
+      "id": "inclusion_support",
+      "patterns": [
+        "is dragon boating for everyone",
+        "who is it for",
+        "can i get financial help",
+        "is financial support available"
+      ],
+      "keywords": [
+        "financial support",
+        "who is it for",
+        "inclusive",
+        "adjustments"
+      ],
+      "answer": "YRD welcomes people of different ages, abilities and backgrounds. Financial support or adjustments may be possible; contact the crew privately.",
+      "action": {
+        "type": "contact",
+        "label": "Ask the crew"
+      }
     }
   ],
   "modelRules": [
