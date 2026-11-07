@@ -1,0 +1,94 @@
+---
+title: Membership & Next Steps
+seoTitle: After Your Dragon Pass | Membership & New Member Guide | YRD
+description: Finished your Dragon Pass or just joined Yarra River Dragons? Find membership options, TeamApp steps, club communications and regatta information.
+layout: base.njk
+permalink: /membership/
+---
+{% import "icon.njk" as ic %}
+<section class="hero" style="background-image: url('{{ '/assets/photo-hero-2.jpg' | url }}');">
+  <div class="hero__inner">
+    <span class="eyebrow mono-label">Your YRD journey</span>
+    <h1 class="hero__title">Keep paddling.</h1>
+    <span class="brush">Stay with the crew.</span>
+    <p class="hero__lead">Finishing your Dragon Pass or just joined? You're in the right place. Here's what happens next.</p>
+    <div class="hero__ctas">
+      <a class="btn btn--primary" href="#dragon-pass">Finishing my Dragon Pass {{ ic.icon("arrow-right", 16) }}</a>
+      <a class="btn btn--ghost" href="#new-member">I've already joined {{ ic.icon("arrow-right", 16) }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--surface" id="dragon-pass">
+  <div class="container">
+    <div class="divider mono-label">{{ ic.icon("heart", 16) }} Your next step</div>
+    <h2>Loved your Dragon Pass?</h2>
+    <p>We'd love to keep paddling with you! Choose the membership that suits you and register online. Options and fees vary by category and are shown during registration.</p>
+    <p><a class="btn btn--primary" href="{{ site.dragonPassUrl }}" target="_blank" rel="noopener noreferrer">Explore membership options {{ ic.icon("arrow-right", 16) }}</a></p>
+    <p>Not sure which option is right for you? Email <a href="mailto:newmembers@yarrariverdragons.com.au">newmembers@yarrariverdragons.com.au</a>. Financial support may be available; you're welcome to ask privately.</p>
+  </div>
+</section>
+
+<section class="section" id="new-member">
+  <div class="container">
+    <div class="divider mono-label">{{ ic.icon("users", 16) }} Welcome aboard</div>
+    <h2>Just joined? Here's what to do.</h2>
+    <ol class="first-session">
+      <li class="first-session__step reveal">
+        <span class="first-session__number">01</span>
+        <span class="first-session__icon">{{ ic.icon("users", 24) }}</span>
+        <h3>Join TeamApp</h3>
+        <p>Visit <a href="{{ site.teamAppUrl }}" target="_blank" rel="noopener noreferrer">YRD on TeamApp</a>, tap Join and request the Paddlers group. Access is granted after your Dragon Pass is complete and you've registered as a paid member.</p>
+      </li>
+      <li class="first-session__step reveal">
+        <span class="first-session__number">02</span>
+        <span class="first-session__icon">{{ ic.icon("calendar-event", 24) }}</span>
+        <h3>RSVP for training</h3>
+        <p>Once approved, open Club Training and Events in TeamApp to confirm which sessions and events you'll attend.</p>
+      </li>
+      <li class="first-session__step reveal">
+        <span class="first-session__number">03</span>
+        <span class="first-session__icon">{{ ic.icon("mail", 24) }}</span>
+        <h3>Check your inbox</h3>
+        <p>We'll send regatta details, newsletters and other event news to your registered email address.</p>
+      </li>
+      <li class="first-session__step reveal">
+        <span class="first-session__number">04</span>
+        <span class="first-session__icon">{{ ic.icon("message-circle", 24) }}</span>
+        <h3>Join the conversation</h3>
+        <p>Follow club updates in our <a href="https://www.facebook.com/share/1Fw7mLLMQN/" target="_blank" rel="noopener noreferrer">Facebook group</a>.</p>
+      </li>
+    </ol>
+    <p><strong>Still on a Dragon Pass?</strong> Your newbie support mentor will help confirm your seat at training. TeamApp Paddlers access comes after you become a paid member.</p>
+  </div>
+</section>
+
+<section class="section section--surface" id="regattas">
+  <div class="container">
+    <div class="divider mono-label">{{ ic.icon("calendar-event", 16) }} Race days</div>
+    <h2>Ready for a little race-day excitement?</h2>
+    <p>Dragon Boat Victoria hosts regattas and events throughout the season. Explore the official calendar to see what's coming up!</p>
+    <div class="card-grid">
+      <div class="card reveal">
+        <span style="font-size:2rem" aria-hidden="true">🐉</span>
+        <h3>Explore the race calendar</h3>
+        <p>Discover upcoming regattas and locations on Dragon Boat Victoria's official event calendar.</p>
+        <a class="btn btn--primary" href="https://www.dragonboatvictoria.com.au/events/calendar" target="_blank" rel="noopener noreferrer">See upcoming DBV events {{ ic.icon("arrow-right", 16) }}</a>
+      </div>
+      <div class="card reveal">
+        <span style="font-size:2rem" aria-hidden="true">📣</span>
+        <h3>Will YRD be there?</h3>
+        <p>Not necessarily! The DBV calendar shows events across Victoria, not confirmed YRD entries. We may not attend every regatta.</p>
+        <p><strong>Always check your registered email and TeamApp</strong> for confirmed YRD race plans, crew arrangements and RSVPs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Need a hand?</h2>
+    <p>Questions about joining, TeamApp or your next training session? We're happy to help.</p>
+    <a class="btn btn--ghost" href="mailto:newmembers@yarrariverdragons.com.au">Email our new member team {{ ic.icon("arrow-right", 16) }}</a>
+  </div>
+</section>
